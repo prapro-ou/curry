@@ -24,28 +24,69 @@ con.imageSmoothingEnabled = false;
 //フレームレート維持
 let frameCount = 0;
 let startTime;
+let isStart = false;
 
 //キーボード
 let keyboard = {};
 
-//ループ開始
-window.onload = function()
+//png取得
+let defeat_enemy_animation = new Image ();
+defeat_enemy_animation.src = "defeat_enemy_animation.png";
+
+let png_enemy = new Image();
+png_enemy.src = "enemys.png";
+
+
+//落単くんクラス作成
+let rakutankun = new Rakutankun(20, 32);
+
+//敵クラスを管理する配列
+let enemy_array = [];
+
+//敵のインスタンスを追加
+//書式ルール：new 敵の名前（x座標, y座標, 向き） 向きは左が0, 右が1
+enemy_array.push(new Anko(64, 50, 0));
+enemy_array.push(new Anko(50, 100, 1));
+enemy_array.push(new Manbo(20, 190, 0));
+enemy_array.push(new Same(30, 150, 0));
+enemy_array.push(new Same(30, 170, 1));
+enemy_array.push(new Tako(70, 100, 0));
+enemy_array.push(new Kurage(100, 100, 0));
+enemy_array.push(new Utsubo(110, 50, 0));
+
+
+let startButton = document.getElementById("startButton");
+let overlay = document.getElementById("overlay");
+
+//スタートボタンを押すとループ開始
+startButton.onclick = function()
 {
     startTime = performance.now();
+    isStart = true;
+
+    overlay.style.display = 'none';
+    startButton.style.display = 'none';
+
     mainLoop();
 }
 
 //更新処理
 function update()
 {
-    
+    if(!isStart) return;
+
+    //敵クラスの更新
+    enemy_array.forEach(Enemy => Enemy.update());
+
+    //落単くんの更新
+    rakutankun.update();
 }
 
 //描画処理
 function draw()
 {
     //画面を水色でクリア
-    vcon.fillStyle = "#66AAFF";
+    vcon.fillStyle = "black";
     vcon.fillRect(0, 0, SCREEN_SIZE_W, SCREEN_SIZE_H);
     
     //デバッグ情報を表示
@@ -54,7 +95,18 @@ function draw()
     vcon.fillText("FRAME:"+frameCount, 10, 20);
     vcon.fillText("STAGE1", 120, 20);
 
+    //敵の描画
+    enemy_array.forEach(Enemy => Enemy.draw());
+
+    //画面外の敵オブジェクトを削除
+    enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.x < SCREEN_SIZE_W));
+    enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.y < SCREEN_SIZE_H));
+
+    //落単くんの描画
+    rakutankun.draw();
+
     con.drawImage(vcan, 0, 0, SCREEN_SIZE_W, SCREEN_SIZE_H, 0, 0, SCREEN_SIZE_W << 2, SCREEN_SIZE_H << 2);
+
 }
 
 //メインループ
@@ -98,4 +150,9 @@ document.onkeyup = function(e)
     if(e.keyCode == 39) keyboard.Right = false;
     if(e.keyCode == 40) keyboard.Up    = false;
     if(e.keyCode == 38) keyboard.Down  = false;
+}
+
+if(!isStart){
+    startTime = performance.now();
+    mainLoop();
 }
