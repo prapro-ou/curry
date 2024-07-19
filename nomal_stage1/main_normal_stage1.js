@@ -44,7 +44,7 @@ let rakutankun = new Rakutankun(20, 32);
 let enemy_array = [];
 
 //敵のインスタンスを追加
-//書式ルール：new 敵の名前（x座標, y座標, 向き） 向きは左が0, 右が1
+//敵の追加書式：new 敵の名前（x座標, y座標, 向き） 向きは左が0, 右が1
 enemy_array.push(new Anko(64, 50, 0));
 enemy_array.push(new Anko(50, 100, 1));
 enemy_array.push(new Manbo(20, 190, 0));
