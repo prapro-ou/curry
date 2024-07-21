@@ -30,8 +30,11 @@ let isStart = false;
 let keyboard = {};
 
 //png取得
-let defeat_enemy_animation = new Image ();
+let defeat_enemy_animation = new Image();
 defeat_enemy_animation.src = "defeat_enemy_animation.png";
+
+let png_rakutankun = new Image();
+png_rakutankun.src = "rakutan-kun_v2.png";
 
 let png_enemy = new Image();
 png_enemy.src = "enemys.png";
@@ -39,6 +42,10 @@ png_enemy.src = "enemys.png";
 
 //落単くんクラス作成
 let rakutankun = new Rakutankun(20, 32);
+
+//パンチクラスの配列
+let panchi_array = [];
+let panchi_num = 0;
 
 //敵クラスを管理する配列
 let enemy_array = [];
@@ -53,6 +60,7 @@ enemy_array.push(new Same(30, 170, 1));
 enemy_array.push(new Tako(70, 100, 0));
 enemy_array.push(new Kurage(100, 100, 0));
 enemy_array.push(new Utsubo(110, 50, 0));
+enemy_array.push(new Kurage(100, 200, 0));
 
 
 let startButton = document.getElementById("startButton");
@@ -78,8 +86,21 @@ function update()
     //敵クラスの更新
     enemy_array.forEach(Enemy => Enemy.update());
 
+    //画面外の敵オブジェクトを削除
+    enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.x < SCREEN_SIZE_W));
+    enemy_array = enemy_array.filter(Enemy => (Enemy.y > 0 && Enemy.y < SCREEN_SIZE_H));
+
+
+    //パンチクラスの更新
+    panchi_array.forEach(Panchi => Panchi.update());
+
+    // パンチ削除
+   let currentTime = performance.now();
+   panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000); 
+
     //落単くんの更新
     rakutankun.update();
+    
 }
 
 //描画処理
@@ -98,9 +119,8 @@ function draw()
     //敵の描画
     enemy_array.forEach(Enemy => Enemy.draw());
 
-    //画面外の敵オブジェクトを削除
-    enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.x < SCREEN_SIZE_W));
-    enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.y < SCREEN_SIZE_H));
+    //パンチの描画
+    panchi_array.forEach(Panchi => Panchi.draw());
 
     //落単くんの描画
     rakutankun.draw();
@@ -134,10 +154,16 @@ function mainLoop()
 //キーボードが押されたときに呼ばれる
 document.onkeydown = function(e)
 {
-    if(e.keyCode == 37) keyboard.Left  = true;
-    if(e.keyCode == 39) keyboard.Right = true;
-    if(e.keyCode == 40) keyboard.Up    = true;
-    if(e.keyCode == 38) keyboard.Down  = true;
+    if(e.keyCode == 65) keyboard.Left  = true;
+    if(e.keyCode == 68) keyboard.Right = true;
+    // if(e.keyCode == 40) keyboard.Up    = true;
+    if(e.keyCode == 83) keyboard.Down  = true;
+    if(e.keyCode == 13) {
+        keyboard.Enter = true;
+        //パンチのインスタンスを作成
+        panchi_array.push(new Panchi(rakutankun.x, rakutankun.y));
+        panchi_num++;
+    }
 
     // if(e.keyCode == 65) filed.scx--;
     // if(e.keyCode == 83) filed.scx++;
@@ -146,10 +172,12 @@ document.onkeydown = function(e)
 //キーボードが離されたときに呼ばれる    
 document.onkeyup = function(e)
 {
-    if(e.keyCode == 37) keyboard.Left  = false;
-    if(e.keyCode == 39) keyboard.Right = false;
-    if(e.keyCode == 40) keyboard.Up    = false;
-    if(e.keyCode == 38) keyboard.Down  = false;
+    if(e.keyCode == 65) keyboard.Left  = false;
+    if(e.keyCode == 68) keyboard.Right = false;
+    // if(e.keyCode == 40) keyboard.Up    = false;
+    if(e.keyCode == 83) keyboard.Down  = false;
+    if(e.keyCode == 13) keyboard.Enter  = false;
+
 }
 
 if(!isStart){
