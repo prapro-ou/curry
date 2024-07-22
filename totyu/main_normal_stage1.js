@@ -185,8 +185,8 @@ document.onkeydown = function(e)
         panchi_num++;
     }
 
-    // if(e.keyCode == 65) filed.scx--;
-    // if(e.keyCode == 83) filed.scx++;
+    if(e.keyCode == 65) field.scx--;
+    if(e.keyCode == 83) field.scy++;
 }
 
 //キーボードが離されたときに呼ばれる    
@@ -197,8 +197,6 @@ document.onkeyup = function(e)
     // if(e.keyCode == 40) keyboard.Up    = false;
     if(e.keyCode == 83) keyboard.Down  = false;
     if(e.keyCode == 13) keyboard.Enter  = false;
-
-    if(e.keyCode == 83) field.scx++;
 
 }
 
