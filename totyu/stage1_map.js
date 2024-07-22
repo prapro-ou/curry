@@ -539,10 +539,10 @@ class Field
 
     //更新処理
     update(){
-        // if((Rakutankun.y>>4) > field.scy)
-        // {
-        //     field.scx = (Rakutankun.x>>4)+128;
-        // }
+         if((Rakutankun.y>>4) > field.scx+128)
+         {
+             field.scx = (Rakutankun.x>>4)-128;
+         }
     }
 
     //ブロックを1つ描画
