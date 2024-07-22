@@ -65,6 +65,7 @@ class Rakutankun
     draw(){
         let px = (this.x>>4)-field.scx;
         let py = (this.y>>4)-field.scy;
+        drawSprite(this.snum, px, py);
     
         vcon.drawImage(png_rakutankun, 32, 32, 16, 32, px, py, 16, 32);
         this.drawRakutankun();
