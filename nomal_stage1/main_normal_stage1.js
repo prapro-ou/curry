@@ -7,13 +7,13 @@ let con = can.getContext("2d");
 vcan.width  = SCREEN_SIZE_W;
 vcan.height = SCREEN_SIZE_H;  //裏画面のサイズ
 
-can.width  = SCREEN_SIZE_W*4;
-can.height = SCREEN_SIZE_H*4;  //実画面のサイズ
+can.width  = SCREEN_SIZE_W << 2;
+can.height = SCREEN_SIZE_H << 2;  //実画面のサイズ
 
 
-vcon.mozImageSmoothingEnabled = false;
+vcon.mozImageSmoothingEnabled    = false;
 vcon.webkitImageSmoothingEnabled = false;
-vcon.msImageSmoothingEnabled = false;
+vcon.msImageSmoothingEnabled  = false;
 vcon.imageSmoothingEnabled = false;
 
 con.mozImageSmoothingEnabled = false;
@@ -30,6 +30,9 @@ let isStart = false;
 let keyboard = {};
 
 //png取得
+let nomal_stage_sprite = new Image();
+nomal_stage_sprite.src = "nomal_stage_sprite.png";
+
 let defeat_enemy_animation = new Image();
 defeat_enemy_animation.src = "defeat_enemy_animation.png";
 
@@ -39,9 +42,15 @@ png_rakutankun.src = "rakutan-kun_v2.png";
 let png_enemy = new Image();
 png_enemy.src = "enemys.png";
 
+let png_bakuhatsu = new Image();
+png_bakuhatsu.src = "bakuhatsu.png";  
+
 
 //落単くんクラス作成
-let rakutankun = new Rakutankun(20, 32);
+let rakutankun = new Rakutankun(128, 32);
+
+//フィールド作成
+let field = new Field();
 
 //パンチクラスの配列
 let panchi_array = [];
@@ -83,6 +92,9 @@ function update()
 {
     if(!isStart) return;
 
+    //フィールドの更新
+    field.update();
+
     //敵クラスの更新
     enemy_array.forEach(Enemy => Enemy.update());
 
@@ -90,6 +102,9 @@ function update()
     enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.x < SCREEN_SIZE_W));
     enemy_array = enemy_array.filter(Enemy => (Enemy.y > 0 && Enemy.y < SCREEN_SIZE_H));
 
+    //敵を倒す（削除）
+    // isPanchiが1の敵を削除
+    enemy_array.forEach(Enemy => {if (Enemy.isPanchi) Enemy.deleteSelf();})
 
     //パンチクラスの更新
     panchi_array.forEach(Panchi => Panchi.update());
@@ -103,6 +118,7 @@ function update()
     
 }
 
+
 //描画処理
 function draw()
 {
@@ -115,6 +131,9 @@ function draw()
     vcon.fillStyle = "white";
     vcon.fillText("FRAME:"+frameCount, 10, 20);
     vcon.fillText("STAGE1", 120, 20);
+
+    //フィールドを描画
+    field.draw();
 
     //敵の描画
     enemy_array.forEach(Enemy => Enemy.draw());
