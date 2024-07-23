@@ -58,7 +58,7 @@ class Rakutankun
         }
     }
 
-    drawRakutankun(){
+    updateRakutankun(){
         this.updateSwim_x();
         this.updateSwim_y();
     }
@@ -96,7 +96,7 @@ class Rakutankun
     update(){
         this.acou++;
         if (Math.abs(this.vx) == MAX_SPEED) this.acou++;
-
+        this.updateRakutankun();
         //敵にあたったかどうか判定
         //この判定は，HPを減らす処理でも使える this.isDamage = true ならHPを減らす
         enemy_array.forEach(Enemy => {
@@ -108,8 +108,6 @@ class Rakutankun
         let px = this.x - field.scx;
         let py = this.y - field.scy;
         let isdraw = true;
-
-        this.drawRakutankun();
         
         if(this.isDamage){
             isdraw = this.animationDamage();
