@@ -184,7 +184,7 @@ class Panchi extends Rakutankun
         switch(this.direction){
             //下向きに動く時の左向きの時のパンチ
             case P_LEFT:
-                vcon.drawImage(png_rakutankun, 160, 48, 16, 16, this.panchi_x, this.panchi_y, 16, 16);
+                vcon.drawImage(png_rakutankun, 160, 32, 16, 16, this.panchi_x, this.panchi_y, 16, 16);
                 break;
 
             //下向きに動く時の右向きの時のパンチ
