@@ -56,6 +56,13 @@ let field = new Field();
 let panchi_array = [];
 let panchi_num = 0;
 
+function create_panchi()
+{
+    //パンチのインスタンスを作成
+    panchi_array.push(new Panchi(rakutankun.x, rakutankun.y));
+    panchi_num++;
+}
+
 //敵クラスを管理する配列
 let enemy_array = [];
 
@@ -177,13 +184,19 @@ document.onkeydown = function(e)
     if(e.keyCode == 68) keyboard.Right = true;
     // if(e.keyCode == 40) keyboard.Up    = true;
     if(e.keyCode == 83) keyboard.Down  = true;
-    if(e.keyCode == 13) {
-        keyboard.Enter = true;
-        //パンチのインスタンスを作成
-        panchi_array.push(new Panchi(rakutankun.x, rakutankun.y));
-        panchi_num++;
+    if(e.keyCode == 76) {
+        keyboard.RPanchi  = true;
+        create_panchi();
     }
-
+    if(e.keyCode == 74) {
+        keyboard.LPanchi  = true;
+        create_panchi();
+    }
+    if(e.keyCode == 75){
+        keyboard.DPanchi  = true;
+        create_panchi();
+    }
+   
     // if(e.keyCode == 65) filed.scx--;
     // if(e.keyCode == 83) filed.scx++;
 }
@@ -195,7 +208,9 @@ document.onkeyup = function(e)
     if(e.keyCode == 68) keyboard.Right = false;
     // if(e.keyCode == 40) keyboard.Up    = false;
     if(e.keyCode == 83) keyboard.Down  = false;
-    if(e.keyCode == 13) keyboard.Enter  = false;
+    if(e.keyCode == 76) keyboard.RPanchi  = false;
+    if(e.keyCode == 74) keyboard.LPanchi  = false;
+    if(e.keyCode == 75) keyboard.Enter  = false;
 
 }
 
