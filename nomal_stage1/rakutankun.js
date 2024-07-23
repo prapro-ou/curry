@@ -135,13 +135,13 @@ class Panchi extends Rakutankun
         this.cptime = performance.now();
 
         // 方向を記録
-        if(keyboard.Left){
+        if(keyboard.LPanchi){
             this.direction = P_LEFT;
             this.panchi_x = this.x + 0;
             this.panchi_y = this.y + 15;
 
         }
-        else if(keyboard.Right){
+        else if(keyboard.RPanchi){
             this.direction = P_RIGHT;
             this.panchi_x = this.x + 16;
             this.panchi_y = this.y + 15;
