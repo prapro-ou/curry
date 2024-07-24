@@ -4,27 +4,30 @@ let vcon = vcan.getContext("2d");
 let can = document.getElementById("can"); //実画面
 let con = can.getContext("2d");
 
-vcan.width  = SCREEN_SIZE_W;
-vcan.height = SCREEN_SIZE_H;  //裏画面のサイズ
+vcan.width  = SCREEN_W;
+vcan.height = SCREEN_H + BUFFER_ZONE;  //裏画面のサイズ
 
-can.width  = SCREEN_SIZE_W << 2;
-can.height = SCREEN_SIZE_H << 2;  //実画面のサイズ
-
+can.width  = SCREEN_W << 2;
+can.height = SCREEN_H << 2;  //実画面のサイズ
 
 vcon.mozImageSmoothingEnabled    = false;
 vcon.webkitImageSmoothingEnabled = false;
-vcon.msImageSmoothingEnabled  = false;
-vcon.imageSmoothingEnabled = false;
+vcon.msImageSmoothingEnabled     = false;
+vcon.imageSmoothingEnabled       = false;
 
-con.mozImageSmoothingEnabled = false;
-con.webkitImageSmoothingEnabled = false;
-con.msImageSmoothingEnabled = false;
-con.imageSmoothingEnabled = false;
+con.mozImageSmoothingEnabled     = false;
+con.webkitImageSmoothingEnabled  = false;
+con.msImageSmoothingEnabled      = false;
+con.imageSmoothingEnabled        = false;
 
 //フレームレート維持
 let frameCount = 0;
 let startTime;
 let isStart = false;
+
+//スタートボタンを作成
+let startButton = document.getElementById("startButton");
+let overlay     = document.getElementById("overlay");
 
 //キーボード
 let keyboard = {};
@@ -45,53 +48,74 @@ png_enemy.src = "enemys.png";
 let png_bakuhatsu = new Image();
 png_bakuhatsu.src = "bakuhatsu.png";  
 
+//フィールド作成
+let field = new Field();
 
 //落単くんクラス作成
 let rakutankun = new Rakutankun(128, 32);
-
-//フィールド作成
-let field = new Field();
 
 //パンチクラスの配列
 let panchi_array = [];
 let panchi_num = 0;
 
-function create_panchi()
-{
-    //パンチのインスタンスを作成
-    panchi_array.push(new Panchi(rakutankun.x, rakutankun.y));
-    panchi_num++;
-}
-
 //敵クラスを管理する配列
 let enemy_array = [];
 
+
+/****************** ここを編集！ ↓ *******************/
+
 //敵のインスタンスを追加
 //敵の追加書式：new 敵の名前（x座標, y座標, 向き） 向きは左が0, 右が1
-enemy_array.push(new Anko(64, 50, 0));
-enemy_array.push(new Anko(50, 100, 1));
-enemy_array.push(new Manbo(20, 190, 0));
-enemy_array.push(new Same(30, 150, 0));
-enemy_array.push(new Same(30, 170, 1));
-enemy_array.push(new Tako(70, 100, 0));
-enemy_array.push(new Kurage(100, 100, 0));
-enemy_array.push(new Utsubo(110, 50, 0));
+//ここでの座標はワールド座標系
+enemy_array.push(new Anko(64, 500, 0));
+enemy_array.push(new Anko(50, 1000, 1));
+enemy_array.push(new Manbo(20, 1900, 0));
+enemy_array.push(new Same(30, 1500, 0));
+enemy_array.push(new Same(30, 1700, 1));
+enemy_array.push(new Tako(70, 1000, 0));
+enemy_array.push(new Kurage(100, 1000, 0));
+enemy_array.push(new Utsubo(110, 500, 0))
 enemy_array.push(new Kurage(100, 200, 0));
+enemy_array.push(new Anko(64, 300, 0));
+enemy_array.push(new Anko(64, 400, 0));
+enemy_array.push(new Anko(64, 1000, 0));
+enemy_array.push(new Anko(50, 1200, 1));
+enemy_array.push(new Manbo(20, 1900, 0));
+enemy_array.push(new Same(30, 1500, 0));
+enemy_array.push(new Same(30, 1700, 1));
+enemy_array.push(new Tako(70, 1000, 0));
+enemy_array.push(new Kurage(100, 1000, 0));
+enemy_array.push(new Utsubo(110, 500, 0))
+enemy_array.push(new Kurage(100, 2000, 0));
+enemy_array.push(new Anko(64, 3000, 0));
+enemy_array.push(new Anko(64, 470, 0));
+
+/****************** ここを編集！ ↑ *******************/
 
 
-let startButton = document.getElementById("startButton");
-let overlay = document.getElementById("overlay");
+//パンチのインスタンスを作成
+function create_panchi()
+{
+    panchi_array.push(new Panchi(rakutankun.x, rakutankun.y));
+    panchi_num++;
+}
 
 //スタートボタンを押すとループ開始
 startButton.onclick = function()
 {
     startTime = performance.now();
-    isStart = true;
+    isStart   = true;
 
-    overlay.style.display = 'none';
+    overlay.style.display     = 'none';
     startButton.style.display = 'none';
 
     mainLoop();
+}
+
+//各オブジェクトが裏画面内（バッファゾーン含む）にあるかチェック
+//画面内ならtrueを返す
+function isInCamera(object){
+    return (object.y > field.scy) && (object.y + object.height < field.scy + SCREEN_H + BUFFER_ZONE*2)
 }
 
 //更新処理
@@ -101,24 +125,29 @@ function update()
 
     //フィールドの更新
     field.update();
-
+    
     //敵クラスの更新
     enemy_array.forEach(Enemy => Enemy.update());
 
     //画面外の敵オブジェクトを削除
-    enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.x < SCREEN_SIZE_W));
-    enemy_array = enemy_array.filter(Enemy => (Enemy.y > 0 && Enemy.y < SCREEN_SIZE_H));
+    enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.x < WORLD_W));
+    enemy_array = enemy_array.filter(Enemy => (Enemy.y > field.scy && Enemy.y < WORLD_H));
 
     //敵を倒す（削除）
     // isPanchiが1の敵を削除
     enemy_array.forEach(Enemy => {if (Enemy.isPanchi) Enemy.deleteSelf();})
 
+    //現在時刻
+    let currentTime = performance.now();
+
     //パンチクラスの更新
     panchi_array.forEach(Panchi => Panchi.update());
 
     // パンチ削除
-   let currentTime = performance.now();
-   panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000); 
+   panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000);  //パンチは全部2秒で消える
+   
+   // パンチ数を更新
+   panchi_num = panchi_array.length;
 
     //落単くんの更新
     rakutankun.update();
@@ -129,9 +158,8 @@ function update()
 //描画処理
 function draw()
 {
-    //画面を水色でクリア
-    vcon.fillStyle = "black";
-    vcon.fillRect(0, 0, SCREEN_SIZE_W, SCREEN_SIZE_H);
+    //フィールドを描画
+    field.draw();
     
     //デバッグ情報を表示
     vcon.font = "24px 'Impact'"; 
@@ -139,11 +167,11 @@ function draw()
     vcon.fillText("FRAME:"+frameCount, 10, 20);
     vcon.fillText("STAGE1", 120, 20);
 
-    //フィールドを描画
-    field.draw();
-
-    //敵の描画
-    enemy_array.forEach(Enemy => Enemy.draw());
+    //画面内にいる敵の描画
+    //敵が裏画面内（バッファゾーン含む）にあるかチェック
+    enemy_array.forEach(Enemy => {
+        if (isInCamera(Enemy)) Enemy.draw();
+    });
 
     //パンチの描画
     panchi_array.forEach(Panchi => Panchi.draw());
@@ -151,7 +179,8 @@ function draw()
     //落単くんの描画
     rakutankun.draw();
 
-    con.drawImage(vcan, 0, 0, SCREEN_SIZE_W, SCREEN_SIZE_H, 0, 0, SCREEN_SIZE_W << 2, SCREEN_SIZE_H << 2);
+    //裏画面の座標(0, BUFFER_ZONE)からSCREENサイズ分を実画面として描画する
+    con.drawImage(vcan, 0, BUFFER_ZONE, SCREEN_W, SCREEN_H, 0, 0, SCREEN_W << 2, SCREEN_H << 2);
 
 }
 
@@ -170,6 +199,7 @@ function mainLoop()
             update();
             if(++c>=4) break;
         }
+        
         //描画処理
         draw();
     }
@@ -184,19 +214,23 @@ document.onkeydown = function(e)
     if(e.keyCode == 68) keyboard.Right = true;
     // if(e.keyCode == 40) keyboard.Up    = true;
     if(e.keyCode == 83) keyboard.Down  = true;
-    if(e.keyCode == 76) {
-        keyboard.RPanchi  = true;
-        create_panchi();
+
+    //一気に出せるパンチは4つまで
+    //panchi_num をパンチを生成してからインクリメントしてるから4も含む
+    if(panchi_num < 3){
+        if(e.keyCode == 76) {
+            keyboard.RPanchi  = true;
+            create_panchi();
+        }
+        if(e.keyCode == 74) {
+            keyboard.LPanchi  = true;
+            create_panchi();
+        }
+        if(e.keyCode == 75){
+            keyboard.DPanchi  = true;
+            create_panchi();
+        }
     }
-    if(e.keyCode == 74) {
-        keyboard.LPanchi  = true;
-        create_panchi();
-    }
-    if(e.keyCode == 75){
-        keyboard.DPanchi  = true;
-        create_panchi();
-    }
-   
     // if(e.keyCode == 65) filed.scx--;
     // if(e.keyCode == 83) filed.scx++;
 }

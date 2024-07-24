@@ -17,6 +17,7 @@ const MAX_SPEED  = 5;
 class Rakutankun
 {
     constructor(x, y){
+        //これはワールド座標系
         this.x     = x;
         this.y     = y;
     
@@ -54,7 +55,7 @@ class Rakutankun
     //縦方向の移動
     updateSwim_y(){
         if(keyboard.Down){
-            this.y += 10;
+            this.y += 2;
         }
     }
 
@@ -63,22 +64,38 @@ class Rakutankun
         this.updateSwim_y();
     }
 
+
+    /****************** ここを編集！ ↓ *******************/
+
+    //落単くんの左右と下がブロック（通れない）かどうかを判定
+    checkBlock(){
+        //まず左右の判定
+        if(!field.isBlock((this.x >> 4), (this.y - field.scy) >> 4) || !field.isBlock((this.x >> 4) + 15, (this.y - field.scy) >> 4)){
+            this.vx = 0;
+            this.x -= 8;
+        }   
+
+        //次に底の判定
+        if(!field.isBlock(this.x >> 4, (this.y - field.scy + 48) >> 4)){
+            this.vy = 0;
+            this.y -= 8;
+        }   
+    }
+
+    /****************** ここを編集！ ↑ *******************/
+
+
+
     //敵に当たったらtrueを返す
     //このtrueを使って点滅処理・ダメージを受ける処理をする
     isHitEnemy(obj){
-        this.x;
-        this.y;
         let isX = false;
         let isY = false;
 
-        if(obj instanceof Anko || Manbo || Utsubo){
-            isX = (this.x >= obj.x && this.x <= obj.x + 32) || (this.x + 16 >= obj.x && this.x + 16 <= obj.x + 32);
-            isY = (this.y >= obj.y && this.y <= obj.y + 32) || (this.y + 32 >= obj.y && this.y + 32 <= obj.y + 32);
-        }
-        else{
-            isX = (this.x >= obj.x && this.x <= obj.x + 16) || (this.x + 16 >= obj.x && this.x + 16 <= obj.x + 16);
-            isY = (this.y >= obj.y && this.y <= obj.y + 16) || (this.y + 32 >= obj.y && this.y + 32 <= obj.y + 16);
-        }
+        //当たり判定
+        //敵の各クラスにサイズを持たせたので，それを使って判定を行うようにする
+        isX = (this.x >= obj.x && this.x <= obj.x + obj.width) || (this.x + obj.width >= obj.x && this.x + obj.width <= obj.x + obj.width);
+        isY = (this.y >= obj.y && this.y <= obj.y + obj.height) || (this.y + obj.height >= obj.y && this.y + obj.height <= obj.y + obj.height);
         
         return isX && isY;
     }
@@ -96,17 +113,33 @@ class Rakutankun
     update(){
         this.acou++;
         if (Math.abs(this.vx) == MAX_SPEED) this.acou++;
+
+        //落単くん更新
         this.updateRakutankun();
+
+        //左右・下の判定
+        this.checkBlock();
+
+
         //敵にあたったかどうか判定
         //この判定は，HPを減らす処理でも使える this.isDamage = true ならHPを減らす
         enemy_array.forEach(Enemy => {
             if (this.isHitEnemy(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
         });
+
+        //自動スクロールについてこさせるための加算
+        //手動スクロールされていなければ自動スクロールする
+        //field.scy と合わせてまた調整する
+        if(!field.isScroll){
+            rakutankun.y++;
+        }
     }
 
     draw(){
-        let px = this.x - field.scx;
-        let py = this.y - field.scy;
+
+        //カメラ座標系へ変換
+        let camera_x = this.x;
+        let camera_y = this.y - field.scy;  // world_y - (スクロール量) = カメラ座標系での現座標
         let isdraw = true;
         
         if(this.isDamage){
@@ -114,7 +147,7 @@ class Rakutankun
             if(this.damageCount == 0) this.isDamage = false;
         }
 
-        if(isdraw) vcon.drawImage(png_rakutankun, 32, 32, 16, 32, px, py, 16, 32);
+        if(isdraw) vcon.drawImage(png_rakutankun, 32, 32, 16, 32, camera_x, camera_y, 16, 32);
 
     }
 }
@@ -136,34 +169,32 @@ class Panchi extends Rakutankun
         if(keyboard.LPanchi){
             this.direction = P_LEFT;
             this.panchi_x = this.x + 0;
-            this.panchi_y = this.y + 15;
+            this.panchi_y = this.y - field.scy + 15;
 
         }
         else if(keyboard.RPanchi){
             this.direction = P_RIGHT;
             this.panchi_x = this.x + 16;
-            this.panchi_y = this.y + 15;
+            this.panchi_y = this.y - field.scy + 15;
         }
         else{
             this.direction = P_DOWN;
             this.panchi_x = this.x + 2;
-            this.panchi_y = this.y + 25;
+            this.panchi_y = this.y -field.scy + 25;
         }
     }
 
+    //当たり判定
+    //敵の各クラスにサイズを持たせたので，それを使って判定を行うようにする
     isPanchiHit(obj){
-            let isX = false;
-            let isY = false;
+        let isX = false;
+        let isY = false;
+        let worldPanchi_y = this.panchi_y + field.scy;
 
-            if(obj instanceof Anko || Manbo || Utsubo){
-                isX = this.panchi_x >= obj.x && this.panchi_x <= obj.x + 32;
-                isY = this.panchi_y >= obj.y && this.panchi_y <= obj.y + 32;
-            }
-            else{
-                isX = this.panchi_x >= obj.x && this.panchi_x <= obj.x + 16;
-                isY = this.panchi_y >= obj.y && this.panchi_y <= obj.y + 16;
-            }
-            return isX && isY;
+        isX = this.panchi_x >= obj.x && this.panchi_x <= obj.x + obj.width;
+        isY = worldPanchi_y >= obj.y && worldPanchi_y <= obj.y + obj.height;
+
+        return isX && isY;
     }
 
     update(){
