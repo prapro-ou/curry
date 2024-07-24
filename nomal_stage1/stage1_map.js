@@ -525,8 +525,8 @@ class Field
 {
     constructor()
     {
-        /*今見えている画面の左上の座標を指す．
-          1ブロック下に行けば this.scy = 16 とする*/
+        //今見えている画面の左上の座標を指す
+        //これがスクロールするたびに動いてカメラの位置を決める
         this.scx = 0;
         this.scy = 0;
 
@@ -534,22 +534,41 @@ class Field
         this.py = 0;
         this.bl = 0;
         
-        //スクロールしたら立てるフラグ（敵のワールド固定に使う）
+        //スクロールしたら立てるフラグ
         this.isScroll = false;
     }
 
-    // //ブロックかどうかを返す
-    // isBlock(x, y){
-    //     let sx = (bl&15)<<4;
-    //     let sy = (bl>>4)<<4;
-    // }
+    /****************** ここを編集！ ↓ *******************/
+
+    //ブロックかどうかを返す
+    isBlock(x, y){
+        let block = FieldData[y * FILED_W + x];
+
+        if(block == 5) return false;  //ブロックだからこれ以上移動できない
+        else return true;          //ブロックではないのでまだ移動できる
+    }
+
+    /****************** ここを編集！ ↑ *******************/
+
     
     //更新処理
     update(){
-        if(rakutankun.y > this.scy + 128){
-            this.scy = rakutankun.y - 128;
+
+        //落単くんが画面下半分に行こうとするとスクロール
+        if(rakutankun.y > this.scy + 64){
+            this.scy = rakutankun.y - 64;
             this.isScroll = true;
         }
+
+        //自動スクロール
+        //毎回+1してるけどどれくらいスクロールするかは調整する
+        if(!this.isScroll){
+            this.scy++;
+            rakutankun.y++;
+        }
+
+        this.isScroll = false;
+        
     }
     
     //ブロックを1つ描画
@@ -570,8 +589,8 @@ class Field
         let y = 0;
         let x = 0;
 
-        for(y=0; y < MAP_SIZE_H+1; y++){       //1画面当たりのブロックの数16まで続ける
-            for(x=0; x < MAP_SIZE_W+1; x++){   //同様
+        for(y=0; y < MAP_H+1; y++){       //1画面当たりのブロックの数16まで続ける
+            for(x=0; x < MAP_W+1; x++){   //同様
 
                 let sx = x;
                 let sy = y + (this.scy >> 4);
@@ -581,7 +600,7 @@ class Field
                   sy * FILED_SIZE_W
                   は線形のデータを16個ずつの群に区切ったときの群の先頭要素を指す．
                   そこに+sxすることでその群の何番目かを決めている*/
-                this.bl = FieldData[sy * FILED_SIZE_W + sx];  
+                this.bl = FieldData[sy * FILED_W + sx];  
 
                 //px, pyは画面上の描画する場所
                 this.px = x << 4;

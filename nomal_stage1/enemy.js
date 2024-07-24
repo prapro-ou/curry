@@ -2,16 +2,14 @@
 //  ノーマルステージの敵のクラス
 //
 
-class Enemy
+class Enemy 
 {
     constructor(x, y, direction){
-        this.x = x
+        this.x = x;
         this.y = y;
         this.count = 0;
         this.dir = direction;       //  アニメーションの遷移を調整するためのカウント
         this.isPanchi = 0;
-
-        this.p = 0;
     }
 
     deleteSelf(){
@@ -23,30 +21,18 @@ class Enemy
 
     update(){
         if((frameCount%20) == 19) this.count++;     //ここは調整してOK
-        if(field.isScroll) this.p += field.scy;     //スクロールしたらそのスクロール分を加算
     }
 
     // 敵を表示
     // Input: start_x(スプライト開始点のx座標), start_y(スプライトの開始点のy座標), s_width(スプライトの横幅), s_height(スプライトの縦幅)
     drawEnemy(start_x, start_y, s_width, s_height){
         //敵がスクロールについてこないようにy座標を調整
-        vcon.drawImage(png_enemy, start_x, start_y, s_width, s_height, this.x, this.y - this.p, s_width, s_height);
+        vcon.drawImage(png_enemy, start_x, start_y, s_width, s_height, this.x, this.y - field.scy, s_width, s_height);
     }
 
     //倒された時のアニメーション
     defeatEnemy(){
-        // if((frameCount%200) <= 20) vcon.drawImage(defeat_enemy_animation, 0, 0, 16, 16, 100, 100, 32, 32);
-        // else if((frameCount%200) > 20 && (frameCount%200) <= 40) vcon.drawImage(defeat_enemy_animation, 16, 0, 16, 16, 100, 100, 32, 32);
-        // else if((frameCount%200) > 40 && (frameCount%200) <= 60) vcon.drawImage(defeat_enemy_animation, 32, 0, 16, 16, 100, 100, 32, 32);
-        // else if((frameCount%200) > 60 && (frameCount%200) <= 80) vcon.drawImage(defeat_enemy_animation, 48, 0, 16, 16, 100, 100, 32, 32);
-        // else if((frameCount%200) > 80 && (frameCount%200) <= 100) vcon.drawImage(defeat_enemy_animation, 0, 16, 16, 16, 100, 100, 32, 32);
-        // else if((frameCount%200) > 100 && (frameCount%200) <= 120) vcon.drawImage(defeat_enemy_animation, 16, 16, 16, 16, 100, 100, 32, 32);
-        // else if((frameCount%200) > 120 && (frameCount%200) <= 140) vcon.drawImage(defeat_enemy_animation, 32, 16, 16, 16, 100, 100, 32, 32);
-        // else if((frameCount%200) > 140 && (frameCount%200) <= 160) vcon.drawImage(defeat_enemy_animation, 48, 16, 16, 16, 100, 100, 32, 32);
-        // else if((frameCount%200) > 160 && (frameCount%200) <= 180) vcon.drawImage(defeat_enemy_animation, 0, 32, 16, 16, 100, 100, 32, 32);
-        // else vcon.drawImage(defeat_enemy_animation, 16, 32, 16, 16, 100, 100, 32, 32);
-        vcon.drawImage(png_bakuhatsu, 0, 0, 512, 512, this.x, this.y, 32, 32);
-
+        vcon.drawImage(png_bakuhatsu, 0, 0, 512, 512, this.x, this.y - field.scy, 32, 32);
     }   
 
     draw(){
@@ -65,6 +51,8 @@ class Anko extends Enemy
 {
     constructor(x, y, direction){
         super(x, y, direction);
+        this.width = 32;
+        this.height = 32;
     }
 
     update(){
@@ -102,6 +90,9 @@ class Manbo extends Enemy
 {
     constructor(x, y, direction){
         super(x, y, direction);
+        this.width = 32;
+        this.height = 32;
+
     }
 
     update(){
@@ -131,6 +122,9 @@ class Uni extends Enemy
 {
     constructor(x, y, direction){
         super(x, y, direction);
+        this.width = 16;
+        this.height = 32;
+
     }
 
     update(){
@@ -155,6 +149,9 @@ class Tako extends Enemy
 {
     constructor(x, y, direction){
         super(x, y, direction);
+        this.width = 16;
+        this.height = 16;
+
     }
 
     update(){
@@ -180,6 +177,9 @@ class Kurage extends Enemy
     constructor(x, y, direction){
         super(x, y, direction);
         this.rand = 0;
+        this.width = 16;
+        this.height = 16;
+
     }
 
     update(){
@@ -208,6 +208,8 @@ class Same extends Enemy
 {
     constructor(x, y, direction){
         super(x, y, direction);
+        this.width = 32;
+        this.height = 16;
     }
 
     update(){
@@ -245,6 +247,8 @@ class Utsubo extends Enemy
 {
     constructor(x, y, direction){
         super(x, y, direction);
+        this.width = 32;
+        this.height = 32;
     }
 
     update(){
