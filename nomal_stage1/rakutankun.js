@@ -66,22 +66,25 @@ class Rakutankun
 
 
     /****************** ここを編集！ ↓ *******************/
-
-    //落単くんの左右と下がブロック（通れない）かどうかを判定
+     //落単くんの左右と下がブロック（通れない）かどうかを判定
     checkBlock(){
-        //まず左右の判定
-        if(!field.isBlock((this.x >> 4), (this.y - field.scy) >> 4) || !field.isBlock((this.x >> 4) + 15, (this.y - field.scy) >> 4)){
+        //まず左の判定
+        if(!field.isBlock((this.x - 1) >> 4, (this.y + 1) >> 4)){
             this.vx = 0;
-            this.x -= 8;
+            this.x += 3; 
+        }
+        // 右の判定
+        if( !field.isBlock((this.x + 1 + 13) >> 4 , (this.y + 1) >> 4)){
+            this.vx = 0;
+            this.x -= 3;
         }   
 
         //次に底の判定
-        if(!field.isBlock(this.x >> 4, (this.y - field.scy + 48) >> 4)){
+        if(!field.isBlock((this.x ) >> 4, (this.y + 32) >> 4)){
             this.vy = 0;
-            this.y -= 8;
+            this.y -= 4;
         }   
     }
-
     /****************** ここを編集！ ↑ *******************/
 
 
