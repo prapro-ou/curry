@@ -544,7 +544,11 @@ class Field
     isBlock(x, y){
         let block = FieldData[y * FILED_W + x];
 
+<<<<<<< HEAD
         if(block == 5) return false;  //ブロックだからこれ以上移動できない
+=======
+        if(block == 1) return false;  //ブロックだからこれ以上移動できない
+>>>>>>> 432c0f066482e7c5e7b331a7ba0df634c305873d
         else return true;          //ブロックではないのでまだ移動できる
     }
 
