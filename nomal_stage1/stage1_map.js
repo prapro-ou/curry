@@ -538,41 +538,33 @@ class Field
         this.isScroll = false;
     }
 
-    /****************** ここを編集！ ↓ *******************/
-
     //ブロックかどうかを返す
     isBlock(x, y){
-        let block = FieldData[y * FILED_W + x];
+        let block = BlockType[y * FILED_W + x];
 
-<<<<<<< HEAD
-        if(block == 5) return false;  //ブロックだからこれ以上移動できない
-=======
         if(block == 1) return false;  //ブロックだからこれ以上移動できない
->>>>>>> 432c0f066482e7c5e7b331a7ba0df634c305873d
         else return true;          //ブロックではないのでまだ移動できる
     }
-
-    /****************** ここを編集！ ↑ *******************/
-
     
     //更新処理
     update(){
+        console.log("scy = ", this.scy);
+        console.log("stay = ", rakutankun.stayScroll);
+        if(this.scy <= rakutankun.stayScroll){
+            //落単くんが画面下半分に行こうとするとスクロール
+            if(rakutankun.y > this.scy + 64){
+                this.scy = rakutankun.y - 64;
+                this.isScroll = true;
+            }
 
-        //落単くんが画面下半分に行こうとするとスクロール
-        if(rakutankun.y > this.scy + 64){
-            this.scy = rakutankun.y - 64;
-            this.isScroll = true;
+            //自動スクロール
+            //毎回+1してるけどどれくらいスクロールするかは調整する
+            if(!this.isScroll){
+                this.scy++;
+            }
+
+            this.isScroll = false;
         }
-
-        //自動スクロール
-        //毎回+1してるけどどれくらいスクロールするかは調整する
-        if(!this.isScroll){
-            this.scy++;
-            rakutankun.y++;
-        }
-
-        this.isScroll = false;
-        
     }
     
     //ブロックを1つ描画

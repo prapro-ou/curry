@@ -30,6 +30,11 @@ class Rakutankun
 
         this.isDamage = false;
         this.damageCount = 0;
+
+        //底についたらスクロース止める
+        this.stayScroll = WORLD_H - 290;
+        //底についたら立てるフラグ → 落単くんのy座標を更新するかどうか決める
+        this.isFloor = false;
     }
     
 
@@ -65,47 +70,25 @@ class Rakutankun
     }
 
 
-    /****************** ここを編集！ ↓ *******************/
-<<<<<<< HEAD
-
     //落単くんの左右と下がブロック（通れない）かどうかを判定
     checkBlock(){
-        //まず左右の判定
-        if(!field.isBlock((this.x >> 4), (this.y - field.scy) >> 4) || !field.isBlock((this.x >> 4) + 15, (this.y - field.scy) >> 4)){
-            this.vx = 0;
-            this.x -= 8;
-        }   
-
-        //次に底の判定
-        if(!field.isBlock(this.x >> 4, (this.y - field.scy + 48) >> 4)){
-            this.vy = 0;
-            this.y -= 8;
-        }   
-    }
-
-=======
-     //落単くんの左右と下がブロック（通れない）かどうかを判定
-    checkBlock(){
         //まず左の判定
-        if(!field.isBlock((this.x - 1) >> 4, (this.y + 1) >> 4)){
+        if(!field.isBlock((this.x - 1)>> 4, (this.y + 1) >> 4)){
             this.vx = 0;
-            this.x += 3; 
-        }
-        // 右の判定
-        if( !field.isBlock((this.x + 1 + 13) >> 4 , (this.y + 1) >> 4)){
+            this.x += 3;
+        }   
+        //次に右の判定
+        if(!field.isBlock((this.x + 1 + 13) >> 4, (this.y + 1) >> 4)){
             this.vx = 0;
             this.x -= 3;
-        }   
+        }
 
         //次に底の判定
-        if(!field.isBlock((this.x ) >> 4, (this.y + 32) >> 4)){
-            this.vy = 0;
-            this.y -= 4;
+        if(!field.isBlock(this.x >> 4, (this.y + 32) >> 4)){
+            this.vy = 0; 
+            this.isFloor = true;
         }   
     }
->>>>>>> 432c0f066482e7c5e7b331a7ba0df634c305873d
-    /****************** ここを編集！ ↑ *******************/
-
 
 
     //敵に当たったらtrueを返す
@@ -136,12 +119,8 @@ class Rakutankun
         this.acou++;
         if (Math.abs(this.vx) == MAX_SPEED) this.acou++;
 
-        //落単くん更新
-        this.updateRakutankun();
-
         //左右・下の判定
         this.checkBlock();
-
 
         //敵にあたったかどうか判定
         //この判定は，HPを減らす処理でも使える this.isDamage = true ならHPを減らす
@@ -149,11 +128,16 @@ class Rakutankun
             if (this.isHitEnemy(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
         });
 
-        //自動スクロールについてこさせるための加算
-        //手動スクロールされていなければ自動スクロールする
-        //field.scy と合わせてまた調整する
-        if(!field.isScroll){
-            rakutankun.y++;
+        if(!this.isFloor){
+            //落単くん更新
+            this.updateRakutankun();
+
+            //自動スクロールについてこさせるための加算
+            //手動スクロールされていなければ自動スクロールする
+            //field.scy と合わせてまた調整する
+            if(!field.isScroll){
+                this.y++;
+            }
         }
     }
 

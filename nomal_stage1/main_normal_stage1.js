@@ -67,7 +67,35 @@ let enemy_array = [];
 //敵のインスタンスを追加
 //敵の追加書式：new 敵の名前（x座標, y座標, 向き） 向きは左が0, 右が1
 //ここでの座標はワールド座標系
-enemy_array.push(new Anko(64, 500, 0));
+enemy_array.push(new Anko(16, 1000, 1));
+enemy_array.push(new Anko(16, 2000, 1));
+enemy_array.push(new Anko(16, 3000, 1));
+enemy_array.push(new Anko(16, 4000, 1));
+enemy_array.push(new Anko(50, 1000, 1));
+enemy_array.push(new Manbo(20, 1900, 0));
+enemy_array.push(new Same(30, 1500, 0));
+enemy_array.push(new Same(30, 1700, 1));
+enemy_array.push(new Tako(70, 1000, 0));
+enemy_array.push(new Kurage(100, 1000, 0));
+enemy_array.push(new Utsubo(110, 500, 0))
+enemy_array.push(new Kurage(100, 200, 0));
+enemy_array.push(new Anko(64, 300, 0));
+enemy_array.push(new Anko(64, 400, 0));
+enemy_array.push(new Anko(64, 1000, 0));
+enemy_array.push(new Anko(50, 1200, 1));
+enemy_array.push(new Manbo(20, 1900, 0));
+enemy_array.push(new Same(30, 1500, 0));
+enemy_array.push(new Same(30, 1700, 1));
+enemy_array.push(new Tako(70, 1000, 0));
+enemy_array.push(new Kurage(100, 1000, 0));
+enemy_array.push(new Utsubo(110, 500, 0))
+enemy_array.push(new Kurage(100, 2000, 0));
+enemy_array.push(new Anko(64, 3000, 0));
+enemy_array.push(new Anko(64, 470, 0));
+enemy_array.push(new Anko(16, 1000, 1));
+enemy_array.push(new Anko(16, 2000, 1));
+enemy_array.push(new Anko(16, 3000, 1));
+enemy_array.push(new Anko(16, 4000, 1));
 enemy_array.push(new Anko(50, 1000, 1));
 enemy_array.push(new Manbo(20, 1900, 0));
 enemy_array.push(new Same(30, 1500, 0));
@@ -127,7 +155,9 @@ function update()
     field.update();
     
     //敵クラスの更新
-    enemy_array.forEach(Enemy => Enemy.update());
+    enemy_array.forEach(Enemy => {
+        if (isInCamera(Enemy)) Enemy.update();
+    });
 
     //画面外の敵オブジェクトを削除
     enemy_array = enemy_array.filter(Enemy => (Enemy.x > 0 && Enemy.x < WORLD_W));
