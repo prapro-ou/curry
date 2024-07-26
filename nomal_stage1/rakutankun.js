@@ -64,21 +64,17 @@ class Rakutankun
         }
     }
 
-    updateRakutankun(){
-        this.updateSwim_x();
-        this.updateSwim_y();
-    }
-
-
     //落単くんの左右と下がブロック（通れない）かどうかを判定
     checkBlock(){
         //まず左の判定
-        if(!field.isBlock((this.x - 1)>> 4, (this.y + 1) >> 4)){
+        if(!field.isBlock((this.x - 1)>> 4, (this.y + 1) >> 4) || !field.isBlock((this.x - 1)>> 4, (this.y + 16 + 1) >> 4) ){
             this.vx = 0;
             this.x += 3;
         }   
+
+
         //次に右の判定
-        if(!field.isBlock((this.x + 1 + 13) >> 4, (this.y + 1) >> 4)){
+        if(!field.isBlock((this.x + 1 + 13) >> 4, (this.y + 1) >> 4) || !field.isBlock((this.x + 1 + 13) >> 4, (this.y + 16 + 1) >> 4)){
             this.vx = 0;
             this.x -= 3;
         }
@@ -128,9 +124,11 @@ class Rakutankun
             if (this.isHitEnemy(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
         });
 
+        this.updateSwim_x();
+
         if(!this.isFloor){
             //落単くん更新
-            this.updateRakutankun();
+            this.updateSwim_y();
 
             //自動スクロールについてこさせるための加算
             //手動スクロールされていなければ自動スクロールする
