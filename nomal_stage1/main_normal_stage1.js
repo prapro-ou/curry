@@ -48,11 +48,30 @@ png_enemy.src = "enemys.png";
 let png_bakuhatsu = new Image();
 png_bakuhatsu.src = "bakuhatsu.png";  
 
+let png_hp1 = new Image();
+png_hp1.src = "hp1.png";
+
+let png_hp2 = new Image();
+png_hp2.src = "hp2.png";
+
+let png_hp3 = new Image();
+png_hp3.src = "hp3.png";
+
+let png_item = new Image();
+png_item.src = "item-png.png";
+
 //フィールド作成
 let field = new Field();
 
 //落単くんクラス作成
 let rakutankun = new Rakutankun(128, 32);
+
+//ゲームオーバーなら立てるフラグ
+//hitPointが0になるか，画面から出ると立つ
+let isGameOver = false;
+
+//HPクラス作成
+let hp = new HP();
 
 //パンチクラスの配列
 let panchi_array = [];
@@ -60,6 +79,9 @@ let panchi_num = 0;
 
 //敵クラスを管理する配列
 let enemy_array = [];
+
+//アイテムクラスを管理する配列
+let item_array = [];
 
 
 /****************** ここを編集！ ↓ *******************/
@@ -121,6 +143,14 @@ enemy_array.push(new Anko(64, 470, 0));
 /****************** ここを編集！ ↑ *******************/
 
 
+/****************** ここを編集！ ↓ *******************/
+//アイテムのインスタンスを追加
+//アイテムの追加書式：new 敵の名前（x座標, y座標）
+//ここでの座標はワールド座標系
+item_array.push();
+
+/****************** ここを編集！ ↑ *******************/
+
 //パンチのインスタンスを作成
 function create_panchi()
 {
@@ -146,6 +176,41 @@ function isInCamera(object){
     return (object.y > field.scy) && (object.y + object.height < field.scy + SCREEN_H + BUFFER_ZONE*2)
 }
 
+
+
+
+/*******************ここを編集 ********************************/
+//コース画面からステージ選択画面に戻るときにアニメーションがないので改善する
+
+//画面遷移のアニメーション
+function startSlideAnimation(url){
+    const overlay = document.getElementById('overlay');
+    overlay.classList.add('active');
+    setTimeout(() => {
+        window.location.href = url;
+    }, 3000);   //次画面への待ち時間3秒
+}
+
+//ダイアログを表示させる
+function showDialog(url, message){
+    const modal = document.getElementById('customModal');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalOK = document.getElementById('modalOK');
+
+    modalMessage.textContent = message;
+    modal.style.display = 'block';
+
+    modalOK.onclick = () => {
+        modal.style.display = 'none';
+        this.startSlideAnimation(url);
+    }
+}
+/*******************ここを編集 ********************************/
+
+
+
+
+
 //更新処理
 function update()
 {
@@ -165,7 +230,12 @@ function update()
 
     //敵を倒す（削除）
     // isPanchiが1の敵を削除
-    enemy_array.forEach(Enemy => {if (Enemy.isPanchi) Enemy.deleteSelf();})
+    enemy_array.forEach(Enemy => {if (Enemy.isPanchi) Enemy.deleteSelf();});
+
+    //アイテムクラスの更新
+    item_array.forEach(Item => {
+        if (isInCamera(Item)) Item.update();
+    });
 
     //現在時刻
     let currentTime = performance.now();
@@ -179,8 +249,21 @@ function update()
    // パンチ数を更新
    panchi_num = panchi_array.length;
 
+   //HPクラスの更新
+   hp.update();
+
     //落単くんの更新
     rakutankun.update();
+
+
+    /*******************ここを編集 ********************************/
+    //ゲームオーバー実装したら変更する
+    //isGameOverはhitPointが0になるか，画面から出ちゃったら立つフラグ
+    if(isGameOver){
+        showDialog("rakutankaihi.html", "Game Over!\n Back Home...\n");
+    }
+    /*******************ここを編集 ********************************/
+    
     
 }
 
@@ -203,8 +286,16 @@ function draw()
         if (isInCamera(Enemy)) Enemy.draw();
     });
 
+    //アイテムクラスの描画
+    item_array.forEach(Item => {
+        if (isInCamera(Item)) Item.draw();
+    });
+
     //パンチの描画
     panchi_array.forEach(Panchi => Panchi.draw());
+
+    //HPの描画
+    hp.draw();
 
     //落単くんの描画
     rakutankun.draw();

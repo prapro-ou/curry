@@ -28,8 +28,13 @@ class Rakutankun
         this.snum  = 0;
         this.acou  = 0;
 
-        this.isDamage = false;
         this.damageCount = 0;
+
+        //ダメージを食らったら立てるフラグ
+        this.isDamage = false;
+
+        //回復アイテムをとったら立てるフラグ
+        this.isRecover = false;
 
         //底についたらスクロース止める
         this.stayScroll = WORLD_H - 290;
@@ -106,7 +111,7 @@ class Rakutankun
         let animation = [1,0,1,0,1,0,1];
 
         if((frameCount%4) == 2) this.damageCount++;
-        if(this.damageCount >= animation.length) this.damageCount = 0;  //リセットa
+        if(this.damageCount >= animation.length) this.damageCount = 0;  //リセットanimation
         if(animation[this.damageCount] == 0) return false;  //0のときはfalseを返す→落単くん非表示
         else return true;                        //1のときはtrueを返す→落単くん表示           
     }
@@ -148,7 +153,6 @@ class Rakutankun
         
         if(this.isDamage){
             isdraw = this.animationDamage();
-            if(this.damageCount == 0) this.isDamage = false;
         }
 
         if(isdraw) vcon.drawImage(png_rakutankun, 32, 32, 16, 32, camera_x, camera_y, 16, 32);
