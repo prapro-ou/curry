@@ -90,56 +90,66 @@ let item = new Item();
 //敵のインスタンスを追加
 //敵の追加書式：new 敵の名前（x座標, y座標, 向き） 向きは左が0, 右が1
 //ここでの座標はワールド座標系
-enemy_array.push(new Anko(16, 1000, 1));
-enemy_array.push(new Anko(16, 2000, 1));
-enemy_array.push(new Anko(16, 3000, 1));
-enemy_array.push(new Anko(16, 4000, 1));
-enemy_array.push(new Anko(50, 1000, 1));
-enemy_array.push(new Manbo(20, 1900, 0));
-enemy_array.push(new Same(30, 1500, 0));
-enemy_array.push(new Same(30, 1700, 1));
-enemy_array.push(new Tako(70, 1000, 0));
-enemy_array.push(new Kurage(100, 1000, 0));
-enemy_array.push(new Utsubo(110, 500, 0))
-enemy_array.push(new Kurage(100, 200, 0));
-enemy_array.push(new Anko(64, 300, 0));
-enemy_array.push(new Anko(64, 400, 0));
-enemy_array.push(new Anko(64, 1000, 0));
-enemy_array.push(new Anko(50, 1200, 1));
-enemy_array.push(new Manbo(20, 1900, 0));
-enemy_array.push(new Same(30, 1500, 0));
-enemy_array.push(new Same(30, 1700, 1));
-enemy_array.push(new Tako(70, 1000, 0));
-enemy_array.push(new Kurage(100, 1000, 0));
-enemy_array.push(new Utsubo(110, 500, 0))
-enemy_array.push(new Kurage(100, 2000, 0));
-enemy_array.push(new Anko(64, 3000, 0));
-enemy_array.push(new Anko(64, 470, 0));
-enemy_array.push(new Anko(16, 1000, 1));
-enemy_array.push(new Anko(16, 2000, 1));
-enemy_array.push(new Anko(16, 3000, 1));
-enemy_array.push(new Anko(16, 4000, 1));
-enemy_array.push(new Anko(50, 1000, 1));
-enemy_array.push(new Manbo(20, 1900, 0));
-enemy_array.push(new Same(30, 1500, 0));
-enemy_array.push(new Same(30, 1700, 1));
-enemy_array.push(new Tako(70, 1000, 0));
-enemy_array.push(new Kurage(100, 1000, 0));
-enemy_array.push(new Utsubo(110, 500, 0))
-enemy_array.push(new Kurage(100, 200, 0));
-enemy_array.push(new Anko(64, 300, 0));
-enemy_array.push(new Anko(64, 400, 0));
-enemy_array.push(new Anko(64, 1000, 0));
-enemy_array.push(new Anko(50, 1200, 1));
-enemy_array.push(new Manbo(20, 1900, 0));
-enemy_array.push(new Same(30, 1500, 0));
-enemy_array.push(new Same(30, 1700, 1));
-enemy_array.push(new Tako(70, 1000, 0));
-enemy_array.push(new Kurage(100, 1000, 0));
-enemy_array.push(new Utsubo(110, 500, 0))
-enemy_array.push(new Kurage(100, 2000, 0));
-enemy_array.push(new Anko(64, 3000, 0));
-enemy_array.push(new Anko(64, 470, 0));
+//x座標は16~240-敵の幅
+//ランダム表示(x軸)　Math.random() * (海の幅(224) - 敵の幅) + 海の左端(16)
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 200, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 200, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 300, 0));
+enemy_array.push(new Anko(50, 300, 1));
+enemy_array.push(new Anko(100, 340, 1));
+enemy_array.push(new Uni(50, 400, 1));
+enemy_array.push(new Manbo(200, 500, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 600, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 600, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 600, 0));
+enemy_array.push(new Uni(50, 700, 1));
+enemy_array.push(new Uni(150, 750, 0));
+enemy_array.push(new Tako(100, 800, 1));
+enemy_array.push(new Kurage(50, 850, 1));
+enemy_array.push(new Same(200, 900, 0));
+enemy_array.push(new Utsubo(50, 950, 1));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1000, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1050, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1100, 0));
+enemy_array.push(new Anko(170, 1150, 0));
+enemy_array.push(new Anko(200, 1200, 0));
+enemy_array.push(new Anko(160, 1200, 0));
+enemy_array.push(new Same(200, 1300, 0));
+enemy_array.push(new Same(100, 1350, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1400, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1400, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1400, 0));
+enemy_array.push(new Utsubo(50, 1400, 1));
+enemy_array.push(new Tako(20,1450 , 1));
+enemy_array.push(new Utsubo(200, 1500, 0));
+enemy_array.push(new Utsubo(160, 1550, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1700, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1700, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1700, 0));
+enemy_array.push(new Anko(20, 1800, 1));
+enemy_array.push(new Anko(70, 1850, 1));
+enemy_array.push(new Anko(120, 1890, 1));
+enemy_array.push(new Same(200, 1950, 0));
+enemy_array.push(new Same(100, 2000, 0));
+enemy_array.push(new Uni(120, 2050, 0));
+enemy_array.push(new Uni(200, 2100, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2200, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2200, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2200, 0));
+enemy_array.push(new Uni(50, 2300, 1));
+enemy_array.push(new Uni(150, 2350, 0));
+enemy_array.push(new Utsubo(150, 2400, 1));
+enemy_array.push(new Utsubo(200, 2450, 1));
+enemy_array.push(new Manbo(100, 2500, 0));
+enemy_array.push(new Manbo(150, 2550, 0));
+enemy_array.push(new Manbo(200, 2600, 0));
+enemy_array.push(new Same(50, 2650, 1));
+enemy_array.push(new Same(100, 2700, 1));
+enemy_array.push(new Utsubo(50, 2750, 1));
+enemy_array.push(new Tako(20,2800 , 1));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
 
 /****************** ここを編集！ ↑ *******************/
 
