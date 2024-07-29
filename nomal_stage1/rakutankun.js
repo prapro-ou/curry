@@ -94,7 +94,7 @@ class Rakutankun
 
     //敵に当たったらtrueを返す
     //このtrueを使って点滅処理・ダメージを受ける処理をする
-    isHitEnemy(obj){
+    isHitObj(obj){
         let isX = false;
         let isY = false;
 
@@ -126,8 +126,34 @@ class Rakutankun
         //敵にあたったかどうか判定
         //この判定は，HPを減らす処理でも使える this.isDamage = true ならHPを減らす
         enemy_array.forEach(Enemy => {
-            if (this.isHitEnemy(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
+            if (this.isHitObj(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
         });
+
+        //アイテムにあたったかどうか判定
+        enemy_array.forEach(item => {
+            if (this.isHitObj(item)){
+                item.isgetItem = true;
+                switch(item){
+                    case Makura: item.isMakura = true;
+                    break;
+                    case Energy: item.isEnergy = true;
+                    break;
+                    case Pen: item.isPen = true;
+                    break;
+                    case Note: item.isNote = true;
+                    break;
+                    case Shussekiten: item.isShussekiten = true;
+                    break;
+                    case Water: item.isWater = true;
+                    break;
+                    case Drink: item.isDrink = true;
+                    break;
+                    case Juice: item.isJuice = true;
+                    break;
+                }
+            }
+        });
+
 
         this.updateSwim_x();
 

@@ -288,8 +288,6 @@ class Field
     
     //更新処理
     update(){
-        console.log("scy = ", this.scy);
-        console.log("stay = ", rakutankun.stayScroll);
         if(this.scy <= rakutankun.stayScroll){
             //落単くんが画面下半分に行こうとするとスクロール
             if(rakutankun.y > this.scy + 64){
@@ -309,8 +307,8 @@ class Field
     
     //ブロックを1つ描画
     drawBlock(){
-        let sx = 0;
-        let sy = 0;
+        let sx = (this.bl % 6) << 4;
+        let sy = (this.bl / 6) << 4;
 
         if(this.bl <= 5){
             sx = this.bl << 4;;

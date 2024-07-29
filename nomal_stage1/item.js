@@ -13,7 +13,17 @@ class Item
         this.count = 0;
 
         //アイテム獲得時に立てるフラグ
-        this.isgetItem = false;
+        this.isGetItem = false;
+
+        //各アイテムのフラグ
+        this.isMakura       = false;
+        this.isEnergy       = false;
+        this.isPen          = false;
+        this.isNote         = false;
+        this.isShussekiten  = false;
+        this.isWater        = false;
+        this.isDrink        = false;
+        this.isJuice        = false;
     }
 
     deleteSelf(){
@@ -31,7 +41,7 @@ class Item
     // Input: start_x(スプライト開始点のx座標), start_y(スプライトの開始点のy座標), s_width(スプライトの横幅), s_height(スプライトの縦幅)
     drawItem(start_x, start_y, s_width, s_height){
         //アイテムがスクロールについてこないようにy座標を調整
-        vcon.drawImage(png_item, start_x, start_y, s_width, s_height, this.x, this.y - field.scy, s_width, s_height);
+        vcon.drawImage(png_item, start_x, start_y, s_width, s_height, this.x, this.y - field.scy, 16, 16);
     }
 
     //アイテム取得した時のアニメーション
@@ -40,7 +50,7 @@ class Item
     }   
 
     draw(){
-        if(this.isgetItem){
+        if(this.isGetItem){
             this.getItem();
         }
     }
@@ -55,6 +65,8 @@ class Makura extends Item
 {
     constructor(x, y){
         super(x, y);
+        this.width = 16;
+        this.height = 16;
     }
 
     update(){
@@ -62,7 +74,8 @@ class Makura extends Item
     }
 
     draw(){
-        super.drawItem();
+        super.drawItem(0, 0, 16, 16);
+        super.draw();
     }
 }
 
@@ -74,6 +87,8 @@ class Energy extends Item
 {
     constructor(x, y){
         super(x, y);
+        this.width = 16;
+        this.height = 16;
     }
 
     update(){
@@ -81,7 +96,8 @@ class Energy extends Item
     }
 
     draw(){
-        super.drawItem();
+        super.drawItem(16, 0, 16, 16);
+        super.draw();
     }
 }
 
@@ -93,6 +109,8 @@ class Pen extends Item
 {
     constructor(x, y){
         super(x, y);
+        this.width = 16;
+        this.height = 16;
     }
 
     update(){
@@ -100,7 +118,8 @@ class Pen extends Item
     }
 
     draw(){
-        super.drawItem();
+        super.drawItem(32, 0, 16, 16);
+        super.draw();
     }
 }
 
@@ -112,6 +131,8 @@ class Note extends Item
 {
     constructor(x, y){
         super(x, y);
+        this.width = 16;
+        this.height = 16;
     }
 
     update(){
@@ -119,7 +140,31 @@ class Note extends Item
     }
 
     draw(){
-        super.drawItem();
+        super.drawItem(48, 0, 16, 16);
+        super.draw();
+    }
+}
+
+//
+// 出席点
+//
+
+class Shussekiten extends Item
+{
+    constructor(x, y){
+        super(x, y);
+        this.width = 16;
+        this.height = 16;
+    }
+
+    update(){
+        
+    }
+
+    draw(){
+        vcon.drawImage(png_item, 64, 0, 16, 16, 200, 32, 16, 16);
+        super.drawItem(64, 0, 16, 16);
+        super.draw();
     }
 }
 
@@ -131,6 +176,8 @@ class Water extends Item
 {
     constructor(x, y){
         super(x, y);
+        this.width = 32;
+        this.height = 32;
     }
 
     update(){
@@ -138,7 +185,8 @@ class Water extends Item
     }
 
     draw(){
-        super.drawItem();
+        super.drawItem(0, 16, 32, 32);
+        super.draw();
     }
 }
 
@@ -150,6 +198,9 @@ class Drink extends Item
 {
     constructor(x, y){
         super(x, y);
+        this.width = 32;
+        this.height = 32;
+
     }
 
     update(){
@@ -157,7 +208,8 @@ class Drink extends Item
     }
 
     draw(){
-        super.drawItem();
+        super.drawItem(32, 16, 32, 32);
+        super.draw();
     }
 }
 
@@ -169,6 +221,9 @@ class Juice extends Item
 {
     constructor(x, y){
         super(x, y);
+        this.width = 32;
+        this.height = 32;
+
     }
 
     update(){
@@ -176,7 +231,8 @@ class Juice extends Item
     }
 
     draw(){
-        super.drawItem();
+        super.drawItem(64, 16, 32, 32);
+        super.draw();
     }
 }
 
@@ -188,6 +244,8 @@ class Mermaid extends Item
 {
     constructor(x, y){
         super(x, y);
+        this.width = 32;
+        this.height = 32;
     }
 
     update(){
@@ -195,6 +253,7 @@ class Mermaid extends Item
     }
 
     draw(){
-        super.drawItem();
+        super.drawItem(0, 48, 32, 32);
+        super.draw();
     }
 }

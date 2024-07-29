@@ -82,6 +82,7 @@ let enemy_array = [];
 
 //アイテムクラスを管理する配列
 let item_array = [];
+let item = new Item();
 
 
 /****************** ここを編集！ ↓ *******************/
@@ -147,7 +148,10 @@ enemy_array.push(new Anko(64, 470, 0));
 //アイテムのインスタンスを追加
 //アイテムの追加書式：new 敵の名前（x座標, y座標）
 //ここでの座標はワールド座標系
-item_array.push();
+item_array.push(new Makura(100, 100));
+item_array.push(new Energy(120, 200));
+item_array.push(new Drink(60, 300));
+
 
 /****************** ここを編集！ ↑ *******************/
 
@@ -233,9 +237,12 @@ function update()
     enemy_array.forEach(Enemy => {if (Enemy.isPanchi) Enemy.deleteSelf();});
 
     //アイテムクラスの更新
-    item_array.forEach(Item => {
-        if (isInCamera(Item)) Item.update();
-    });
+    item.update();
+
+    //アイテム獲得（削除）
+    //isGetItemがtrueのときに削除する
+    enemy_array.forEach(Item => {if (Item.isGetItem) Item.deleteSelf();});
+
 
     //現在時刻
     let currentTime = performance.now();
@@ -287,9 +294,7 @@ function draw()
     });
 
     //アイテムクラスの描画
-    item_array.forEach(Item => {
-        if (isInCamera(Item)) Item.draw();
-    });
+    item.draw();
 
     //パンチの描画
     panchi_array.forEach(Panchi => Panchi.draw());
