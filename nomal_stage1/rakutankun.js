@@ -66,7 +66,7 @@ class Rakutankun
     //縦方向の移動
     updateSwim_y(){
         if(keyboard.Down){
-            this.y += 2;
+            this.y += 10;
         }
     }
 
@@ -160,8 +160,6 @@ class Rakutankun
                     case 'Juice': Item.isJuice = true
                     break;
                 }
-                console.log("isGetItem = ", Item.isGetItem);
-                console.log("flag = ", Item.isMakura);
             }
         });
 
@@ -192,7 +190,7 @@ class Rakutankun
             isdraw = this.animationDamage();
         }
 
-        if(isdraw) vcon.drawImage(png_rakutankun, 32, 32, 16, 32, camera_x, camera_y, 16, 32);
+        if(isdraw && !whale.isToNext) vcon.drawImage(png_rakutankun, 32, 32, 16, 32, camera_x, camera_y, 16, 32);
 
     }
 }

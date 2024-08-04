@@ -267,30 +267,3 @@ class Utsubo extends Enemy
         super.draw();
     }
 }
-
-class Whale extends Enemy
-{
-    constructor(x, y, direction){
-        super(x, y, direction);
-        this.width = 64;
-        this.height = 64;
-        this.type = 'Whale';
-        this.now = 0;
-    }
-
-    update(){
-        this.now++;
-    }
-
-    //だんだん大きくなって最後口を閉じると同時にらくたん君が消える
-    draw(){
-        let px = this.x - (this.now >> 4);
-        let py = this.y - field.scy - (this.now >> 4);
-        let size_x = (this.width >> 4) << (this.now >> 4);
-        let size_y = (this.height >> 4) << (this.now >> 4);
-
-        vcon.drawImage(png_enemy, 0, 96, this.width, this.height, px, py, size_x, size_y);
-
-    }
-
-}

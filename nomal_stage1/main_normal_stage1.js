@@ -69,6 +69,9 @@ let field = new Field();
 //落単くんクラス作成
 let rakutankun = new Rakutankun(128, 32);
 
+//クジラクラス作成
+let whale = new Whale(31, 3948);
+
 //ゲームオーバーなら立てるフラグ
 //hitPointが0になるか，画面から出ると立つ
 let isGameOver = false;
@@ -178,8 +181,6 @@ enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 
-//クジラのインスタンス作成
-enemy_array.push(new Whale(88, 4035, 0));
 /****************** ここを編集！ ↑ *******************/
 
 
@@ -253,6 +254,35 @@ function showDialog(url, message){
 /*******************ここを編集 ********************************/
 
 
+/*******************ここを編集 ********************************/
+//コース画面からステージ選択画面に戻るときにアニメーションがないので改善する
+
+//画面遷移のアニメーション
+function startSlideAnimation(url){
+    const overlay = document.getElementById('overlay');
+    overlay.classList.add('active');
+    setTimeout(() => {
+        window.location.href = url;
+    }, 3000);   //次画面への待ち時間3秒
+}
+
+//ダイアログを表示させる
+function goToItemShap(url, message){
+    const modal = document.getElementById('customModal');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalOK = document.getElementById('modalOK');
+
+    modalMessage.textContent = message;
+    modal.style.display = 'block';
+
+    modalOK.onclick = () => {
+        modal.style.display = 'none';
+        this.startSlideAnimation(url);
+    }
+}
+/*******************ここを編集 ********************************/
+
+
 
 
 
@@ -260,6 +290,8 @@ function showDialog(url, message){
 function update()
 {
     if(!isStart) return;
+
+    if(isGameOver) return;
 
     //フィールドの更新
     field.update();
@@ -281,6 +313,9 @@ function update()
     item_array.forEach(Item => {
         if (isInCamera(Item)) Item.update();
     });
+
+    //クジラの更新
+    if(isInCamera(whale)) whale.update();
 
     // //アイテム獲得（削除）
     // //isGetItemがtrueのときに削除する
@@ -313,6 +348,10 @@ function update()
         showDialog("rakutankaihi.html", "Game Over!\n Back Home...\n");
     }
     /*******************ここを編集 ********************************/
+
+    if(whale.isToNext){
+        goToItemShap("rakutankaihi.html", "Go to Item Shop.\n");
+    }
     
     
 }
@@ -346,6 +385,9 @@ function draw()
     item_array.forEach(Item => {
         if (isInCamera(Item)) Item.draw();
     });
+
+    //クジラの描画
+    if(isInCamera(whale)) whale.draw();
 
     //パンチの描画
     panchi_array.forEach(Panchi => Panchi.draw());
