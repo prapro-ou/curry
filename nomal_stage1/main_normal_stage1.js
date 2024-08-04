@@ -60,6 +60,9 @@ png_hp3.src = "hp3.png";
 let png_item = new Image();
 png_item.src = "item-png.png";
 
+let png_tani = new Image();
+png_tani.src = "Tan-i.png";
+
 //フィールド作成
 let field = new Field();
 
@@ -82,7 +85,6 @@ let enemy_array = [];
 
 //アイテムクラスを管理する配列
 let item_array = [];
-let item = new Item();
 
 
 /****************** ここを編集！ ↓ *******************/
@@ -150,7 +152,34 @@ enemy_array.push(new Tako(20,2800 , 1));
 enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
 enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
 enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
+enemy_array.push(new Utsubo(70, 3000, 1));
+enemy_array.push(new Utsubo(200, 3000, 1));
+enemy_array.push(new Uni(120, 3050, 1));
+enemy_array.push(new Uni(130, 3080, 0));
+enemy_array.push(new Uni(120, 3100, 1));
+enemy_array.push(new Uni(130, 3150, 0));
+enemy_array.push(new Uni(120, 3200, 1));
+enemy_array.push(new Tako(230,3100 , 0));
+enemy_array.push(new Tako(200,3150 , 0));
+enemy_array.push(new Utsubo(70, 3300, 1));
+enemy_array.push(new Utsubo(200, 3350, 1));
+enemy_array.push(new Anko(170, 3450, 0));
+enemy_array.push(new Anko(200, 3490, 0));
+enemy_array.push(new Anko(140, 3490, 0));
+enemy_array.push(new Same(50, 3550, 1));
+enemy_array.push(new Same(100, 3570, 1));
+enemy_array.push(new Uni(150, 3650, 1));
+enemy_array.push(new Uni(160, 3680, 0));
+enemy_array.push(new Uni(170, 3700, 1));
+enemy_array.push(new Uni(165, 3750, 0));
+enemy_array.push(new Uni(175, 3800, 1));
+enemy_array.push(new Uni(155, 3830, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
+enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 
+//クジラのインスタンス作成
+enemy_array.push(new Whale(88, 4035, 0));
 /****************** ここを編集！ ↑ *******************/
 
 
@@ -164,6 +193,8 @@ item_array.push(new Drink(60, 300));
 
 
 /****************** ここを編集！ ↑ *******************/
+
+
 
 //パンチのインスタンスを作成
 function create_panchi()
@@ -247,11 +278,13 @@ function update()
     enemy_array.forEach(Enemy => {if (Enemy.isPanchi) Enemy.deleteSelf();});
 
     //アイテムクラスの更新
-    item.update();
+    item_array.forEach(Item => {
+        if (isInCamera(Item)) Item.update();
+    });
 
-    //アイテム獲得（削除）
-    //isGetItemがtrueのときに削除する
-    enemy_array.forEach(Item => {if (Item.isGetItem) Item.deleteSelf();});
+    // //アイテム獲得（削除）
+    // //isGetItemがtrueのときに削除する
+    // item_array.forEach(Item => {if (Item.isGetItem) Item.deleteSelf();});
 
 
     //現在時刻
@@ -261,13 +294,13 @@ function update()
     panchi_array.forEach(Panchi => Panchi.update());
 
     // パンチ削除
-   panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000);  //パンチは全部2秒で消える
+    panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000);  //パンチは全部2秒で消える
    
-   // パンチ数を更新
-   panchi_num = panchi_array.length;
+    // パンチ数を更新
+    panchi_num = panchi_array.length;
 
-   //HPクラスの更新
-   hp.update();
+    //HPクラスの更新
+    hp.update();
 
     //落単くんの更新
     rakutankun.update();
@@ -291,11 +324,17 @@ function draw()
     //フィールドを描画
     field.draw();
     
-    //デバッグ情報を表示
-    vcon.font = "24px 'Impact'"; 
+    vcon.font = "256px 'Impact'"; 
+    vcon.fillStyle = "Blue";
+    vcon.fillText("STAGE1", 206, 752);
+
+    //出席点表示
+    vcon.drawImage(png_tani, 0, 0, 16, 16, 39, 32, 16, 16);
+
+    vcon.font = "256px 'Impact'"; 
     vcon.fillStyle = "white";
-    vcon.fillText("FRAME:"+frameCount, 10, 20);
-    vcon.fillText("STAGE1", 120, 20);
+    vcon.fillText("0", 57, 752);
+
 
     //画面内にいる敵の描画
     //敵が裏画面内（バッファゾーン含む）にあるかチェック
@@ -304,7 +343,9 @@ function draw()
     });
 
     //アイテムクラスの描画
-    item.draw();
+    item_array.forEach(Item => {
+        if (isInCamera(Item)) Item.draw();
+    });
 
     //パンチの描画
     panchi_array.forEach(Panchi => Panchi.draw());

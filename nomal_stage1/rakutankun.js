@@ -40,6 +40,7 @@ class Rakutankun
         this.stayScroll = WORLD_H - 290;
         //底についたら立てるフラグ → 落単くんのy座標を更新するかどうか決める
         this.isFloor = false;
+
     }
     
 
@@ -98,12 +99,18 @@ class Rakutankun
         let isX = false;
         let isY = false;
 
+        let isx = false;
+        let isy = false;
+
         //当たり判定
         //敵の各クラスにサイズを持たせたので，それを使って判定を行うようにする
         isX = (this.x >= obj.x && this.x <= obj.x + obj.width) || (this.x + obj.width >= obj.x && this.x + obj.width <= obj.x + obj.width);
         isY = (this.y >= obj.y && this.y <= obj.y + obj.height) || (this.y + obj.height >= obj.y && this.y + obj.height <= obj.y + obj.height);
         
-        return isX && isY;
+        isx = (this.x <= obj.x && obj.x <= this.x + 16) || (this.x <= obj.x + obj.width && obj.x + obj.width <= this.x + 16)
+        isy = (this.y <= obj.y && obj.y <= this.y + 32) || (this.y <= obj.y + obj.height && obj.y + obj.height <= this.y + 32) 
+
+        return (isX && isY) || (isx && isy);
     }
 
     //ダメージを受けたときの落単くんが点滅するアニメーション
@@ -126,31 +133,35 @@ class Rakutankun
         //敵にあたったかどうか判定
         //この判定は，HPを減らす処理でも使える this.isDamage = true ならHPを減らす
         enemy_array.forEach(Enemy => {
-            if (this.isHitObj(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
+            if(Enemy.type != 'Whale'){
+                if (this.isHitObj(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
+            }
         });
 
         //アイテムにあたったかどうか判定
-        enemy_array.forEach(item => {
-            if (this.isHitObj(item)){
-                item.isgetItem = true;
-                switch(item){
-                    case Makura: item.isMakura = true;
+        item_array.forEach(Item => {
+            if (this.isHitObj(Item)){
+                Item.isGetItem = true;
+                switch(Item.type){
+                    case 'Makura': Item.isMakura = true;
                     break;
-                    case Energy: item.isEnergy = true;
+                    case 'Energy': Item.isEnergy = true;
                     break;
-                    case Pen: item.isPen = true;
+                    case 'Pen': Item.isPen = true;
                     break;
-                    case Note: item.isNote = true;
+                    case 'Note': Item.isNote = true;
                     break;
-                    case Shussekiten: item.isShussekiten = true;
+                    case 'Shussekiten': Item.isShussekiten = true;
                     break;
-                    case Water: item.isWater = true;
+                    case 'Water': Item.isWater = true;
                     break;
-                    case Drink: item.isDrink = true;
+                    case 'Drink': Item.isDrink = true;
                     break;
-                    case Juice: item.isJuice = true;
+                    case 'Juice': Item.isJuice = true
                     break;
                 }
+                console.log("isGetItem = ", Item.isGetItem);
+                console.log("flag = ", Item.isMakura);
             }
         });
 
@@ -240,7 +251,7 @@ class Panchi extends Rakutankun
 
         enemy_array.forEach(Enemy => {
             if (this.isPanchiHit(Enemy)) Enemy.isPanchi = 1;
-        })
+        });
 
     }
 

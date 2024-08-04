@@ -15,15 +15,13 @@ class HP
 
         //ダメージ量管理
         //敵にあたるとダメージ食らう
-        this.hitPoint = 4;
+        this.hitPoint = 2;
 
         //無敵になったときの無敵状態の残り時間（カウント）を格納
         this.invincibleCount = 0;
     }
 
-    //更新処理
-    update(){
-
+    damaged(){
         /*frameCount使っているのは，無敵時間のイメージ．
         　これ無かったら，hitPointがフレーム毎にデクリメントされて一瞬でゲームオーバーになってしまう．
         　無敵時間の実装は他にもやり方あるだろうから模索中……今はいったんこれで．
@@ -43,11 +41,25 @@ class HP
 
         //無敵残フレームが0のときフラグ処理
         if(this.invincibleCount == 0) rakutankun.isDamage = false;
+    }
 
-        if(rakutankun.isRecover && this.hitPoint < 4){
-            this.hitPoint++;
-            rakutankun.isRecover = false;
-        }
+    recover(rcvAmount){
+        //HPが減っていたら回復
+        if(rakutankun.isRecover && this.hitPoint < 4) this.hitPoint += rcvAmount;
+        //HPが4以上回復した場合，強制的に4にする
+        if(this.hitPoint > 4)   this.hitPoint = 4;
+        //HPが0以下になった場合，強制的に0にする
+        if(this.hitPoint < 0)   this.hitPoint = 0;
+        rakutankun.isRecover = false;
+    }
+
+    //更新処理
+    update(){
+        //ダメージ処理
+        this.damaged();
+        
+        //回復処理
+        //this.recover();
 
         if(this.hitPoint == 0) isGameOver = true;
     }

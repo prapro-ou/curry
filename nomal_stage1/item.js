@@ -14,16 +14,13 @@ class Item
 
         //アイテム獲得時に立てるフラグ
         this.isGetItem = false;
+        // 回復する量
+        this.rcvAmount = 0;
+        this.type = 'type';
+        //
+        this.isMakura = false;
+        this.isEnergy = false;
 
-        //各アイテムのフラグ
-        this.isMakura       = false;
-        this.isEnergy       = false;
-        this.isPen          = false;
-        this.isNote         = false;
-        this.isShussekiten  = false;
-        this.isWater        = false;
-        this.isDrink        = false;
-        this.isJuice        = false;
     }
 
     deleteSelf(){
@@ -44,10 +41,17 @@ class Item
         vcon.drawImage(png_item, start_x, start_y, s_width, s_height, this.x, this.y - field.scy, 16, 16);
     }
 
+
+    /**************** ここは編集↓ **********************/
+
     //アイテム取得した時のアニメーション
+    //敵を倒したときと同じ爆発アニメーションになってる → ほかにいいのないかな？
     getItem(){
         vcon.drawImage(png_bakuhatsu, 0, 0, 512, 512, this.x, this.y - field.scy, 32, 32);
     }   
+
+    /**************** ここは編集↑ **********************/
+
 
     draw(){
         if(this.isGetItem){
@@ -63,19 +67,32 @@ class Item
 
 class Makura extends Item
 {
-    constructor(x, y){
-        super(x, y);
+    constructor(x, y, isMakura, type, rcvAmount){
+        super(x, y, isMakura, type, rcvAmount);
         this.width = 16;
         this.height = 16;
+        this.type = 'Makura';
     }
 
     update(){
+        if(this.isMakura){
+            rakutankun.isRecover = true;
+            this.rcvAmount = 4;
+            hp.recover(this.rcvAmount);
 
+            this.rcvAmount = 0;
+            // this.isMakura  = false;
+        }
     }
 
     draw(){
-        super.drawItem(0, 0, 16, 16);
-        super.draw();
+        if(!this.isMakura){
+            super.drawItem(0, 0, 16, 16);
+        }
+        else{
+            vcon.drawImage(png_item, 0, 0, 0, 0, this.x, this.y, 0, 0);
+            super.draw();
+        }
     }
 }
 
@@ -85,19 +102,32 @@ class Makura extends Item
 
 class Energy extends Item
 {
-    constructor(x, y){
-        super(x, y);
+    constructor(x, y, isEnergy, type, rcvAmount){
+        super(x, y,  isEnergy, type, rcvAmount);
         this.width = 16;
         this.height = 16;
+        this.type = 'Energy';
     }
 
     update(){
+        if(this.isEnergy){
+            rakutankun.isRecover = true;
+            this.rcvAmount = 2;
+            hp.recover(this.rcvAmount);
 
+            this.rcvAmount = 0;
+            // this.isEnergy  = false;
+        }
     }
 
     draw(){
-        super.drawItem(16, 0, 16, 16);
-        super.draw();
+        if(!this.isEnergy){
+            super.drawItem(16, 0, 16, 16);
+        }
+        else {
+            vcon.drawImage(png_item, 0, 0, 0, 0, this.x, this.y, 0, 0);
+            super.draw();
+        }
     }
 }
 
@@ -107,10 +137,12 @@ class Energy extends Item
 
 class Pen extends Item
 {
-    constructor(x, y){
+    constructor(x, y,){
         super(x, y);
         this.width = 16;
         this.height = 16;
+        this.type = 'Pen';
+        this.isPen = false;
     }
 
     update(){
@@ -133,6 +165,8 @@ class Note extends Item
         super(x, y);
         this.width = 16;
         this.height = 16;
+        this.type = 'Note';
+        this.isNote = false;
     }
 
     update(){
@@ -155,6 +189,8 @@ class Shussekiten extends Item
         super(x, y);
         this.width = 16;
         this.height = 16;
+        this.type = 'Shessekiten';
+        this.isShussekiten = false;
     }
 
     update(){
@@ -178,6 +214,8 @@ class Water extends Item
         super(x, y);
         this.width = 32;
         this.height = 32;
+        this.type = 'Water';
+        this.isWater = false;
     }
 
     update(){
@@ -200,6 +238,8 @@ class Drink extends Item
         super(x, y);
         this.width = 32;
         this.height = 32;
+        this.type = 'Drink';
+        this.isDrink = false;
 
     }
 
@@ -223,6 +263,8 @@ class Juice extends Item
         super(x, y);
         this.width = 32;
         this.height = 32;
+        this.type = 'Juice';
+        this.isJuice = false;
 
     }
 
