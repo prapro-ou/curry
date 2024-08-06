@@ -188,9 +188,13 @@ enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 //アイテムのインスタンスを追加
 //アイテムの追加書式：new 敵の名前（x座標, y座標）
 //ここでの座標はワールド座標系
-item_array.push(new Makura(100, 100));
-item_array.push(new Energy(120, 200));
-item_array.push(new Drink(60, 300));
+// item_array.push(new Makura(100, 100));
+// item_array.push(new Energy(120, 200));
+// item_array.push(new Drink(60, 300));
+// item_array.push(new Drink(60, 300));
+// item_array.push(new Drink(128, 100));
+
+item_array.push(new Note(128,128));
 
 
 /****************** ここを編集！ ↑ *******************/
@@ -291,7 +295,8 @@ function update()
 {
     if(!isStart) return;
 
-    if(isGameOver) return;
+    //ゲームオーバーフラグ
+    // if(isGameOver) return;
 
     //フィールドの更新
     field.update();
@@ -350,7 +355,7 @@ function update()
     /*******************ここを編集 ********************************/
 
     if(whale.isToNext){
-        goToItemShap("rakutankaihi.html", "Go to Item Shop.\n");
+        goToItemShap("shop.html", "Go to Item Shop.\n");
     }
     
     

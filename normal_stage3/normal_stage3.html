@@ -2,10 +2,36 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rakutankaihi.com</title>
+<link rel="stylesheet" href="dialog.css">
+<link rel="stylesheet" href="normal_stage.css">
 </head>
 <body>
+
+
+<button id="startButton">Game Start!</button>
+
 <canvas id="can"></canvas>
+
+<div id="customModal" class="modal">
+    <div class="modal-content">
+        <p id="modalMessage"></p>
+        <div class="modal-buttons">
+            <button id="modalOK">OK</button>
+        </div>
+    </div>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
 <script src="const_normal_stage.js"></script>
+<script src="stage3_map.js"></script>
+<script src="item.js"></script>
+<script src="hp.js"></script>
+<script src="whale.js"></script>
+<script src="rakutankun.js"></script>
+<script src="enemy.js"></script>
 <script src="main_normal_stage3.js"></script>
 </body>
 </html>
