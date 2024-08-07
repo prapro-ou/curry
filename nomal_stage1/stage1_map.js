@@ -288,20 +288,22 @@ class Field
     
     //更新処理
     update(){
-        if(this.scy <= rakutankun.stayScroll){
-            //落単くんが画面下半分に行こうとするとスクロール
-            if(rakutankun.y > this.scy + 64){
-                this.scy = rakutankun.y - 64;
-                this.isScroll = true;
-            }
+        if(rakutankun.isGameStart){
+            if(this.scy <= rakutankun.stayScroll){
+                //落単くんが画面下半分に行こうとするとスクロール
+                if(rakutankun.y > this.scy + 64){
+                    this.scy = rakutankun.y - 64;
+                    this.isScroll = true;
+                }
 
-            //自動スクロール
-            //毎回+1してるけどどれくらいスクロールするかは調整する
-            if(!this.isScroll){
-                this.scy++;
-            }
+                //自動スクロール
+                //毎回+1してるけどどれくらいスクロールするかは調整する
+                if(!this.isScroll){
+                    this.scy++;
+                }
 
-            this.isScroll = false;
+                this.isScroll = false;
+            }
         }
     }
     

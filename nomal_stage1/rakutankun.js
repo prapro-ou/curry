@@ -24,10 +24,7 @@ class Rakutankun
         this.vy    = 0;
         this.vy    = 0;
 
-        this.anim  = 0;
-        this.snum  = 0;
-        this.acou  = 0;
-
+        //ダメージカウント
         this.damageCount = 0;
 
         //ダメージを食らったら立てるフラグ
@@ -40,6 +37,16 @@ class Rakutankun
         this.stayScroll = WORLD_H - 290;
         //底についたら立てるフラグ → 落単くんのy座標を更新するかどうか決める
         this.isFloor = false;
+
+        //出席点カウント
+        this.shussekiCount = 0;
+
+        //最初の飛び込むアニメーションのために使う
+        this.isGameStart = false;
+        this.animation_jumpIn = [2,3,4,5,6,7,2,3,4,5,6,7];
+        this.jumpInCount = 0;
+        this.jx = 64;
+        this.jy = 64;
 
     }
     
@@ -59,14 +66,13 @@ class Rakutankun
         } else {
             if(this.vx > 0)  this.vx  -= 1;
             if(this.vx < 0)  this.vx  += 1;
-            if(this.vx == 0) this.anim = ANIME_STOP;
         }
     }
 
     //縦方向の移動
     updateSwim_y(){
         if(keyboard.Down){
-            this.y += 10;
+            this.y += 2;
         }
     }
 
@@ -123,75 +129,108 @@ class Rakutankun
         else return true;                        //1のときはtrueを返す→落単くん表示           
     }
 
+    jumpIn(){
+        if(this.jumpInCount < 6){
+            this.jx = this.animation_jumpIn[this.jumpInCount] * 16;
+            this.jy = 64;
+            this.jumpInCount++;
+        }
+        else if(this.jumpInCount >= 6 && this.jumpInCount < 9){
+            this.jx = this.animation_jumpIn[this.jumpInCount] * 16;
+            this.jy = 0;
+            this.jumpInCount++;
+            this.y -= 6;
+        }
+        else if(this.jumpInCount >= 9 && this.jumpInCount < 11){
+            this.jx = this.animation_jumpIn[this.jumpInCount] * 16;
+            this.jy = 32;
+            this.jumpInCount++;
+            this.y += 20;
+        }
+
+        if(this.jumpInCount == 11){
+            this.y += 2;
+            this.isGameStart = true;
+        }
+
+        this.x += 5;
+    }
+
     update(){
-        this.acou++;
-        if (Math.abs(this.vx) == MAX_SPEED) this.acou++;
+        if(!this.isGameStart){
+            if(frameCount%10 == 0) this.jumpIn();
+        }
+        else{
+            //左右・下の判定
+            this.checkBlock();
 
-        //左右・下の判定
-        this.checkBlock();
-
-        //敵にあたったかどうか判定
-        //この判定は，HPを減らす処理でも使える this.isDamage = true ならHPを減らす
-        enemy_array.forEach(Enemy => {
-            if(Enemy.type != 'Whale'){
-                if (this.isHitObj(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
-            }
-        });
-
-        //アイテムにあたったかどうか判定
-        item_array.forEach(Item => {
-            if (this.isHitObj(Item)){
-                Item.isGetItem = true;
-                switch(Item.type){
-                    case 'Makura': Item.isMakura = true;
-                    break;
-                    case 'Energy': Item.isEnergy = true;
-                    break;
-                    case 'Pen': Item.isPen = true;
-                    break;
-                    case 'Note': Item.isNote = true;
-                    break;
-                    case 'Shussekiten': Item.isShussekiten = true;
-                    break;
-                    case 'Water': Item.isWater = true;
-                    break;
-                    case 'Drink': Item.isDrink = true;
-                    break;
-                    case 'Juice': Item.isJuice = true
-                    break;
+            //敵にあたったかどうか判定
+            //この判定は，HPを減らす処理でも使える this.isDamage = true ならHPを減らす
+            enemy_array.forEach(Enemy => {
+                if(Enemy.type != 'Whale'){
+                    if (this.isHitObj(Enemy)) this.isDamage = true;  //ダメージを受けていたらフラグを立てる
                 }
-            }
-        });
+            });
 
+            //アイテムにあたったかどうか判定
+            item_array.forEach(Item => {
+                if (this.isHitObj(Item)){
+                    Item.isGetItem = true;
+                    switch(Item.type){
+                        case 'Makura': Item.isMakura = true;
+                        break;
+                        case 'Energy': Item.isEnergy = true;
+                        break;
+                        case 'Pen': Item.isPen = true;
+                        break;
+                        case 'Note': Item.isNote = true;
+                        break;
+                        case 'Shussekiten': 
+                            Item.isShussekiten = true;
+                            this.shussekiCount++;
+                        break;
+                        case 'Water': Item.isWater = true;
+                        break;
+                        case 'Drink': Item.isDrink = true;
+                        break;
+                        case 'Juice': Item.isJuice = true
+                        break;
+                    }
+                }
+            });
 
-        this.updateSwim_x();
+            this.updateSwim_x();
 
-        if(!this.isFloor){
-            //落単くん更新
-            this.updateSwim_y();
+            if(!this.isFloor){
+                //落単くん更新
+                this.updateSwim_y();
 
-            //自動スクロールについてこさせるための加算
-            //手動スクロールされていなければ自動スクロールする
-            //field.scy と合わせてまた調整する
-            if(!field.isScroll){
-                this.y++;
+                //自動スクロールについてこさせるための加算
+                //手動スクロールされていなければ自動スクロールする
+                //field.scy と合わせてまた調整する
+                if(!field.isScroll){
+                    this.y++;
+                }
             }
         }
     }
 
     draw(){
-
-        //カメラ座標系へ変換
-        let camera_x = this.x;
-        let camera_y = this.y - field.scy;  // world_y - (スクロール量) = カメラ座標系での現座標
-        let isdraw = true;
-        
-        if(this.isDamage){
-            isdraw = this.animationDamage();
+        if(!this.isGameStart){
+            vcon.drawImage(png_rakutankun, this.jx, this.jy, 16, 32, this.x, this.y, 16, 32);
         }
+        else{
+            //カメラ座標系へ変換
+            let camera_x = this.x;
+            let camera_y = this.y - field.scy;  // world_y - (スクロール量) = カメラ座標系での現座標
+            let isdraw = true;
+            
+            if(this.isDamage){
+                isdraw = this.animationDamage();
+            }
 
-        if(isdraw && !whale.isToNext) vcon.drawImage(png_rakutankun, 32, 32, 16, 32, camera_x, camera_y, 16, 32);
-
+            if(isdraw && !whale.isToNext) vcon.drawImage(png_rakutankun, 96, 32, 16, 32, camera_x, camera_y, 16, 32);
+        }
     }
 }
 
@@ -248,7 +287,17 @@ class Panchi extends Rakutankun
         }
 
         enemy_array.forEach(Enemy => {
-            if (this.isPanchiHit(Enemy)) Enemy.isPanchi = 1;
+            if (this.isPanchiHit(Enemy)){
+                if(Enemy instanceof Tako){
+                    if(Enemy.invincibleCount == 0){
+                        Enemy.panchiCount++;
+                        Enemy.invincibleCount = 6;
+                    }
+                    else    Enemy.invincibleCount--;
+                    if(Enemy.panchiCount > 1)   Enemy.isPanchi = 1;
+                }
+                else  Enemy.isPanchi = 1;
+            }
         });
 
     }

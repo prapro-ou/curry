@@ -151,6 +151,9 @@ class Tako extends Enemy
         super(x, y, direction);
         this.width = 16;
         this.height = 16;
+        this.panchiCount = 0;
+        //パンチ当たり判定を遮断するカウント数
+        this. invincibleCount = 0;
 
     }
 
@@ -166,7 +169,9 @@ class Tako extends Enemy
     }
 
     draw(){
-        super.drawEnemy(32, 48, 16, 16);
+        if(this.panchiCount == 0)    super.drawEnemy(32, 48, 16, 16);
+        if(this.panchiCount == 1)   super.drawEnemy(48, 48, 16, 16);
+        console.log(`Tako hit count: ${this.panchiCount}`);
         super.draw();
     }
 }

@@ -67,7 +67,7 @@ png_tani.src = "Tan-i.png";
 let field = new Field();
 
 //落単くんクラス作成
-let rakutankun = new Rakutankun(128, 32);
+let rakutankun = new Rakutankun(50, 64);
 
 //クジラクラス作成
 let whale = new Whale(31, 3948);
@@ -194,7 +194,7 @@ enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 // item_array.push(new Drink(60, 300));
 // item_array.push(new Drink(128, 100));
 
-item_array.push(new Note(128,128));
+item_array.push(new Shussekiten(128,128));
 
 
 /****************** ここを編集！ ↑ *******************/
@@ -214,7 +214,7 @@ startButton.onclick = function()
     startTime = performance.now();
     isStart   = true;
 
-    overlay.style.display     = 'none';
+    background.style.display     = 'none';
     startButton.style.display = 'none';
 
     mainLoop();
@@ -227,6 +227,35 @@ function isInCamera(object){
 }
 
 
+
+
+/*******************ここを編集 ********************************/
+//コース画面からステージ選択画面に戻るときにアニメーションがないので改善する
+
+//画面遷移のアニメーション
+// function startSlideAnimation(url){
+//     const overlay = document.getElementById('overlay');
+//     overlay.classList.add('active');
+//     setTimeout(() => {
+//         window.location.href = url;
+//     }, 3000);   //次画面への待ち時間3秒
+// }
+
+// //ダイアログを表示させる
+// function showDialog(url, message){
+//     const modal = document.getElementById('customModal');
+//     const modalMessage = document.getElementById('modalMessage');
+//     const modalOK = document.getElementById('modalOK');
+
+//     modalMessage.textContent = message;
+//     modal.style.display = 'block';
+
+//     modalOK.onclick = () => {
+//         modal.style.display = 'none';
+//         startSlideAnimation(url);
+//     }
+// }
+/*******************ここを編集 ********************************/
 
 
 /*******************ここを編集 ********************************/
@@ -252,38 +281,24 @@ function showDialog(url, message){
 
     modalOK.onclick = () => {
         modal.style.display = 'none';
-        this.startSlideAnimation(url);
+        startSlideAnimation(url);
     }
 }
-/*******************ここを編集 ********************************/
 
+// //ダイアログを表示させる→アイテムショップへ
+// function goToItemShap(url, message){
+//     const modal = document.getElementById('customModal');
+//     const modalMessage = document.getElementById('modalMessage');
+//     const modalOK = document.getElementById('modalOK');
 
-/*******************ここを編集 ********************************/
-//コース画面からステージ選択画面に戻るときにアニメーションがないので改善する
+//     modalMessage.textContent = message;
+//     modal.style.display = 'block';
 
-//画面遷移のアニメーション
-function startSlideAnimation(url){
-    const overlay = document.getElementById('overlay');
-    overlay.classList.add('active');
-    setTimeout(() => {
-        window.location.href = url;
-    }, 3000);   //次画面への待ち時間3秒
-}
-
-//ダイアログを表示させる
-function goToItemShap(url, message){
-    const modal = document.getElementById('customModal');
-    const modalMessage = document.getElementById('modalMessage');
-    const modalOK = document.getElementById('modalOK');
-
-    modalMessage.textContent = message;
-    modal.style.display = 'block';
-
-    modalOK.onclick = () => {
-        modal.style.display = 'none';
-        this.startSlideAnimation(url);
-    }
-}
+//     modalOK.onclick = () => {
+//         modal.style.display = 'none';
+//         startSlideAnimation(url);
+//     }
+// }
 /*******************ここを編集 ********************************/
 
 
@@ -295,8 +310,9 @@ function update()
 {
     if(!isStart) return;
 
-    //ゲームオーバーフラグ
-    // if(isGameOver) return;
+    //ゲームオーバーフラグ!!!!!!!!!!!!
+    //最終完成時に戻す
+    //if(isGameOver) return;
 
     //フィールドの更新
     field.update();
@@ -312,7 +328,11 @@ function update()
 
     //敵を倒す（削除）
     // isPanchiが1の敵を削除
-    enemy_array.forEach(Enemy => {if (Enemy.isPanchi) Enemy.deleteSelf();});
+    enemy_array.forEach(Enemy => {if (Enemy.isPanchi) {
+            Enemy.deleteSelf();
+            rakutankun.shussekiCount++;
+        }
+    });
 
     //アイテムクラスの更新
     item_array.forEach(Item => {
@@ -320,11 +340,13 @@ function update()
     });
 
     //クジラの更新
-    if(isInCamera(whale)) whale.update();
+    if(frameCount%2 == 0){
+        if(isInCamera(whale) && rakutankun.y > 4000) whale.update();
+    }
 
-    // //アイテム獲得（削除）
-    // //isGetItemがtrueのときに削除する
-    // item_array.forEach(Item => {if (Item.isGetItem) Item.deleteSelf();});
+    //アイテム獲得（削除）
+    //isGetItemがtrueのときに削除する
+    item_array.forEach(Item => {if (Item.isGetItem) Item.deleteSelf();});
 
 
     //現在時刻
@@ -334,7 +356,7 @@ function update()
     panchi_array.forEach(Panchi => Panchi.update());
 
     // パンチ削除
-    panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000);  //パンチは全部2秒で消える
+    panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000);
    
     // パンチ数を更新
     panchi_num = panchi_array.length;
@@ -355,7 +377,8 @@ function update()
     /*******************ここを編集 ********************************/
 
     if(whale.isToNext){
-        goToItemShap("shop.html", "Go to Item Shop.\n");
+        showDialog("shop.html", "Go to Item Shop.\n");
+        localStorage.setItem('shussekiCount', rakutankun.shussekiCount);
     }
     
     
@@ -367,18 +390,6 @@ function draw()
 {
     //フィールドを描画
     field.draw();
-    
-    vcon.font = "256px 'Impact'"; 
-    vcon.fillStyle = "Blue";
-    vcon.fillText("STAGE1", 206, 752);
-
-    //出席点表示
-    vcon.drawImage(png_tani, 0, 0, 16, 16, 39, 32, 16, 16);
-
-    vcon.font = "256px 'Impact'"; 
-    vcon.fillStyle = "white";
-    vcon.fillText("0", 57, 752);
-
 
     //画面内にいる敵の描画
     //敵が裏画面内（バッファゾーン含む）にあるかチェック
@@ -402,6 +413,17 @@ function draw()
 
     //落単くんの描画
     rakutankun.draw();
+
+    vcon.font = "16px 'Impact'"; 
+    vcon.fillStyle = "Blue";
+    vcon.fillText("STAGE1", 206, 46);
+
+    //出席点表示
+    vcon.drawImage(png_tani, 0, 0, 16, 16, 39, 32, 16, 16);
+    vcon.font = "14px 'Impact'"; 
+    vcon.fillStyle = "white";
+    vcon.fillText(rakutankun.shussekiCount.toString(), 58, 46);
+
 
     //裏画面の座標(0, BUFFER_ZONE)からSCREENサイズ分を実画面として描画する
     con.drawImage(vcan, 0, BUFFER_ZONE, SCREEN_W, SCREEN_H, 0, 0, SCREEN_W << 2, SCREEN_H << 2);
