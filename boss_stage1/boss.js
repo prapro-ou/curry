@@ -1,36 +1,12 @@
+
+
 //
 //  ボスステージの敵のクラス
 //
 
-class Boss
-{
-    constructor(x, y, direction){
-        this.x = x;
-        this.y = y;
-        this.count = 0;
-        this.dir = direction;       //  アニメーションの遷移を調整するためのカウント
-        this.isPanchi = 0;
-    }
-    
-    deleteSelf(){
-        let index = enemy_array.indexOf(this);
-        if (index !== -1) {
-            enemy_array.splice(index, 1);
-        }
-    }
-
-    update(){
-        if((frameCount%20) == 19) this.count++;
-    }
-
-    // 敵を表示
-    // Input: start_x(スプライト開始点のx座標), start_y(スプライトの開始点のy座標), s_width(スプライトの横幅), s_height(スプライトの縦幅)
-    drawEnemy(start_x, start_y, s_width, s_height){
-        vcon.drawImage(png_enemy, start_x, start_y, s_width, s_height, this.x, this.y, s_width, s_height);
-    }
 
     //倒された時のアニメーション
-    defeatEnemy(){
+    // defeatEnemy(){
         // if((frameCount%200) <= 20) vcon.drawImage(defeat_enemy_animation, 0, 0, 16, 16, 100, 100, 32, 32);
         // else if((frameCount%200) > 20 && (frameCount%200) <= 40) vcon.drawImage(defeat_enemy_animation, 16, 0, 16, 16, 100, 100, 32, 32);
         // else if((frameCount%200) > 40 && (frameCount%200) <= 60) vcon.drawImage(defeat_enemy_animation, 32, 0, 16, 16, 100, 100, 32, 32);
@@ -41,42 +17,115 @@ class Boss
         // else if((frameCount%200) > 140 && (frameCount%200) <= 160) vcon.drawImage(defeat_enemy_animation, 48, 16, 16, 16, 100, 100, 32, 32);
         // else if((frameCount%200) > 160 && (frameCount%200) <= 180) vcon.drawImage(defeat_enemy_animation, 0, 32, 16, 16, 100, 100, 32, 32);
         // else vcon.drawImage(defeat_enemy_animation, 16, 32, 16, 16, 100, 100, 32, 32);
-        vcon.drawImage(png_bakuhatsu, 0, 0, 512, 512, this.x, this.y, 32, 32);
+    //     vcon.drawImage(png_bakuhatsu, 0, 0, 512, 512, this.x, this.y, 32, 32);
 
-    }   
-
-    draw(){
-        if(this.isPanchi){
-            this.defeatEnemy();
-        }
-    }
-
-}
+    // }   
 
 //
 //  でかタコ助教授のクラス
 //
 
-class Boss_Tako extends Boss
-{
-    constructor(){
+let defeat = false;
 
+class Boss_tako 
+{
+    constructor(x, y){
+        //これはワールド座標系
+        this.x     = x;
+        this.y     = y;
+    
+        this.vy    = 0;
+        this.vy    = 0;
+
+        this.anim  = 0;
+        this.snum  = 0;
+        this.acou  = 0;
+
+        this.isDamage = false;
+        this.damageCount = 0;
+
+        //最初右に行けるように設定→へんこうＯＫ
+        this.isRight = true;
+        this.isLeft = false;
+    }
+
+    
+   //左右の移動の検討
+    // //横方向の移動
+    // updateSwim_xleft(){
+    //     this.x -= 2;
+    //     }
+    
+    //      //横方向の移動
+    // updateSwim_x_left(){
+    //     this.x += 2;    
+    // }
+
+    //  //横方向の移動
+
+     
+
+    // updateSwim_x_start(){
+    //     this.x -= 1;
+    //     if(this.x == 20) this.updateSwim_x_right
+    // }
+
+    moveLeft(){
+        this.x -= 0.5;
+        if(this.x < 32) {
+            this.isRight = true;
+            this.isLeft = false;
+        }
+    }
+
+    moveRight(){
+        this.x += 0.5;
+        if(this.x > 128){
+            this.isLeft = true;
+            this.isRight = false;
+        }
     }
 
     update(){
-
+        if(this.isLeft)  this.moveLeft();
+        if(this.isRight)  this.moveRight();
+        else this.x += 0;
     }
 
     draw(){
 
+    //カメラ座標系へ変換
+        let camera_x = this.x;
+        let camera_y = this.y;
+        let isdraw = true;
+
+        if(isdraw){
+            if((frameCount%200) <= 20)vcon.drawImage(png_boss_tako, 0, 0, 64, 64, camera_x, camera_y, 64, 64);
+            if((frameCount%200) <= 60)vcon.drawImage(png_boss_tako, 64, 0, 64, 64, camera_x, camera_y, 64, 64);
+            if((frameCount%200) <= 90)vcon.drawImage(png_boss_tako, 128, 0, 64, 64, camera_x, camera_y, 64, 64);
+            if((frameCount%200) <= 150)vcon.drawImage(png_boss_tako, 192, 0, 64, 64, camera_x, camera_y, 64, 64);
+            if((frameCount%200) <= 200)vcon.drawImage(png_boss_tako, 0, 0, 64, 64, camera_x, camera_y, 64, 64);
+
+        if (defeat = true){
+        if((frameCount%200) <= 20) vcon.drawImage(png_defeat_enemy_animation, 0, 0, 16, 16, 100, 100, 64, 64);
+        else if((frameCount%200) > 20 && (frameCount%200) <= 40) vcon.drawImage(png_defeat_enemy_animation, 16, 0, 16, 16, 100, 100, 64, 64);
+        else if((frameCount%200) > 40 && (frameCount%200) <= 60) vcon.drawImage(png_defeat_enemy_animation, 32, 0, 16, 16, 100, 100, 64, 64);
+        else if((frameCount%200) > 60 && (frameCount%200) <= 80) vcon.drawImage(png_defeat_enemy_animation, 48, 0, 16, 16, 100, 100, 64, 64);
+        else if((frameCount%200) > 80 && (frameCount%200) <= 100) vcon.drawImage(png_defeat_enemy_animation, 0, 16, 16, 16, 100, 100, 64, 64);
+        else if((frameCount%200) > 100 && (frameCount%200) <= 120) vcon.drawImage(png_defeat_enemy_animation, 16, 16, 16, 16, 100, 100, 64, 64);
+        else if((frameCount%200) > 120 && (frameCount%200) <= 140) vcon.drawImage(png_defeat_enemy_animation, 32, 16, 16, 16, 100, 100, 64, 64);
+        else if((frameCount%200) > 140 && (frameCount%200) <= 160) vcon.drawImage(png_defeat_enemy_animation, 48, 16, 16, 16, 100, 100, 64, 64);
+        else if((frameCount%200) > 160 && (frameCount%200) <= 180) vcon.drawImage(png_defeat_enemy_animation, 0, 32, 16, 16, 100, 100, 64, 64);
+        }
     }
+  }
 }
 
 //
 //  ブロブフィッシュ博士のクラス
 //
 
-class Blob extends Boss
+class Blob
 {
     constructor(){
 
@@ -95,13 +144,29 @@ class Blob extends Boss
 //  ロボットシャーク教授のクラス
 //
 
-class RobotShark extends Boss
+class RobotShark 
 {
-    constructor(){
+    constructor(x, y){
+        //これはワールド座標系
+        this.x     = x;
+        this.y     = y;
+    
+        this.vy    = 0;
+        this.vy    = 0;
 
+        this.anim  = 0;
+        this.snum  = 0;
+        this.acou  = 0;
+
+        this.isDamage = false;
+        this.damageCount = 0;
     }
+    
 
     update(){
+
+        this.updateRakutankun();
+
 
     }
 
@@ -114,7 +179,7 @@ class RobotShark extends Boss
 //  口頭試問女神のクラス
 //
 
-class Liberty extends Boss
+class Liberty 
 {
     constructor(){
 
