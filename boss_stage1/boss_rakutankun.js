@@ -80,3 +80,40 @@ class Rakutankun {
         }
     }
 }
+
+
+//
+// 鉛筆のクラス
+//
+
+class Pen extends Rakutankun
+{
+    constructor(x, y){
+        super(x, y);
+        this.pen_x = this.x;
+        this.pen_y = this.y;
+        this.penCount = 10;
+    }
+
+    isPenHit(obj){
+        let isX = false;
+        let isY = false;
+
+        isX = this.pen_x >= obj.x && this.pen_x <= obj.x + obj.width;
+        isY = this.pen_y >= obj.y && this.pen_y <= obj.y + obj.height;
+
+        return isX && isY;
+    }
+
+    //更新処理
+    update(){
+        this.pen_y--;
+
+        if (this.isPenHit(boss)) boss.isPen = true;
+    }
+
+    //描画処理
+    draw(){
+        vcon.drawImage(png_boss_tako, 16, 64, 16, 16, this.pen_x, this.pen_y, 16, 16);
+    }
+}

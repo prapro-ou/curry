@@ -46,24 +46,19 @@ png_defeat_enemy_animation.src = "defeat_enemy_animation.png";
 let png_rakutankun = new Image();
 png_rakutankun.src = "rakutan-kun_v2.png";
 
+
+//鉛筆の所持数をローカルデータから読み込む（まだ実装してないのでとりあえず5本）
+let penCount = 5;
+
 //落単くんクラス作成
 let rakutankun = new Rakutankun(128 , 200);
 
 //ボスタコクラス作成
 let boss = new Boss_tako(64, 70);
 
-
-//スタートボタンを押すとループ開始
-startButton.onclick = function()
-{
-    startTime = performance.now();
-    isStart   = true;
-
-    overlay.style.display     = 'none';
-    startButton.style.display = 'none';
-
-    mainLoop();
-}
+//鉛筆クラス
+let pen_array = [];
+let pen_num = 0;
 
 
 //スタートボタンを押すとループ開始
@@ -73,9 +68,15 @@ startButton.onclick = function()
     isStart   = true;
 
     background.style.display     = 'none';
-    startButton.style.display = 'none';
+    startButton.style.display    = 'none';
 
     mainLoop();
+}
+
+function create_pen()
+{
+    pen_array.push(new Pen(rakutankun.x, rakutankun.y, penCount));
+    pen_num++;
 }
 
 //更新処理
@@ -89,12 +90,12 @@ function update()
     //敵クラスの更新
     boss.update();
 
-    //現在時刻
-    let currentTime = performance.now();
+    //鉛筆クラスの更新
+    pen_array.forEach(Pen => Pen.update());
 
     //落単くんの更新
     rakutankun.update();
-    boss.update();
+
 }
 
 //描画処理
@@ -104,9 +105,14 @@ function draw()
     vcon.fillStyle = "#66AAFF";
     vcon.fillRect(0, 0, SCREEN_W, SCREEN_H);
 
+    //ボスを描画
+    boss.draw();
+
+    //鉛筆クラスの描画
+    pen_array.forEach(Pen => Pen.draw());
+
     //落単くんを表示
     rakutankun.draw();
-    boss.draw();
 
     //デバッグ情報を表示
     vcon.font = "24px 'Impact'";
@@ -142,6 +148,10 @@ document.onkeydown = function(e)
 {
     if(e.keyCode == 65) keyboard.Left  = true;
     if(e.keyCode == 68) keyboard.Right = true;
+    if(e.keyCode == 13) {
+        keyboard.Enter = true;
+        create_pen();
+    }
 }
 
 //キーボードが離されたときに呼ばれる    
@@ -149,6 +159,7 @@ document.onkeyup = function(e)
 {
     if(e.keyCode == 65) keyboard.Left  = false;
     if(e.keyCode == 68) keyboard.Right = false;
+    if(e.keyCode == 13) keyboard.Enter = false;
 }
 
 if(!isStart){
