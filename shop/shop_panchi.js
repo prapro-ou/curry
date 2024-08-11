@@ -92,11 +92,11 @@ class shop_Panchi
                 break;
             case 1: 
                 this.x = 15, this.y = 25;
-                if(keyboard.Get && tani && shop_hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount && shop_hp.hitPoint != 4){
                     if(this.makuraCount < MAX_RECOVERY_ITEM){
                         shop_hp.hitPoint += 1;
                         this.makuraCount++;
-                        tani--;
+                        shussekiCount--;
                     }
                     keyboard.Get = false;
                 }
@@ -104,11 +104,11 @@ class shop_Panchi
             
             case 2:
                 this.x = 65, this.y = 25;
-                if(keyboard.Get && tani && shop_hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount && shop_hp.hitPoint != 4){
                     if(this.energyCount < MAX_RECOVERY_ITEM){
                         shop_hp.hitPoint += 1;
                         this.energyCount++;
-                        tani--;
+                        shussekiCount--;
                     }
                         keyboard.Get = false;
                 }
@@ -116,11 +116,11 @@ class shop_Panchi
             
             case 3:
                 this.x = 115, this.y = 25;
-                if(keyboard.Get && tani && shop_hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount && shop_hp.hitPoint != 4){
                     if(this.waterCount < MAX_RECOVERY_ITEM){
                         shop_hp.hitPoint += 1;
                         this.waterCount++;
-                        tani--;
+                        shussekiCount--;
                     }
                     keyboard.Get = false;
                 }
@@ -128,11 +128,11 @@ class shop_Panchi
             
             case 4:
                 this.x = 165, this.y = 25;
-                if(keyboard.Get && tani && shop_hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount && shop_hp.hitPoint != 4){
                     if(this.drinkCount < MAX_RECOVERY_ITEM){
                         shop_hp.hitPoint += 1;
                         this.drinkCount++;
-                        tani--;
+                        shussekiCount--;
                     }
                         keyboard.Get = false;
                 }
@@ -140,11 +140,11 @@ class shop_Panchi
             
             case 5:
                 this.x = 215, this.y = 25;
-                if(keyboard.Get && tani && shop_hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount && shop_hp.hitPoint != 4){
                     if(this.juiceCount < MAX_RECOVERY_ITEM){
                         shop_hp.hitPoint += 1;
                         this.juiceCount++;
-                        tani--;
+                        shussekiCount--;
                     }
                     keyboard.Get = false;
                 }
@@ -152,10 +152,10 @@ class shop_Panchi
 
             case 6:
                 this.x = 15, this.y = 80;
-                if(keyboard.Get && tani){
+                if(keyboard.Get && shussekiCount){
                     if(this.penCount < MAX_PEN){
                         this.penCount++;
-                        tani--;
+                        shussekiCount--;
                    }
                 keyboard.Get = false;
                 }
@@ -163,10 +163,10 @@ class shop_Panchi
 
             case 7:/*要変更*/
                 this.x = 65, this.y = 80;
-                // if(keyboard.Get && tani){
+                // if(keyboard.Get && shussekiCount){
                 //     if(this.sakeCount < MAX_SAKE){
                 //         this.sakeCount++;
-                //         tani--;
+                //         shussekiCount--;
                 //     }
                 // }
                 // keyboard.Get = false;
@@ -174,10 +174,10 @@ class shop_Panchi
 
             case 8:/*要変更*/
                 this.x = 117, this.y = 80;
-                // if(keyboard.Get && tani){
+                // if(keyboard.Get && shussekiCount){
                 //     if(this.dumbbellCount < MAX_DUMBBELL){
                 //         this.dumbbellCount++;
-                //         tani--;
+                //         shussekiCount--;
                 //     }
                 // }
                 // keyboard.Get = false;
@@ -185,10 +185,10 @@ class shop_Panchi
 
             case 9:/*要変更*/
                 this.x = 172, this.y = 80;
-                // if(keyboard.Get && tani){
+                // if(keyboard.Get && shussekiCount){
                 //     if(this.noteCount < MAX_NOTE){
                 //         this.noteCount++;
-                //         tani--;
+                //         shussekiCount--;
                 //     }
                 // keyboard.Get = false;
                 // }
@@ -196,7 +196,7 @@ class shop_Panchi
 
             case 10:
                 this.x = 229, this.y = 90;
-                if(keyboard.Get) this.showDialog('normal_stage1.html', 'Let\'s go boss stage!');
+                if(keyboard.Get) this.showDialog('boss_stage1.html', 'Let\'s go boss stage!');
                 break;
 
             case 11:
