@@ -33,6 +33,15 @@ class shop_Panchi
         this.dumbbellCount = 0;
         this.noteCount = 0;    
     }
+    
+    //画面遷移のアニメーション
+    startSlideAnimation(url){
+        const overlay = document.getElementById('overlay');
+        overlay.classList.add('active');
+        setTimeout(() => {
+            window.location.href = url;
+        }, 3000);   //次画面への待ち時間3秒
+    }
 
     //ダイアログを表示させる
     showDialog(url, message){
