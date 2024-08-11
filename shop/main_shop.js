@@ -2,6 +2,7 @@ const GAME_FPS      = 1000/60;
 const SCREEN_SIZE_W = 256;
 const SCREEN_SIZE_H = 192;
 
+
 //裏画面
 let vcan = document.createElement("canvas");
 let vcon = vcan.getContext("2d");
@@ -42,8 +43,11 @@ let startTime;
 let item = new Image();
 item.src = "item.png";
 
+let item2 = new Image();
+item2.src = "item2.png";
+
 let png_tani = new Image();
-png_tani.src = "tan-i.png";
+png_tani.src = "Tan-i.png";
 
 let png_hp1 = new Image();
 png_hp1.src = "hp1.png";
@@ -62,6 +66,18 @@ rakutankun_kun.src = "rakutan_kun_run.png";
 let rakutankun_kun_v2 = new Image();
 rakutankun_kun_v2.src = "rakutan-kun_v2.png";
 
+//吹き出し画像取得
+let speach = new Image();
+speach.src = "speach_bubble.png";
+
+let comment = new Image();
+comment.src = "comment.png";
+
+//矢印画像取得
+let arrow = new Image();
+arrow.src = "arrow.png";
+
+
 //落単くんをつくる
 let rakutankun = new Shop_Rakutankun(170, 80);
 
@@ -73,6 +89,9 @@ let shop_panchi = new shop_Panchi(2, 32);
 
 //キーボード
 let keyboard = {};
+
+//
+let shussekiCount = localStorage.getItem('shussekiCount');
 
 //更新処理
 function update()
@@ -94,9 +113,10 @@ function draw()
 	vcon.fillStyle="#101010";
 	vcon.fillRect(0,0,SCREEN_SIZE_W,SCREEN_SIZE_H);
 
+    //出席カウント残数
     vcon.font = "12px 'Impact'"; 
     vcon.fillStyle = "White";
-    vcon.fillText("100", 51, 13);
+    vcon.fillText(shussekiCount, 51, 13);
 
     //パンチ描画
     shop_panchi.draw();
@@ -118,10 +138,17 @@ function draw()
     //二段目
     //鉛筆
     vcon.drawImage(item, 32, 0, 16, 16, 15, 75, 32, 32);
-    //酒
-    vcon.drawImage(item, 32, 16, 32, 32, 65, 75, 32, 32);
-    //ジュース
-    vcon.drawImage(item, 64, 16, 32, 32, 115, 75, 32, 32);
+    //日本酒
+    vcon.drawImage(item2, 0, 0, 16, 32, 75, 75, 16, 32);
+    vcon.drawImage(item2, 16, 16, 16, 16, 65, 70, 38, 38); /*要変更*/
+    //ダンベル
+    vcon.drawImage(item2, 16, 0, 16, 16, 120, 75, 32, 32);
+    vcon.drawImage(item2, 16, 16, 16, 16, 117, 70, 38, 38); /*要変更*/
+    //参考書
+    vcon.drawImage(item, 48, 0, 16, 16, 175, 73, 32, 32);
+    vcon.drawImage(item2, 16, 16, 16, 16, 173, 70, 38, 38); /*要変更*/
+    //矢印
+    vcon.drawImage(arrow, 0, 0, 64, 64, 220, 85, 32, 32);
 
     //落単君
     vcon.drawImage(rakutankun_kun_v2, 0, 0, 32, 32, 0, 137, 55, 55);
