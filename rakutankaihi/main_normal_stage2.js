@@ -63,7 +63,7 @@ png_item.src = "item.png";
 
 //ローカルデータから読み込む
 let shussekiCount = parseInt(localStorage.getItem('shussekiCount')) || 0;
-let hitPoint = parseInt(localStorage.getItem('HP')) || 4;
+let hitPoint = 4;
 let stage = localStorage.getItem('stage');
 
 

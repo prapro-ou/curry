@@ -2,7 +2,7 @@
 //  でかタコ助教授のクラス
 //
 
-const FIRE_TIME   = 150;
+const FIRE_TIME   = 3600;
 const GROUND      = 184;
 
 
@@ -48,7 +48,7 @@ class Boss_tako
 
     moveLeft(){
         this.x -= 0.5;
-        if(this.x < 32) {
+        if(this.x < 0) {
             this.isRight = true;
             this.isLeft = false;
         }
@@ -56,7 +56,7 @@ class Boss_tako
 
     moveRight(){
         this.x += 0.5;
-        if(this.x > 128){
+        if(this.x > 192){
             this.isLeft = true;
             this.isRight = false;
         }
@@ -218,7 +218,7 @@ class Tentacle extends Boss_tako
     draw(){
         //警告マークの表示
         if ((!this.appertentacle) && (this.tentacleTimeCount % 40 <= 20)){
-            vcon.drawImage(png_boss_tako, 0, 64, 16, 16, this.tentacle_x, this.tentacle_y, 16, 16);
+            vcon.drawImage(png_boss_tako, 0, 64, 16, 16, this.tentacle_x, this.tentacle_y + 16, 16, 16);
         }
         
         //触手の表示(うねうね付き)
