@@ -58,10 +58,25 @@ let png_hp3 = new Image();
 png_hp3.src = "hp3.png";
 
 let png_item = new Image();
-png_item.src = "item-png.png";
+png_item.src = "item.png";
 
-let png_tani = new Image();
-png_tani.src = "Tan-i.png";
+
+//ローカルデータから読み込む
+let shussekiCount = parseInt(localStorage.getItem('shussekiCount')) || 0;
+let hitPoint = parseInt(localStorage.getItem('HP')) || 4;
+let stage = localStorage.getItem('stage');
+
+//BGM音源取得
+const normal_stage_bgm = document.getElementById('normal_stage_bgm');
+normal_stage_bgm.volume = 0.01;
+
+const game_over_sound = document.getElementById('game_over_sound');
+game_over_sound.volume = 0.3;
+
+const whale_sound = document.getElementById('whale_sound');
+whale_sound.volume = 0.3;
+var whale_sound_played = false;
+
 
 //フィールド作成
 let field = new Field();
@@ -77,7 +92,7 @@ let whale = new Whale(31, 3948);
 let isGameOver = false;
 
 //HPクラス作成
-let hp = new HP();
+let hp = new HP(4, 32);
 
 //パンチクラスの配列
 let panchi_array = [];
@@ -97,89 +112,62 @@ let item_array = [];
 //ここでの座標はワールド座標系
 //x座標は16~240-敵の幅
 //ランダム表示(x軸)　Math.random() * (海の幅(224) - 敵の幅) + 海の左端(16)
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 200, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 200, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 300, 0));
-enemy_array.push(new Anko(50, 300, 1));
-enemy_array.push(new Anko(100, 340, 1));
-enemy_array.push(new Uni(50, 400, 1));
-enemy_array.push(new Manbo(200, 500, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 600, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 600, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 600, 0));
-enemy_array.push(new Uni(50, 700, 1));
-enemy_array.push(new Uni(150, 750, 0));
-enemy_array.push(new Tako(100, 800, 1));
-enemy_array.push(new Kurage(50, 850, 1));
-enemy_array.push(new Same(200, 900, 0));
-enemy_array.push(new Utsubo(50, 950, 1));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1000, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1050, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1100, 0));
-enemy_array.push(new Anko(170, 1150, 0));
-enemy_array.push(new Anko(200, 1200, 0));
-enemy_array.push(new Anko(160, 1200, 0));
-enemy_array.push(new Same(200, 1300, 0));
-enemy_array.push(new Same(100, 1350, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1400, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1400, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1400, 0));
-enemy_array.push(new Utsubo(50, 1400, 1));
-enemy_array.push(new Tako(20,1450 , 1));
-enemy_array.push(new Utsubo(200, 1500, 0));
-enemy_array.push(new Utsubo(160, 1550, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1700, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1700, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 1700, 0));
-enemy_array.push(new Anko(20, 1800, 1));
-enemy_array.push(new Anko(70, 1850, 1));
-enemy_array.push(new Anko(120, 1890, 1));
-enemy_array.push(new Same(200, 1950, 0));
-enemy_array.push(new Same(100, 2000, 0));
-enemy_array.push(new Uni(120, 2050, 0));
-enemy_array.push(new Uni(200, 2100, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2200, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2200, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2200, 0));
-enemy_array.push(new Uni(50, 2300, 1));
-enemy_array.push(new Uni(150, 2350, 0));
-enemy_array.push(new Utsubo(150, 2400, 1));
-enemy_array.push(new Utsubo(200, 2450, 1));
-enemy_array.push(new Manbo(100, 2500, 0));
-enemy_array.push(new Manbo(150, 2550, 0));
-enemy_array.push(new Manbo(200, 2600, 0));
-enemy_array.push(new Same(50, 2650, 1));
-enemy_array.push(new Same(100, 2700, 1));
-enemy_array.push(new Utsubo(50, 2750, 1));
-enemy_array.push(new Tako(20,2800 , 1));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 2900, 0));
-enemy_array.push(new Utsubo(70, 3000, 1));
-enemy_array.push(new Utsubo(200, 3000, 1));
-enemy_array.push(new Uni(120, 3050, 1));
-enemy_array.push(new Uni(130, 3080, 0));
-enemy_array.push(new Uni(120, 3100, 1));
-enemy_array.push(new Uni(130, 3150, 0));
-enemy_array.push(new Uni(120, 3200, 1));
-enemy_array.push(new Tako(230,3100 , 0));
-enemy_array.push(new Tako(200,3150 , 0));
-enemy_array.push(new Utsubo(70, 3300, 1));
-enemy_array.push(new Utsubo(200, 3350, 1));
-enemy_array.push(new Anko(170, 3450, 0));
-enemy_array.push(new Anko(200, 3490, 0));
-enemy_array.push(new Anko(140, 3490, 0));
-enemy_array.push(new Same(50, 3550, 1));
-enemy_array.push(new Same(100, 3570, 1));
-enemy_array.push(new Uni(150, 3650, 1));
-enemy_array.push(new Uni(160, 3680, 0));
-enemy_array.push(new Uni(170, 3700, 1));
-enemy_array.push(new Uni(165, 3750, 0));
-enemy_array.push(new Uni(175, 3800, 1));
-enemy_array.push(new Uni(155, 3830, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
-enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
+
+enemy_array.push(new Same(125, 170, 0));
+enemy_array.push(new Utsubo(50, 200, 1));
+enemy_array.push(new Same(115, 300, 1));
+enemy_array.push(new Kurage(110, 400, 0));
+enemy_array.push(new Kurage(136, 400, 0));
+enemy_array.push(new Kurage(136, 450, 0));
+enemy_array.push(new Kurage(110, 500, 0));
+enemy_array.push(new Kurage(136, 500, 0));
+enemy_array.push(new Kurage(136, 550, 0));
+enemy_array.push(new Kurage(56, 550, 0));
+enemy_array.push(new Manbo(140, 640, 0));
+enemy_array.push(new Manbo(90, 680, 0));
+enemy_array.push(new Uni(20, 780, 1));
+enemy_array.push(new Uni(80, 830, 1));
+enemy_array.push(new Tako(55, 975, 0));
+enemy_array.push(new Tako(75, 975, 0));
+enemy_array.push(new Tako(95, 975, 0));
+enemy_array.push(new Tako(115, 975, 0));
+enemy_array.push(new Tako(135, 975, 0));
+enemy_array.push(new Tako(85, 1102, 1));
+enemy_array.push(new Tako(105, 1102, 1));
+enemy_array.push(new Tako(125, 1102, 1));
+enemy_array.push(new Tako(145, 1102, 1));
+enemy_array.push(new Tako(165, 1102, 1));
+enemy_array.push(new Tako(185, 1102, 1));
+enemy_array.push(new Tako(80, 1230, 0));
+enemy_array.push(new Tako(100, 1230, 0));
+enemy_array.push(new Tako(120, 1230, 0));
+enemy_array.push(new Tako(140, 1230, 0));
+enemy_array.push(new Tako(160, 1230, 0));
+enemy_array.push(new Anko(150, 1600, 0));
+enemy_array.push(new Anko(190, 1650, 0));
+enemy_array.push(new Anko(130, 1650, 0));
+enemy_array.push(new Utsubo(50, 1710, 1));
+enemy_array.push(new Utsubo(90, 1750, 1));
+enemy_array.push(new Utsubo(130, 1790, 1));
+enemy_array.push(new Uni(145, 1950, 1));
+enemy_array.push(new Uni(135, 1980, 0));
+enemy_array.push(new Uni(175, 2020, 1));
+enemy_array.push(new Same(80, 2170, 0));
+enemy_array.push(new Same(130, 2220, 0));
+enemy_array.push(new Same(150, 2180, 0));
+enemy_array.push(new Kurage(200, 2400, 0));
+enemy_array.push(new Kurage(180, 2400, 0));
+enemy_array.push(new Kurage(170, 2400, 0));
+enemy_array.push(new Kurage(200, 2450, 0));
+enemy_array.push(new Tako(150, 3080, 1));
+enemy_array.push(new Tako(100, 3110, 0));
+enemy_array.push(new Tako(150, 3125, 0));
+enemy_array.push(new Tako(150, 3140, 1));
+enemy_array.push(new Tako(100, 3170, 0));
+enemy_array.push(new Anko(110, 3600, 0));
+enemy_array.push(new Anko(160, 3640, 0));
+enemy_array.push(new Same(100, 3750, 1));
+enemy_array.push(new Same(85, 3800, 1));
 
 /****************** ここを編集！ ↑ *******************/
 
@@ -194,7 +182,46 @@ enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 // item_array.push(new Drink(60, 300));
 // item_array.push(new Drink(128, 100));
 
-item_array.push(new Shussekiten(128,128));
+// 座標をランダムに取得
+function get_rand_coordinate() {
+    let x = 0;
+    let y = 0;
+    let coordinate_err = true;
+    
+    while (coordinate_err || y < 7) {
+        x = Math.floor(Math.random() * 15);
+        y = Math.floor(Math.random() * 255);
+        if (field.isBlock(x, y)) {
+            coordinate_err = false;
+        }
+    }
+
+    return [x*16, y*16];
+}
+
+// 枕を計16個配置
+for(i = 0; i < 16; i++){
+    coordinates = get_rand_coordinate();
+    item_array.push(new Makura(coordinates[0], coordinates[1]));
+}
+
+// エナドリを計16個配置
+for(i = 0; i < 16; i++){
+    coordinates = get_rand_coordinate();
+    item_array.push(new Energy(coordinates[0], coordinates[1]));
+}
+
+// 出席点を計8個配置
+for(i = 0; i < 8; i++){
+    coordinates = get_rand_coordinate();
+    item_array.push(new Shussekiten(coordinates[0], coordinates[1]));
+}
+
+// 酒を計16個配置
+for(i = 0; i < 16; i++){
+    coordinates = get_rand_coordinate();
+    item_array.push(new Drink(coordinates[0], coordinates[1]));
+}
 
 
 /****************** ここを編集！ ↑ *******************/
@@ -208,7 +235,6 @@ function create_panchi()
     panchi_num++;
 }
 
-
 //スタートボタンを押すとループ開始
 startButton.onclick = function()
 {
@@ -216,11 +242,13 @@ startButton.onclick = function()
     isStart   = true;
 
     background.style.display     = 'none';
-    startButton.style.display    = 'none';
+    startButton.style.display = 'none';
 
     mainLoop();
-}
 
+    normal_stage_bgm.play();
+
+}
 
 //各オブジェクトが裏画面内（バッファゾーン含む）にあるかチェック
 //画面内ならtrueを返す
@@ -228,6 +256,11 @@ function isInCamera(object){
     return (object.y > field.scy) && (object.y + object.height < field.scy + SCREEN_H + BUFFER_ZONE*2)
 }
 
+
+
+
+/*******************ここを編集 ********************************/
+//コース画面からステージ選択画面に戻るときにアニメーションがないので改善する
 
 //画面遷移のアニメーション
 function startSlideAnimation(url){
@@ -237,7 +270,6 @@ function startSlideAnimation(url){
         window.location.href = url;
     }, 3000);   //次画面への待ち時間3秒
 }
-
 
 //ダイアログを表示させる
 function showDialog(url, message){
@@ -250,9 +282,12 @@ function showDialog(url, message){
 
     modalOK.onclick = () => {
         modal.style.display = 'none';
-        startSlideAnimation(url);
+        this.startSlideAnimation(url);
     }
 }
+/*******************ここを編集 ********************************/
+
+
 
 
 //更新処理
@@ -260,11 +295,8 @@ function update()
 {
     if(!isStart) return;
 
-    /*******************ここを編集 ↓********************************/
-    //ゲームオーバーフラグ!!!!!!!!!!!!
-    //最終完成時に戻す
-    //if(isGameOver) return;
-    /*******************ここを編集 ↑********************************/
+    //ゲームオーバーフラグ
+    if(isGameOver) return;
 
     //フィールドの更新
     field.update();
@@ -292,12 +324,10 @@ function update()
     });
 
     //クジラの更新
-    if(frameCount%2 == 0){
-        if(isInCamera(whale) && rakutankun.y > 4000) whale.update();
-    }
+    if(isInCamera(whale)) whale.update();
 
-    //アイテム獲得（削除）
-    //isGetItemがtrueのときに削除する
+    // //アイテム獲得（削除）
+    // //isGetItemがtrueのときに削除する
     item_array.forEach(Item => {if (Item.isGetItem) Item.deleteSelf();});
 
 
@@ -308,7 +338,7 @@ function update()
     panchi_array.forEach(Panchi => Panchi.update());
 
     // パンチ削除
-    panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000);
+    panchi_array = panchi_array.filter(Panchi => currentTime - Panchi.cptime < 1000);  //パンチは全部2秒で消える
    
     // パンチ数を更新
     panchi_num = panchi_array.length;
@@ -319,16 +349,30 @@ function update()
     //落単くんの更新
     rakutankun.update();
 
+    //らくたん君が画面外に出たらゲームオーバー
+    if(!isInCamera(rakutankun)) isGameOver = true;
 
+
+    /*******************ここを編集 ********************************/
     //ゲームオーバー実装したら変更する
     //isGameOverはhitPointが0になるか，画面から出ちゃったら立つフラグ
     if(isGameOver){
+        normal_stage_bgm.pause();
+        game_over_sound.play();
         showDialog("rakutankaihi.html", "Game Over!\n Back Home...\n");
     }
+    /*******************ここを編集 ********************************/
 
     if(whale.isToNext){
+        normal_stage_bgm.pause();
+        if(!whale_sound_played){
+        whale_sound.play();
+        whale_sound_played = true;
+        }
         showDialog("shop.html", "Go to Item Shop.\n");
         localStorage.setItem('shussekiCount', rakutankun.shussekiCount);
+        localStorage.setItem('HP', hp.hitPoint);
+        localStorage.setItem('stage', '4');
     }
     
     
@@ -340,6 +384,7 @@ function draw()
 {
     //フィールドを描画
     field.draw();
+    
 
     //画面内にいる敵の描画
     //敵が裏画面内（バッファゾーン含む）にあるかチェック
@@ -366,14 +411,13 @@ function draw()
 
     vcon.font = "16px 'Impact'"; 
     vcon.fillStyle = "Blue";
-    vcon.fillText("STAGE1", 206, 46);
+    vcon.fillText("STAGE4", 206, 46);
 
     //出席点表示
-    vcon.drawImage(png_tani, 0, 0, 16, 16, 39, 32, 16, 16);
+    vcon.drawImage(png_item, 80, 0, 16, 16, 39, 32, 16, 16);
     vcon.font = "14px 'Impact'"; 
     vcon.fillStyle = "white";
     vcon.fillText(rakutankun.shussekiCount.toString(), 58, 46);
-
 
     //裏画面の座標(0, BUFFER_ZONE)からSCREENサイズ分を実画面として描画する
     con.drawImage(vcan, 0, BUFFER_ZONE, SCREEN_W, SCREEN_H, 0, 0, SCREEN_W << 2, SCREEN_H << 2);
@@ -387,6 +431,7 @@ function mainLoop()
     let nowFrame = (nowTime - startTime) / GAME_FPS;
 
     if(nowFrame > frameCount){
+
         let c = 0;
         while(nowFrame > frameCount){
             frameCount++;

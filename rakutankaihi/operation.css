@@ -1,0 +1,16 @@
+.operation {
+    display: inline-block;
+    background-color: #fff;
+    border: solid 2px #0000ff;
+    color: #0000ff;
+    border-radius: 10px;
+    padding: 20px 50px;
+    text-decoration: none;
+    font-size: 1em;     
+    transition: all .3s ease 0s;
+  } 
+  .operation:hover {
+    color: #0000ff;
+    background-color: #fff;
+    transform: scale(1.2);
+  }
