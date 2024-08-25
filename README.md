@@ -1,4 +1,3 @@
 # curry
 
-ステージごとにフォルダを作りました．
-一旦この中で作業してください．最後にrakutankaihiフォルダでつなげます．
+Play URL： https://prapro-ou.github.io/curry/
