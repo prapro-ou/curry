@@ -10,6 +10,10 @@ const MAX_SPEED = 1; //左右に移動する速度
 
 const SPRITE_SPEED = 5; //数が小さくなれば高速描写
 
+//音取得
+const damage_received_sound = document.getElementById('damage_received_sound');
+damage_received_sound.volume = 0.05;
+
 
 class Rakutankun {
     constructor(x, y){
@@ -121,6 +125,7 @@ class Rakutankun {
             this.isDamage = true;
             this.isInk = false;
             this.isTentacle = false;
+            damage_received_sound.play();
         }
     }
 

@@ -75,8 +75,8 @@ let stage = localStorage.getItem('stage');
 let drinkCount = parseInt(localStorage.getItem('drinkCount')) || 0;
 
 //BGM音源取得
-const bgm = document.getElementById('bgm');
-bgm.volume = 0.1;
+const boss_stage_bgm = document.getElementById('boss_stage_bgm');
+boss_stage_bgm.volume = 0.1;
 
 const game_over_sound = document.getElementById('game_over_sound');
 game_over_sound.volume = 0.3;
@@ -125,7 +125,7 @@ startButton.onclick = function()
 
     mainLoop();
 
-    bgm.play();
+    boss_stage_bgm.play();
 
 }
 
@@ -208,7 +208,7 @@ function update()
 
     //ゲームオーバー実装したら変更する
     if(isGameOver){
-        bgm.pause();
+        boss_stage_bgm.pause();
         game_over_sound.play();
         showDialog("rakutankaihi.html", "Game Over!\n Back Home...\n");
 
@@ -302,7 +302,7 @@ function clear_update(){
 
     //宝箱を開けたら，ダイアログを表示させる
     if(clear.treasure_count == 4){
-        bgm.pause();
+        boss_stage_bgm.pause();
         showDialog("rakutankaihi.html", "Game Clear!!\n");
         localStorage.setItem('isStage4Clear', boss.stageClear);
         localStorage.setItem('shussekiCount', rakutankun.shussekiCount);

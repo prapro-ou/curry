@@ -1,6 +1,11 @@
 //
 //  ブロブフィッシュ博士のクラス
 //
+const boss2_foot_sound = document.getElementById('boss2_foot_sound');
+boss2_foot_sound.volume = 0.5;
+
+const boss2_run_sound = document.getElementById('boss2_run_sound');
+boss2_run_sound.volume = 0.1;
 
 class Boss_blobfish
 {
@@ -52,12 +57,16 @@ class Boss_blobfish
     charge(){
         this.cp++;
         if(this.cp < 50) this.x -= 0;
-        if(this.cp >= 50 && this.cp < 150) this.x -= 5;
+        if(this.cp >= 50 && this.cp < 150) {
+            this.x -= 5;
+            boss2_run_sound.play();
+        }
 
         if(this.cp == 150){
             this.x = 240;
             this.y = 0;
             this.ischarge = false;
+            boss2_foot_sound.play();
         }
         if(this.cp > 150 && this.cp < 300){
             this.y += 5;
@@ -76,6 +85,7 @@ class Boss_blobfish
                 break;
             case 1:
                 this.isCreateMini = true;
+                
                 break;
             case 2:
                 this.isCreateMeat = true;
@@ -89,7 +99,7 @@ class Boss_blobfish
     //帽子を踏まれてダメージを受ける
     damaged(){
         if(this.isHatDamaged && this.invincibleCount == 0){
-            drink_sound.play();
+            panchi_sound.play();
             this.trampCount++;
             this.isHatDamaged = false;
             this.invincibleCount = 179;

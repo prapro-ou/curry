@@ -67,12 +67,12 @@ let png_bakuhatsu = new Image();
 png_bakuhatsu.src = "bakuhatsu.png"; 
 
 
+
 //ローカルデータから読み込む
 let shussekiCount = parseInt(localStorage.getItem('shussekiCount')) || 0;
 let hitPoint = parseInt(localStorage.getItem('HP')) || 4;
 let stage = localStorage.getItem('stage');
 let drinkCount = parseInt(localStorage.getItem('drinkCount')) || 0;
-
 
 //BGM音源取得
 const boss_stage_bgm = document.getElementById('boss_stage_bgm');
@@ -80,7 +80,6 @@ boss_stage_bgm.volume = 0.1;
 
 const game_over_sound = document.getElementById('game_over_sound');
 game_over_sound.volume = 0.3;
-
 
 
 
@@ -215,7 +214,6 @@ function update()
 
     }
 
-    
 
 }
 
@@ -245,13 +243,14 @@ function draw()
 
     vcon.font = "16px 'Impact'"; 
     vcon.fillStyle = "Blue";
-    vcon.fillText("STAGE2", 300, 15);
+    vcon.fillText("STAGE4", 300, 15);
 
     //酒の残数表示
     vcon.drawImage(png_item2, 0, 0, 16, 32, 75, 1, 16, 16);
     vcon.font = "14px 'Impact'"; 
     vcon.fillStyle = "white";
     vcon.fillText(drinkCount, 94, 15);
+
 
     //出席点表示
     vcon.drawImage(png_shussekiten, 80, 0, 16, 16, 39, 1, 16, 16);
@@ -264,6 +263,7 @@ function draw()
     con.drawImage(vcan, 0, 0, SCREEN_W, SCREEN_H, 0, 0, SCREEN_W << 2, SCREEN_H << 2);
 }
 
+/********* クリアした後の処理 要編集 ********/
 //画面遷移のアニメーション
 function startSlideAnimation(url){
     const overlay = document.getElementById('overlay');
@@ -304,11 +304,10 @@ function clear_update(){
     if(clear.treasure_count == 4){
         boss_stage_bgm.pause();
         showDialog("rakutankaihi.html", "Game Clear!!\n");
-        localStorage.setItem('isStage2Clear', boss.stageClear);
+        localStorage.setItem('isStage4Clear', boss.stageClear);
         localStorage.setItem('shussekiCount', rakutankun.shussekiCount);
         localStorage.setItem('HP', hp.hitPoint);
-        localStorage.setItem('stage', '2');
-
+        localStorage.setItem('stage', '4');
     }
 }
 
@@ -328,7 +327,7 @@ function clear_draw(){
 
     vcon.font = "16px 'Impact'"; 
     vcon.fillStyle = "Blue";
-    vcon.fillText("STAGE2", 300, 15);
+    vcon.fillText("STAGE4", 300, 15);
 
     //酒の残数表示
     vcon.drawImage(png_item2, 0, 0, 16, 32, 75, 1, 16, 16);
@@ -346,6 +345,8 @@ function clear_draw(){
     con.drawImage(vcan, 0, 0, SCREEN_W, SCREEN_H, 0, 0, SCREEN_W << 2, SCREEN_H << 2);
 
 }
+
+/********* クリアした後の処理 要編集 ********/
 
 
 //メインループ

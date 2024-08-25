@@ -71,12 +71,17 @@ let stage = localStorage.getItem('stage');
 let penCount = parseInt(localStorage.getItem('penCount')) || 0;
 
 //BGM音源取得
-const bgm = document.getElementById('bgm');
-bgm.volume = 0.1;
+const boss_stage_bgm = document.getElementById('boss_stage_bgm');
+boss_stage_bgm.volume = 0.1;
 
 const game_over_sound = document.getElementById('game_over_sound');
 game_over_sound.volume = 0.3;
 
+const ink_sound = document.getElementById('ink_sound');
+ink_sound.volume = 0.3;
+
+const tentacle_sound = document.getElementById('tentacle_sound');
+tentacle_sound.volume = 0.3;
 
 
 //落単くんクラス作成
@@ -125,7 +130,7 @@ startButton.onclick = function()
 
     mainLoop();
 
-    bgm.play();
+    boss_stage_bgm.play();
 
 }
 
@@ -138,12 +143,14 @@ function create_pen()
 function create_ink()
 {
     ink_array.push(new Ink(boss.x, boss.y));
+    ink_sound.play();
     ink_num++;
 }
 
 function create_tentacle()
 {
     tentacle_array.push(new Tentacle());
+    tentacle_sound.play();
     tentacle_num++;
 }
 
@@ -199,7 +206,7 @@ function update()
 
     //ゲームオーバー実装したら変更する
     if(isGameOver){
-        bgm.pause();
+        boss_stage_bgm.pause();
         game_over_sound.play();
         showDialog("rakutankaihi.html", "Game Over!\n Back Home...\n");
 
@@ -308,7 +315,7 @@ function clear_update(){
 
     //宝箱を開けたら，ダイアログを表示させる
     if(clear.treasure_count == 4){
-        bgm.pause();
+        boss_stage_bgm.pause();
         showDialog("rakutankaihi.html", "Game Clear!!\n");
         localStorage.setItem('isStage3Clear', boss.stageClear);
         localStorage.setItem('shussekiCount', rakutankun.shussekiCount);

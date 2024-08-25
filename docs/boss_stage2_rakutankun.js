@@ -12,17 +12,14 @@ const SPRITE_SPEED = 5; //数が小さくなれば高速描写
 const GRAVITY   = 0.1;
 
 //音取得
-// const drink_sound = document.getElementById('drink_sound');
-// drink_sound.volume = 0.3;
-
 const damage_received_sound = document.getElementById('damage_received_sound');
 damage_received_sound.volume = 0.05;
 
 const sake_attack_sound = document.getElementById('sake_attack_sound');
-sake_attack_sound.volume = 0.05;
+sake_attack_sound.volume = 0.5;
 
 const panchi_sound = document.getElementById('panchi_sound');
-panchi_sound.volume = 0.05;
+panchi_sound.volume = 0.5;
 
 
 class Rakutankun
