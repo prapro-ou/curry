@@ -1,4 +1,5 @@
-# currypans
+# 落単回避シミュレーター
+ここをクリックすると遊べます！
 Play URL: https://prapro-ou.github.io/curry/<br>
 <br>
 
