@@ -61,6 +61,10 @@ png_shussekiten.src = "item.png";
 let png_treasure = new Image();
 png_treasure.src = "sprite_map.png";
 
+let png_tani = new Image();
+png_tani.src = "Tan-i.png";
+
+
 
 
 //ローカルデータから読み込む
@@ -314,7 +318,7 @@ function clear_update(){
     clear.update();
 
     //宝箱を開けたら，ダイアログを表示させる
-    if(clear.treasure_count == 4){
+    if(clear.tani_count == clear.stop){
         boss_stage_bgm.pause();
         showDialog("rakutankaihi.html", "Game Clear!!\n");
         localStorage.setItem('isStage3Clear', boss.stageClear);

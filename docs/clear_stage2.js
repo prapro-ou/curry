@@ -25,6 +25,8 @@ class ClearStage2
         this.treasure_count = 0;
 
         this.localframeCount = 0;
+        this.tani_count = 0;
+        this.stop = 32;
     }
 
     isGetTreasure(obj){
@@ -72,6 +74,10 @@ class ClearStage2
             if((this.localframeCount % 4 == 0) && this.treasure_count < 4) this.treasure_count++;
 
             if(this.treasure_count == 4) vcon.drawImage(png_treasure, 48, 48, 16, 32, this.treasure_x, this.treasure_y, 32, 64);
+            if (this.treasure_count == 4){
+                if (this.tani_count < this.stop) this.tani_count++;
+                vcon.drawImage(png_tani, 0, 0, 16, 16, this.treasure_x, this.treasure_y - this.tani_count, 32, 32);
+            }
         }
     }
 }
