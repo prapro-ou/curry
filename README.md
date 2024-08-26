@@ -1,5 +1,5 @@
 # currypans
-`Play URL: https://prapro-ou.github.io/curry/`<br>
+Play URL: https://prapro-ou.github.io/curry/<br>
 <br>
 
 # あらすじ
@@ -13,10 +13,10 @@
 # ゲーム概要
 ## ノーマルステージ
 ### 操作方法
-`A：				左に進む` <br>
-`S：				下に進む` <br>
-`D：				右に進む` <br>
-`Enter(Return)：	攻撃（パンチ）` <br>
+A：				左に進む<br>
+S：				下に進む <br>
+D：				右に進む <br>
+Enter(Return)：	攻撃（パンチ） <br>
 
 ### 概要
 下スクロールアクションゲーム<br>
@@ -27,10 +27,10 @@
 
 ## ボスステージ
 ### 操作方法
-`スペース:	ジャンプ`<br>
-`A:	 		左に進む`<br>
-`D:	 		右に進む`<br>
-`攻撃は？		->エンターかクリック 　これはエンターにしよう`<br>
+スペース:	ジャンプ<br>
+A:	 		左に進む<br>
+D:	 		右に進む<br>
+攻撃は？		->エンターかクリック 　これはエンターにしよう<br>
 
 ### 概要
 非公開！！<br>
@@ -38,23 +38,23 @@
 
 # クレジット
 ## 開発メンバー
-`リーダ：       @inuijura`<br>
-`企画：         @daichiya1513`<br>
-`プログラミング：@o-brothers-hiroto`<br>
-`画像：         @D-Kitagawa`<br>
-`音楽：         @mayu-miyake`<br>
-`紹介動画：     @masashi1212`<br>
+リーダ：       @inuijura<br>
+企画：         @daichiya1513<br>
+プログラミング：@o-brothers-hiroto<br>
+画像：         @D-Kitagawa<br>
+音楽：         @mayu-miyake<br>
+紹介動画：     @masashi1212<br>
 
 ## 使用素材
-`DOT ILLUST:  https://dot-illust.net/ `<br>
-`美咲フォント: https://littlelimit.net/misaki.htm` <br>
-`効果音ラボ:   https://soundeffect-lab.info/` <br>
-`魔王魂:      https://maou.audio/` <br>
+DOT ILLUST:  https://dot-illust.net/ <br>
+美咲フォント: https://littlelimit.net/misaki.htm<br>
+効果音ラボ:   https://soundeffect-lab.info/ <br>
+魔王魂:      https://maou.audio/ <br>
 
 ## 仕様ツール
-`pixilart:    https://www.pixilart.com/` <br>
-`Tiled:       https://www.mapeditor.org/` <br>
-`Clipchamp:   https://clipchamp.com/ja/` <r>
+pixilart:    https://www.pixilart.com/ <br>
+Tiled:       https://www.mapeditor.org/ <br>
+Clipchamp:   https://clipchamp.com/ja/<br>
 
 
 
