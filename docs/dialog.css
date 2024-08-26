@@ -48,6 +48,17 @@ body {
     left: 0;
 }
 
+.speech-bubble {
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #888;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
 #can {
     position: absolute;
     top: 50%;

@@ -110,7 +110,7 @@ class shop_Panchi
                     if(this.makuraCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.makuraCount++;
-                        shussekiCount--;
+                        shussekiCount -= 20;
                         recovery_sound.currentTime = 0; //回復音
                         recovery_sound.play();
                     }
@@ -124,7 +124,7 @@ class shop_Panchi
                     if(this.energyCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.energyCount++;
-                        shussekiCount--;
+                        shussekiCount -= 15;
                         recovery_sound.currentTime = 0;
                         recovery_sound.play();
                     }
@@ -138,7 +138,7 @@ class shop_Panchi
                     if(this.waterCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.waterCount++;
-                        shussekiCount--;
+                        shussekiCount -= 10;
                         recovery_sound.currentTime = 0;
                         recovery_sound.play();
                     }
@@ -152,7 +152,7 @@ class shop_Panchi
                     if(this.drinkCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.drinkCount++;
-                        shussekiCount--;
+                        shussekiCount -= 10;
                         recovery_sound.currentTime = 0;
                         recovery_sound.play();
                     }
@@ -166,7 +166,7 @@ class shop_Panchi
                     if(this.juiceCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.juiceCount++;
-                        shussekiCount--;
+                        shussekiCount -= 10;
                         recovery_sound.currentTime = 0;
                         recovery_sound.play();
                     }
@@ -180,7 +180,7 @@ class shop_Panchi
                     if(keyboard.Get && shussekiCount > 0){
                         if(this.penCount < MAX_PEN){
                             this.penCount++;
-                            shussekiCount--;
+                            shussekiCount -= 5;
                             shop_g_sound.currentTime = 0;
                             shop_g_sound.play();
                     }
@@ -195,7 +195,7 @@ class shop_Panchi
                     if(keyboard.Get && shussekiCount > 0){
                         if(this.sakeCount < MAX_SAKE){
                             this.sakeCount++;
-                            shussekiCount--;
+                            shussekiCount -= 5;
                             shop_g_sound.currentTime = 0;
                             shop_g_sound.play();
                         }

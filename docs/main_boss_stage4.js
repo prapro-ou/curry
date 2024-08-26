@@ -81,6 +81,12 @@ boss_stage_bgm.volume = 0.1;
 const game_over_sound = document.getElementById('game_over_sound');
 game_over_sound.volume = 0.3;
 
+const MeatBall_sound = document.getElementById('MeatBall_sound');
+MeatBall_sound.volume = 1;
+
+const Mini_blobfish_sound = document.getElementById('Mini_blobfish_sound');
+Mini_blobfish_sound.volume = 1;
+
 
 
 //落単くんクラス作成
@@ -139,6 +145,7 @@ function create_miniblob()
 {
     miniblob_array.push(new Mini_blobfish(boss.x, boss.y));
     miniblob_num++;
+    Mini_blobfish_sound.play();
     boss.isCreateMini = false;
 }
 
@@ -146,6 +153,7 @@ function create_meatball()
 {
     meatball_array.push(new MeatBall(boss.x, boss.y));
     meatball_num++;
+    Mini_blobfish_sound.play();
     boss.isCreateMeat = false;
 }
 

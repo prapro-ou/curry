@@ -104,8 +104,8 @@ class Stage_Rakutankun
 
     //渦の前かどうかをチェック
     checkNextStage(){
-        if((this.x + 4) > 80 && (this.x + 4) < 90){
-            if((this.y + 32) > 50 && (this.y + 32) < 60){
+        if((this.x + 4) > 80-10 && (this.x + 4) < 90+10){
+            if((this.y + 32) > 50-10 && (this.y + 32) < 60+10){
                 if(keyboard.Go){
                     // if(confirm('Let\'s go stage1')){
                     //     window.location.href = 'normal_stage1.html'; 
@@ -117,8 +117,8 @@ class Stage_Rakutankun
             }
         }
 
-        if((this.x + 4) > 156 && (this.x + 4) < 166){
-            if((this.y + 32) > 72 && (this.y + 32) < 82){
+        if((this.x + 4) > 156-10 && (this.x + 4) < 166+10){
+            if((this.y + 32) > 72-10 && (this.y + 32) < 82+10){
                 if(keyboard.Go){
                     // if(confirm('Let\'s go stage2')){
                     //     window.location.href = 'normal_stage1.html'; 
@@ -130,8 +130,8 @@ class Stage_Rakutankun
             }
         }
 
-        if((this.x + 12) > 51 && (this.x + 12) < 61){
-            if((this.y + 32) > 120 && (this.y + 32) < 130){
+        if((this.x + 12) > 51-10 && (this.x + 12) < 61+10){
+            if((this.y + 32) > 120-10 && (this.y + 32) < 130+10){
                 if(keyboard.Go){
                     // if(confirm('Let\'s go stage3')){
                     //     window.location.href = 'normal_stage1.html'; 
@@ -143,8 +143,8 @@ class Stage_Rakutankun
             }
         }
 
-        if((this.x + 12) > 156 && (this.x + 12) < 166){
-            if((this.y + 32) > 155 && (this.y + 32) < 165){
+        if((this.x + 12) > 156-10 && (this.x + 12) < 166+10){
+            if((this.y + 32) > 155-10 && (this.y + 32) < 165+10){
                 if(keyboard.Go){
                     // if(confirm('Let\'s go stage4')){
                     //     window.location.href = 'normal_stage1.html'; 
