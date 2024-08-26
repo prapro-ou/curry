@@ -2,6 +2,14 @@
 //  でかタコ助教授のクリアクラス
 //
 
+//音源取得
+const treasure_box_sound = document.getElementById('treasure_box_sound');
+treasure_box_sound.volume = 0.1;
+
+const fire_attack_sound = document.getElementById('fire_attack_sound');
+fire_attack_sound.volume = 0.1;
+var is_fire_attack_sound_played = false;
+
 class Clear {
     constructor(){
         this.fireBall_x = rakutankun.x;
@@ -41,11 +49,20 @@ class Clear {
         if ((fire.isStageClear) && ((rakutankun.x >= 119) && (rakutankun.x <= 121)) && (boss.x == 96)){
             this.update_fireBall();
             this.isFireBallHit();
+
+            if(!is_fire_attack_sound_played){
+                fire_attack_sound.play();
+                is_fire_attack_sound_played = true;
+                }    
         }
 
         fire.update();
 
-        if(this.istreasure_box && (this.treasure_y + 20 != rakutankun.y)) this.treasure_y++;
+        if(this.istreasure_box && (this.treasure_y + 20 != rakutankun.y)) {
+            this.treasure_y++;
+            boss_stage_bgm.pause();
+            treasure_box_sound.play();
+        }
     }
 
     draw_fireBall(){

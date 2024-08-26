@@ -337,7 +337,7 @@ function clear_draw(){
 
     //出席点表示
     vcon.drawImage(png_shussekiten, 80, 0, 16, 16, 39, 1, 16, 16);
-    vcon.font = "14px 'Impact'"; 
+    vcon.font = "14px 'Impact'";
     vcon.fillStyle = "white";
     vcon.fillText(shussekiCount, 58, 15);
 
@@ -353,7 +353,7 @@ function clear_draw(){
 function mainLoop(){
     let nowTime = performance.now();
     let nowFrame = (nowTime-startTime) / GAME_FPS;
-
+    
     if(boss.stageClear){
         if (nowFrame > frameCount) {
             let c = 0;

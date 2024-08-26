@@ -50,6 +50,7 @@ class Boss_blobfish
         //ステージクリアフラグ
         this.stageClear = false;
 
+        //
         this.damageCount = 0;
     }
 

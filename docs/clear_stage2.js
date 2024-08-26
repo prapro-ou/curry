@@ -5,6 +5,7 @@
 //BGM
 const treasure_box_sound = document.getElementById('treasure_box_sound');
 treasure_box_sound.volume = 0.1;
+var is_treasure_box_sound_played = false;
 
 
 class ClearStage2
@@ -44,12 +45,15 @@ class ClearStage2
             this.count += 0.5;
         }
 
-        if(this.count == 48){
-            this.isapperBox = true;
-            treasure_box_sound.play();
-        }
+        if(this.count == 48) this.isapperBox = true;
 
-        if(this.isGetTreasure(rakutankun)) this.isgetTreasure = true;
+        if(this.isGetTreasure(rakutankun)) {
+            this.isgetTreasure = true;
+            if(!is_treasure_box_sound_played) {
+                treasure_box_sound.play();
+                is_treasure_box_sound_played = true;
+                }
+            }
 
         this.localframeCount++;
     }

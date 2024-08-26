@@ -113,7 +113,7 @@ let item_array = [];
 //x座標は16~240-敵の幅
 //ランダム表示(x軸)　Math.random() * (海の幅(224) - 敵の幅) + 海の左端(16)
 
-enemy_array.push(new Same(125, 170, 0));
+enemy_array.push(new Same(125, 200, 0));
 enemy_array.push(new Utsubo(50, 200, 1));
 enemy_array.push(new Same(115, 300, 1));
 enemy_array.push(new Kurage(110, 400, 0));

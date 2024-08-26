@@ -260,7 +260,7 @@ class shop_Panchi
                         localStorage.setItem('shussekiCount', shussekiCount);
                         localStorage.setItem('HP', hp.hitPoint);
                         localStorage.setItem('stage', '4');
-                        localStorage.setItem('drinkCount', this.drinkCount); 
+                        localStorage.setItem('drinkCount', this.sakeCount); 
                         this.showDialog('boss_stage4.html', 'Let\'s go boss stage!');    
                     }
                 }
