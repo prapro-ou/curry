@@ -41,7 +41,7 @@ let png_defeat_enemy_animation = new Image();
 png_defeat_enemy_animation.src = "defeat_enemy_animation.png";
 
 let png_rakutankun = new Image();
-png_rakutankun.src = "rakutan-kun_v2.png";
+png_rakutankun.src = "rakutankun_v4.png";
 
 let png_boss_stage_sprite = new Image();
 png_boss_stage_sprite.src = "nomal_stage_sprite.png";

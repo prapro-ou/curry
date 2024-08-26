@@ -46,3 +46,10 @@ Button:active {
     left: 5%; /* 左から5%の位置 */
     bottom: 5%; /* 下から5%の位置 */
 }
+
+#can {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
