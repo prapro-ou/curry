@@ -1,5 +1,5 @@
 # 落単回避シミュレーター
-ここをクリックすると遊べます！
+ここをクリックすると遊べます！<br>
 Play URL: https://prapro-ou.github.io/curry/<br>
 <br>
 
