@@ -1,5 +1,5 @@
 # curry
-Play URL： https://prapro-ou.github.io/curry/
+Play URL: https://prapro-ou.github.io/curry/
 
 # あらすじ
 [落単せずに卒業せよ]
@@ -19,9 +19,15 @@ Play URL： https://prapro-ou.github.io/curry/
 
 
 ## 使用素材
-
+DOT ILLUST:  https://dot-illust.net/
+美咲フォント: https://littlelimit.net/misaki.htm
+効果音ラボ:   https://soundeffect-lab.info/
+魔王魂:      https://maou.audio/
 
 ## 仕様ツール
+pixilart:    https://www.pixilart.com/
+Tiled:       https://www.mapeditor.org/
+Clipchamp:   https://clipchamp.com/ja/
 
 
 
