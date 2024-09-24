@@ -11,6 +11,11 @@ const MAX_SPEED = 1; //左右に移動する速度
 const SPRITE_SPEED = 5; //数が小さくなれば高速描写
 const GRAVITY   = 0.1;
 
+//スプライト決定用
+const ANIME_WALK  = 1;
+const ANIME_JUMP  = 2;
+const ANIME_STAND = 4;
+
 //音取得
 const damage_received_sound = document.getElementById('damage_received_sound');
 damage_received_sound.volume = 0.05;
@@ -29,6 +34,10 @@ class Rakutankun
         this.y     = y;
         this.vx    = 0;
         this.vy    = 0;
+
+        this.anim  = 0;
+        this.acou  = 0;
+        this.dir   = RIGHT;
 
         this.jump  = 0;
 
@@ -96,6 +105,19 @@ class Rakutankun
             if(this.vx < 0)  this.vx  += ACCEL;
         }
 
+        //スプライト決定
+        if(this.isFloor){ 
+            if(this.vx != 0) this.anim = ANIME_WALK;
+            else{
+            this.anim = ANIME_STAND;
+            this.acou=0;
+            }
+        }
+
+        //落単くんの向き
+        if(this.vx > 0) this.dir = RIGHT;
+        if(this.vx < 0) this.dir = LEFT;
+
         this.x += this.vx;
     }
 
@@ -109,7 +131,7 @@ class Rakutankun
         if(!this.isFloor){
             let v0 = -2;  //初速
             this.vy = v0 + GRAVITY * this.jump;
-
+            this.anim = ANIME_JUMP;
             if(this.jump){
                 this.jump++;
                 this.y += this.vy;
@@ -159,10 +181,30 @@ class Rakutankun
         return (isX && isY);
     }
 
+    //スプライトを変更
+    updateAnim(){
+        switch(this.anim){
+            case ANIME_WALK:
+                this.spx = 16 + 16*((this.acou>>3)%3);               
+                break;
+
+            case ANIME_JUMP:
+                this.spx = 64;
+                break;
+            
+            case ANIME_STAND:
+                this.spx = 0;
+                break;
+        }
+        if(this.dir == RIGHT) this.spy = 96;
+        if(this.dir == LEFT) this.spy = 128;
+    }
+
     update(){
         this.acou++;
         this.updateJump();
         this.update_x();
+        this.updateAnim();
 
         //重力
         if(this.vy < 64) this.vy += GRAVITY;        

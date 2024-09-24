@@ -254,7 +254,7 @@ class Same extends Enemy
             if(rakutankun.y + 16 >= this.y + 4 - this.range && this.y + 4 + this.range >= rakutankun.y + 16){
                 if(this.x > rakutankun.x) this.x -= 2;
                 else this.x += 2;
-                if(this.y > rakutankun.y) this.y -= 2;
+                if(this.y - 16 > rakutankun.y) this.y -= 2;
                 else this.y += 2;
             }
         }

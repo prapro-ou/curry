@@ -185,6 +185,15 @@ enemy_array.push(new Kurage(150, 3600, 0));
 enemy_array.push(new Anko(20, 3750, 1));
 enemy_array.push(new Anko(70, 3800, 1));
 enemy_array.push(new Anko(115, 3850, 1));
+enemy_array.push(new Hitode(96, 240, 0));
+enemy_array.push(new Hitode(200, 300, 0));
+enemy_array.push(new Hitode(210, 450, 0));
+enemy_array.push(new Hitode(180, 1600, 0));
+enemy_array.push(new Hitode(200, 1750, 0));
+enemy_array.push(new Hitode(96, 2600, 0));
+enemy_array.push(new Hitode(50, 2700, 0));
+enemy_array.push(new Hitode(180, 3800, 0));
+enemy_array.push(new Hitode(50, 3900, 0));
 /****************** ここを編集！ ↑ *******************/
 
 

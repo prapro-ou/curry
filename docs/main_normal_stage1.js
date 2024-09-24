@@ -197,6 +197,7 @@ enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 enemy_array.push(new Kurage(Math.random() * (224 - 16) + 16, 3900, 0));
 
+
 /****************** ここを編集！ ↑ *******************/
 
 

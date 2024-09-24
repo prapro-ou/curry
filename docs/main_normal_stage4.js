@@ -168,6 +168,26 @@ enemy_array.push(new Anko(110, 3600, 0));
 enemy_array.push(new Anko(160, 3640, 0));
 enemy_array.push(new Same(100, 3750, 1));
 enemy_array.push(new Same(85, 3800, 1));
+enemy_array.push(new Hitode(80, 337, 0));
+enemy_array.push(new Hitode(80, 359, 0));
+enemy_array.push(new Hitode(80, 381, 0));
+enemy_array.push(new Hitode(100, 1407, 0));
+enemy_array.push(new Hitode(120, 1407, 0));
+enemy_array.push(new Hitode(140, 1407, 0));
+enemy_array.push(new Hitode(100, 1505, 0));
+enemy_array.push(new Hitode(120, 1505, 0));
+enemy_array.push(new Hitode(140, 1505, 0));
+enemy_array.push(new Hitode(218, 2100, 0));
+enemy_array.push(new Hitode(180, 2650, 0));
+enemy_array.push(new Hitode(200, 2650, 0));
+enemy_array.push(new Hitode(220, 2650, 0));
+enemy_array.push(new Hitode(20, 2780, 0));
+enemy_array.push(new Hitode(40, 2780, 0));
+enemy_array.push(new Hitode(25, 2927, 0));
+enemy_array.push(new Hitode(215, 3023, 0));
+enemy_array.push(new Hitode(215, 3023, 0));
+enemy_array.push(new Hitode(140, 3400, 0));
+enemy_array.push(new Hitode(65, 3475, 0));
 
 /****************** ここを編集！ ↑ *******************/
 

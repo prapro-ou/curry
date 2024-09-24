@@ -151,6 +151,24 @@ enemy_array.push(new Manbo(150, 3750, 0));
 enemy_array.push(new Manbo(200, 3700, 0));
 enemy_array.push(new Tako(100, 3822, 1));
 enemy_array.push(new Tako(50, 3870, 1));
+enemy_array.push(new Hitode(100, 800, 0));
+enemy_array.push(new Hitode(120, 800, 0));
+enemy_array.push(new Hitode(140, 800, 0));
+enemy_array.push(new Hitode(100, 880, 0));
+enemy_array.push(new Hitode(120, 880, 0));
+enemy_array.push(new Hitode(140, 880, 0));
+enemy_array.push(new Hitode(20, 2480, 0));
+enemy_array.push(new Hitode(40, 2480, 0));
+enemy_array.push(new Hitode(60, 2480, 0));
+enemy_array.push(new Hitode(180, 2655, 0));
+enemy_array.push(new Hitode(200, 2655, 0));
+enemy_array.push(new Hitode(220, 2655, 0));
+enemy_array.push(new Hitode(17, 3250, 0));
+enemy_array.push(new Hitode(200, 3343, 0));
+enemy_array.push(new Hitode(220, 3343, 0));
+enemy_array.push(new Hitode(225, 3840, 0));
+enemy_array.push(new Hitode(208, 3840, 0));
+enemy_array.push(new Hitode(25, 3888, 0));
 /****************** ここを編集！ ↑ *******************/
 
 

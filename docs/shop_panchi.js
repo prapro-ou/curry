@@ -106,7 +106,7 @@ class shop_Panchi
                 break;
             case 1: 
                 this.x = 15, this.y = 25;
-                if(keyboard.Get && shussekiCount > 0 && hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount > 20 && hp.hitPoint != 4){
                     if(this.makuraCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.makuraCount++;
@@ -120,7 +120,7 @@ class shop_Panchi
             
             case 2:
                 this.x = 65, this.y = 25;
-                if(keyboard.Get && shussekiCount > 0 && hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount >= 15 && hp.hitPoint != 4){
                     if(this.energyCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.energyCount++;
@@ -134,7 +134,7 @@ class shop_Panchi
             
             case 3:
                 this.x = 115, this.y = 25;
-                if(keyboard.Get && shussekiCount > 0 && hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount >= 10 && hp.hitPoint != 4){
                     if(this.waterCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.waterCount++;
@@ -148,7 +148,7 @@ class shop_Panchi
             
             case 4:
                 this.x = 165, this.y = 25;
-                if(keyboard.Get && shussekiCount > 0 && hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount >= 10 && hp.hitPoint != 4){
                     if(this.drinkCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.drinkCount++;
@@ -162,7 +162,7 @@ class shop_Panchi
             
             case 5:
                 this.x = 215, this.y = 25;
-                if(keyboard.Get && shussekiCount > 0 && hp.hitPoint != 4){
+                if(keyboard.Get && shussekiCount >= 10 && hp.hitPoint != 4){
                     if(this.juiceCount < MAX_RECOVERY_ITEM){
                         hp.hitPoint += 1;
                         this.juiceCount++;
@@ -177,7 +177,7 @@ class shop_Panchi
             case 6:
                 this.x = 15, this.y = 80;
                 if(stage == '1' || stage == '3'){
-                    if(keyboard.Get && shussekiCount > 0){
+                    if(keyboard.Get && shussekiCount >= 5){
                         if(this.penCount < MAX_PEN){
                             this.penCount++;
                             shussekiCount -= 5;
@@ -192,7 +192,7 @@ class shop_Panchi
             case 7:/*要変更*/
                 this.x = 65, this.y = 80;
                 if(stage == '2' || stage == '4'){
-                    if(keyboard.Get && shussekiCount > 0){
+                    if(keyboard.Get && shussekiCount >= 5){
                         if(this.sakeCount < MAX_SAKE){
                             this.sakeCount++;
                             shussekiCount -= 5;

@@ -102,10 +102,26 @@ class Stage_Rakutankun
         keyboard.Go = false;
     }
 
+    // 吹き出しを表示するメソッドをStage_Rakutankunクラスに追加
+    showSpeechBubble(x, y) {
+        const speechBubble = document.getElementById('speechBubble');
+        speechBubble.style.left = `${x<<2}px`;
+        speechBubble.style.top = `${y<<2}px`; // キャラクターの少し上に表示
+        speechBubble.style.display = 'block';
+    }
+    
+    hideSpeechBubble() {
+        const speechBubble = document.getElementById('speechBubble');
+        speechBubble.style.display = 'none';
+    }
+
     //渦の前かどうかをチェック
     checkNextStage(){
-        if((this.x + 4) > 80-10 && (this.x + 4) < 90+10){
-            if((this.y + 32) > 50-10 && (this.y + 32) < 60+10){
+        let isNearStage = false;
+        if((this.x + 4) > 80-5 && (this.x + 4) < 90+5){
+            if((this.y + 32) > 50-5 && (this.y + 32) < 60+5){
+                isNearStage = true;
+                this.showSpeechBubble(this.x, this.y);
                 if(keyboard.Go){
                     // if(confirm('Let\'s go stage1')){
                     //     window.location.href = 'normal_stage1.html'; 
@@ -117,8 +133,10 @@ class Stage_Rakutankun
             }
         }
 
-        if((this.x + 4) > 156-10 && (this.x + 4) < 166+10){
-            if((this.y + 32) > 72-10 && (this.y + 32) < 82+10){
+        if((this.x + 4) > 156-5 && (this.x + 4) < 166+5){
+            if((this.y + 32) > 72-5 && (this.y + 32) < 82+5){
+                isNearStage = true;
+                this.showSpeechBubble(this.x, this.y);
                 if(keyboard.Go){
                     // if(confirm('Let\'s go stage2')){
                     //     window.location.href = 'normal_stage1.html'; 
@@ -130,8 +148,10 @@ class Stage_Rakutankun
             }
         }
 
-        if((this.x + 12) > 51-10 && (this.x + 12) < 61+10){
-            if((this.y + 32) > 120-10 && (this.y + 32) < 130+10){
+        if((this.x + 12) > 51-5 && (this.x + 12) < 61+5){
+            if((this.y + 32) > 120-5 && (this.y + 32) < 130+5){
+                isNearStage = true;
+                this.showSpeechBubble(this.x, this.y);
                 if(keyboard.Go){
                     // if(confirm('Let\'s go stage3')){
                     //     window.location.href = 'normal_stage1.html'; 
@@ -143,8 +163,10 @@ class Stage_Rakutankun
             }
         }
 
-        if((this.x + 12) > 156-10 && (this.x + 12) < 166+10){
-            if((this.y + 32) > 155-10 && (this.y + 32) < 165+10){
+        if((this.x + 12) > 156-5 && (this.x + 12) < 166+5){
+            if((this.y + 32) > 155-5 && (this.y + 32) < 165+5){
+                isNearStage = true;
+                this.showSpeechBubble(this.x, this.y);
                 if(keyboard.Go){
                     // if(confirm('Let\'s go stage4')){
                     //     window.location.href = 'normal_stage1.html'; 
@@ -156,6 +178,11 @@ class Stage_Rakutankun
             }
         }
 
+        if (!isNearStage) {
+            this.hideSpeechBubble();
+        }
+    
+        keyboard.Go = false;
 
     }
 
