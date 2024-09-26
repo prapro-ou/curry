@@ -72,7 +72,6 @@ class shop_Panchi
 
         modalNo.onclick = () => {
             modal.style.display = 'none';
-        
         }
 
         keyboard.Get = false;

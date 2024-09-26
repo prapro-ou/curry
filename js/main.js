@@ -95,14 +95,48 @@ let rakutankun = new Stage_Rakutankun();
 
 let hp = new HP(1, 1);
 
+let isRestart = true;
+
+
+//画面遷移のアニメーション
+function startSlideAnimation(url){
+    const overlay = document.getElementById('overlay');
+    overlay.classList.add('active');
+    stage_select_bgm.pause();
+    setTimeout(() => {
+        window.location.href = url;
+    }, 3000);   //次画面への待ち時間3秒
+}
 
 //ダイアログを表示させる
-function showDialog(message){
+function showDialog(message, url){
     const modal = document.getElementById('customModal');
     const modalMessage = document.getElementById('modalMessage');
+    const modalYes = document.getElementById('modalYes');
+    const modalNo = document.getElementById('modalNo');
 
     modalMessage.textContent = message;
     modal.style.display = 'block';
+
+    modalYes.onclick = () => {
+        modal.style.display = 'none';
+        localStorage.removeItem('penCount');
+        localStorage.removeItem('drinkCount');
+        localStorage.removeItem('isStage1Clear');
+        localStorage.removeItem('isStage2Clear');
+        localStorage.removeItem('isStage3Clear');
+        localStorage.removeItem('isStage4Clear');
+        localStorage.removeItem('stage');
+        localStorage.removeItem('shussekiCount');
+        localStorage.removeItem('HP');
+
+        this.startSlideAnimation(url);
+    }
+
+    modalNo.onclick = () => {
+        modal.style.display = 'none';
+        isRestart = false;
+    }
 }
 
 
@@ -119,8 +153,8 @@ function update()
     rakutankun.update();
 
     //全クリエンディング（ダイアログ出すだけ）
-    if(isStage1Clear && isStage2Clear && isStage3Clear && isStage4Clear){
-        showDialog("Congratulations!!\n Completed!!");
+    if(isStage1Clear && isStage2Clear && isStage3Clear && isStage4Clear && isRestart){
+        showDialog("Congratulations!! Completed!!", '../html/rakutankaihi.html');
     }
 }
 
