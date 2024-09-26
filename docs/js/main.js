@@ -39,31 +39,31 @@ let keyboard = {};
 
 //pngを取得
 let stage_select = new Image();
-stage_select.src = "stage_select_map.png";
+stage_select.src = "png/stage_select_map.png";
 
 let rakutankun_kun = new Image();
-rakutankun_kun.src = "rakutan_kun_run.png";
+rakutankun_kun.src = "png/rakutan_kun_run.png";
 
 let sp_map = new Image();
-sp_map.src = "sprite_map.png";
+sp_map.src = "png/sprite_map.png";
 
 let png_rainbow = new Image();
-png_rainbow.src = "rainbow.png";
+png_rainbow.src = "png/rainbow.png";
 
 let png_text = new Image();
-png_text.src = "text.png";
+png_text.src = "png/text.png";
 
 let png_hp1 = new Image();
-png_hp1.src = "hp1.png";
+png_hp1.src = "png/hp1.png";
 
 let png_hp2 = new Image();
-png_hp2.src = "hp2.png";
+png_hp2.src = "png/hp2.png";
 
 let png_hp3 = new Image();
-png_hp3.src = "hp3.png";
+png_hp3.src = "png/hp3.png";
 
 let png_shussekiten = new Image();
-png_shussekiten.src = "item.png";
+png_shussekiten.src = "png/item.png";
 
 
 //ローカルストレージから読み込む

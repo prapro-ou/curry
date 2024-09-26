@@ -35,11 +35,11 @@ let startTime;
 
 //説明画像を取得
 let png_introduction = new Image();
-png_introduction.src = "introduction.png";
+png_introduction.src = "png/introduction.png";
 
 //吹き出し画像取得
 let speach = new Image();
-speach.src = "speach_bubble.png";
+speach.src = "png/speach_bubble.png";
 
 const INSTRUCTION_NUMBER = 4;
 
@@ -119,5 +119,5 @@ document.getElementById('nextButton').addEventListener('click', function() {
 
 document.getElementById('backButton').addEventListener('click', function() {
     console.log('backButton click');
-    window.location.href = 'index.html';
+    window.location.href = 'html/index.html';
 });

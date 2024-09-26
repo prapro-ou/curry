@@ -240,28 +240,28 @@ class shop_Panchi
                         localStorage.setItem('HP', hp.hitPoint);
                         localStorage.setItem('stage', '1');
                         localStorage.setItem('penCount', this.penCount);     
-                        this.showDialog('boss_stage1.html', 'Let\'s go boss stage!');  
+                        this.showDialog('html/boss_stage1.html', 'Let\'s go boss stage!');  
                     }
                     if(stage == '2'){
                         localStorage.setItem('shussekiCount', shussekiCount);
                         localStorage.setItem('HP', hp.hitPoint);
                         localStorage.setItem('stage', '2');
                         localStorage.setItem('drinkCount', this.sakeCount);  
-                        this.showDialog('boss_stage2.html', 'Let\'s go boss stage!');   
+                        this.showDialog('html/boss_stage2.html', 'Let\'s go boss stage!');   
                     }
                     if(stage == '3'){
                         localStorage.setItem('shussekiCount', shussekiCount);
                         localStorage.setItem('HP', hp.hitPoint);
                         localStorage.setItem('stage', '3');
                         localStorage.setItem('penCount', this.penCount);
-                        this.showDialog('boss_stage3.html', 'Let\'s go boss stage!');     
+                        this.showDialog('html/boss_stage3.html', 'Let\'s go boss stage!');     
                     }
                     if(stage == '4'){
                         localStorage.setItem('shussekiCount', shussekiCount);
                         localStorage.setItem('HP', hp.hitPoint);
                         localStorage.setItem('stage', '4');
                         localStorage.setItem('drinkCount', this.sakeCount); 
-                        this.showDialog('boss_stage4.html', 'Let\'s go boss stage!');    
+                        this.showDialog('html/boss_stage4.html', 'Let\'s go boss stage!');    
                     }
                 }
                 break;

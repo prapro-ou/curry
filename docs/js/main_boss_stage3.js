@@ -35,34 +35,34 @@ let keyboard = {};
 
 //png取得
 let png_boss_tako = new Image();
-png_boss_tako.src = "boss_tako_v2.png";
+png_boss_tako.src = "png/boss_tako_v2.png";
 
 let png_defeat_enemy_animation = new Image();
-png_defeat_enemy_animation.src = "defeat_enemy_animation.png";
+png_defeat_enemy_animation.src = "png/defeat_enemy_animation.png";
 
 let png_rakutankun = new Image();
-png_rakutankun.src = "rakutankun_v4.png";
+png_rakutankun.src = "png/rakutankun_v4.png";
 
 let png_boss_stage_sprite = new Image();
-png_boss_stage_sprite.src = "nomal_stage_sprite.png";
+png_boss_stage_sprite.src = "png/nomal_stage_sprite.png";
 
 let png_hp1 = new Image();
-png_hp1.src = "hp1.png";
+png_hp1.src = "png/hp1.png";
 
 let png_hp2 = new Image();
-png_hp2.src = "hp2.png";
+png_hp2.src = "png/hp2.png";
 
 let png_hp3 = new Image();
-png_hp3.src = "hp3.png";
+png_hp3.src = "png/hp3.png";
 
 let png_shussekiten = new Image();
-png_shussekiten.src = "item.png";
+png_shussekiten.src = "png/item.png";
 
 let png_treasure = new Image();
-png_treasure.src = "sprite_map.png";
+png_treasure.src = "png/sprite_map.png";
 
 let png_tani = new Image();
-png_tani.src = "Tan-i.png";
+png_tani.src = "png/Tan-i.png";
 
 
 
@@ -212,7 +212,7 @@ function update()
     if(isGameOver){
         boss_stage_bgm.pause();
         game_over_sound.play();
-        showDialog("rakutankaihi.html", "Game Over!\n Back Home...\n");
+        showDialog("html/rakutankaihi.html", "Game Over!\n Back Home...\n");
 
     }
 
@@ -320,7 +320,7 @@ function clear_update(){
     //宝箱を開けたら，ダイアログを表示させる
     if(clear.tani_count == clear.stop){
         boss_stage_bgm.pause();
-        showDialog("rakutankaihi.html", "Game Clear!!\n");
+        showDialog("html/rakutankaihi.html", "Game Clear!!\n");
         localStorage.setItem('isStage3Clear', boss.stageClear);
         localStorage.setItem('shussekiCount', rakutankun.shussekiCount);
         localStorage.setItem('HP', hp.hitPoint);
