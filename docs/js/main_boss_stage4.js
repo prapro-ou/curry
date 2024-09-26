@@ -34,40 +34,40 @@ let keyboard = {};
 
 //png取得
 let png_boss_blobfish = new Image();
-png_boss_blobfish.src = "png/boss_blobfish.png";
+png_boss_blobfish.src = "../png/boss_blobfish.png";
 
 let png_defeat_enemy_animation = new Image();
-png_defeat_enemy_animation.src = "png/defeat_enemy_animation.png";
+png_defeat_enemy_animation.src = "../png/defeat_enemy_animation.png";
 
 let png_rakutankun = new Image();
-png_rakutankun.src = "png/rakutankun_v4.png";
+png_rakutankun.src = "../png/rakutankun_v4.png";
 
 let png_boss_stage_sprite = new Image();
-png_boss_stage_sprite.src = "png/nomal_stage_sprite.png";
+png_boss_stage_sprite.src = "../png/nomal_stage_sprite.png";
 
 let png_item2 = new Image();
-png_item2.src = "png/item2.png";
+png_item2.src = "../png/item2.png";
 
 let png_hp1 = new Image();
-png_hp1.src = "png/hp1.png";
+png_hp1.src = "../png/hp1.png";
 
 let png_hp2 = new Image();
-png_hp2.src = "png/hp2.png";
+png_hp2.src = "../png/hp2.png";
 
 let png_hp3 = new Image();
-png_hp3.src = "png/hp3.png";
+png_hp3.src = "../png/hp3.png";
 
 let png_shussekiten = new Image();
-png_shussekiten.src = "png/item.png";
+png_shussekiten.src = "../png/item.png";
 
 let png_treasure = new Image();
-png_treasure.src = "png/sprite_map.png";
+png_treasure.src = "../png/sprite_map.png";
 
 let png_bakuhatsu = new Image();
-png_bakuhatsu.src = "png/bakuhatsu.png"; 
+png_bakuhatsu.src = "../png/bakuhatsu.png"; 
 
 let png_tani = new Image();
-png_tani.src = "png/Tan-i.png";
+png_tani.src = "../png/Tan-i.png";
 
 
 
@@ -222,7 +222,7 @@ function update()
     if(isGameOver){
         boss_stage_bgm.pause();
         game_over_sound.play();
-        showDialog("html/rakutankaihi.html", "Game Over!\n Back Home...\n");
+        showDialog("../html/rakutankaihi.html", "Game Over!\n Back Home...\n");
 
     }
 
@@ -315,7 +315,7 @@ function clear_update(){
     //宝箱を開けたら，ダイアログを表示させる
     if(clear.tani_count == clear.stop){
         boss_stage_bgm.pause();
-        showDialog("html/rakutankaihi.html", "Game Clear!!\n");
+        showDialog("../html/rakutankaihi.html", "Game Clear!!\n");
         localStorage.setItem('isStage4Clear', boss.stageClear);
         localStorage.setItem('shussekiCount', rakutankun.shussekiCount);
         localStorage.setItem('HP', hp.hitPoint);

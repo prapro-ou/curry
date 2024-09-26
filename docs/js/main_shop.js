@@ -38,42 +38,42 @@ let isStart = false;
 
 //アイテム画像を取得
 let item = new Image();
-item.src = "png/item.png";
+item.src = "../png/item.png";
 
 let item2 = new Image();
-item2.src = "png/item2.png";
+item2.src = "../png/item2.png";
 
 let item_done = new Image();
-item_done.src = "png/item_done.png";
+item_done.src = "../png/item_done.png";
 
 let png_hp1 = new Image();
-png_hp1.src = "png/hp1.png";
+png_hp1.src = "../png/hp1.png";
 
 let png_hp2 = new Image();
-png_hp2.src = "png/hp2.png";
+png_hp2.src = "../png/hp2.png";
 
 let png_hp3 = new Image();
-png_hp3.src = "png/hp3.png";
+png_hp3.src = "../png/hp3.png";
 
 
 //落単くん画像を取得
 let rakutankun_kun = new Image();
-rakutankun_kun.src = "png/rakutan_kun_run.png";
+rakutankun_kun.src = "../png/rakutan_kun_run.png";
 
 //落単くん画像2を取得
 let rakutankun_kun_v2 = new Image();
-rakutankun_kun_v2.src = "png/rakutan-kun_v2.png";
+rakutankun_kun_v2.src = "../png/rakutan-kun_v2.png";
 
 //吹き出し画像取得
 let speach = new Image();
-speach.src = "png/speach_bubble.png";
+speach.src = "../png/speach_bubble.png";
 
 let comment = new Image();
-comment.src = "png/comment.png";
+comment.src = "../png/comment.png";
 
 //矢印画像取得
 let arrow = new Image();
-arrow.src = "png/arrow.png";
+arrow.src = "../png/arrow.png";
 
 
 //ローカルストレージから読み込む

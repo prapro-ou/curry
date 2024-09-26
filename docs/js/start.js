@@ -35,7 +35,7 @@ let startTime;
 
 //説明画像を取得
 let png_introduction = new Image();
-png_introduction.src = "png/introduction.png";
+png_introduction.src = "../png/introduction.png";
 
 function draw(){
     //画面を水色でクリア
@@ -68,10 +68,10 @@ function mainLoop(){
 
 document.getElementById('startButton').addEventListener('click', function() {
     console.log('startButton click');
-    window.location.href = 'html/rakutankaihi.html'; // 遷移先のHTMLファイル
+    window.location.href = '../html/rakutankaihi.html'; // 遷移先のHTMLファイル
 });
 
 document.getElementById('instructionButton').addEventListener('click', function() {
     console.log('instructionButton click');
-    window.location.href = 'html/instruction.html'; // 遷移先のHTMLファイル
+    window.location.href = '../html/instruction.html'; // 遷移先のHTMLファイル
 });

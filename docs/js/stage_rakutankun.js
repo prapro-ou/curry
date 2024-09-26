@@ -126,7 +126,7 @@ class Stage_Rakutankun
                     // if(confirm('Let\'s go stage1')){
                     //     window.location.href = 'normal_stage1.html'; 
                     // }
-                    this.showDialog('html/normal_stage1.html', 'Let\'s go stage1');
+                    this.showDialog('../html/normal_stage1.html', 'Let\'s go stage1');
                     localStorage.setItem('stage', '1');
                 }
                 keyboard.Go = false;
@@ -141,7 +141,7 @@ class Stage_Rakutankun
                     // if(confirm('Let\'s go stage2')){
                     //     window.location.href = 'normal_stage1.html'; 
                     // }
-                    this.showDialog('html/normal_stage2.html', 'Let\'s go stage2');
+                    this.showDialog('../html/normal_stage2.html', 'Let\'s go stage2');
                     localStorage.setItem('stage', '2');
                 }
                 keyboard.Go = false;
@@ -156,7 +156,7 @@ class Stage_Rakutankun
                     // if(confirm('Let\'s go stage3')){
                     //     window.location.href = 'normal_stage1.html'; 
                     // }
-                    this.showDialog('html/normal_stage3.html', 'Let\'s go stage3');
+                    this.showDialog('../html/normal_stage3.html', 'Let\'s go stage3');
                     localStorage.setItem('stage', '3');
                 }
                 keyboard.Go = false;
@@ -171,7 +171,7 @@ class Stage_Rakutankun
                     // if(confirm('Let\'s go stage4')){
                     //     window.location.href = 'normal_stage1.html'; 
                     // }
-                    this.showDialog('html/normal_stage4.html', 'Let\'s go stage4');
+                    this.showDialog('../html/normal_stage4.html', 'Let\'s go stage4');
                     localStorage.setItem('stage', '4');
                 }
                 keyboard.Go = false;

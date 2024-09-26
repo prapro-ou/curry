@@ -34,31 +34,31 @@ let keyboard = {};
 
 //png取得
 let nomal_stage_sprite = new Image();
-nomal_stage_sprite.src = "png/nomal_stage_sprite.png";
+nomal_stage_sprite.src = "../png/nomal_stage_sprite.png";
 
 let defeat_enemy_animation = new Image();
-defeat_enemy_animation.src = "png/defeat_enemy_animation.png";
+defeat_enemy_animation.src = "../png/defeat_enemy_animation.png";
 
 let png_rakutankun = new Image();
-png_rakutankun.src = "png/rakutan-kun_v2.png";
+png_rakutankun.src = "../png/rakutan-kun_v2.png";
 
 let png_enemy = new Image();
-png_enemy.src = "png/enemys.png";
+png_enemy.src = "../png/enemys.png";
 
 let png_bakuhatsu = new Image();
-png_bakuhatsu.src = "png/bakuhatsu.png";  
+png_bakuhatsu.src = "../png/bakuhatsu.png";  
 
 let png_hp1 = new Image();
-png_hp1.src = "png/hp1.png";
+png_hp1.src = "../png/hp1.png";
 
 let png_hp2 = new Image();
-png_hp2.src = "png/hp2.png";
+png_hp2.src = "../png/hp2.png";
 
 let png_hp3 = new Image();
-png_hp3.src = "png/hp3.png";
+png_hp3.src = "../png/hp3.png";
 
 let png_item = new Image();
-png_item.src = "png/item.png";
+png_item.src = "../png/item.png";
 
 
 //ローカルデータから読み込む
@@ -386,7 +386,7 @@ function update()
     if(isGameOver){
         normal_stage_bgm.pause();
         game_over_sound.play();
-        showDialog("html/rakutankaihi.html", "Game Over!\n Back Home...\n");
+        showDialog("../html/rakutankaihi.html", "Game Over!\n Back Home...\n");
 
     }
 
@@ -396,7 +396,7 @@ function update()
         whale_sound.play();
         whale_sound_played = true;
         }
-        showDialog("html/shop.html", "Go to Item Shop.\n");
+        showDialog("../html/shop.html", "Go to Item Shop.\n");
         localStorage.setItem('shussekiCount', rakutankun.shussekiCount);
         localStorage.setItem('HP', hp.hitPoint);
         localStorage.setItem('stage', '1');
