@@ -316,10 +316,10 @@ function clear_update(){
     if(clear.tani_count == clear.stop){
         boss_stage_bgm.pause();
         showDialog("../html/rakutankaihi.html", "Game Clear!!\n");
-        localStorage.setItem('isStage4Clear', boss.stageClear);
+        localStorage.setItem('isStage2Clear', boss.stageClear);
         localStorage.setItem('shussekiCount', rakutankun.shussekiCount);
         localStorage.setItem('HP', hp.hitPoint);
-        localStorage.setItem('stage', '4');
+        localStorage.setItem('stage', '2');
     }
 }
 
