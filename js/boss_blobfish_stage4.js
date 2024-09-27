@@ -52,6 +52,11 @@ class Boss_blobfish
 
         //
         this.damageCount = 0;
+
+        //地鳴らし
+        this.isearthquake = false;
+        this.earthquakeanim = false;
+        this.cp_earthquake = 0;
     }
 
     //突進
@@ -78,6 +83,18 @@ class Boss_blobfish
             this.chargeanim = false;
         }
     }
+    //地鳴らし
+    earthquake(){
+        this.cp_earthquake++;
+        if(this.cp_earthquake < 50) this.x -= 0;
+        if(this.cp_earthquake >= 50 && this.cp_earthquake < 100) this.y -= 5;
+        if(this.cp_earthquake >= 100 && this.cp_earthquake < 150) this.y += 5;
+        if(this.cp_earthquake == 150){
+            this.cp_earthquake = 0;
+            this.isearthquake = true;
+            this.earthquakeanim = false;
+        }
+    }
 
     //攻撃選択
     selectAttack(){
@@ -86,7 +103,6 @@ class Boss_blobfish
                 break;
             case 1:
                 this.isCreateMini = true;
-                
                 break;
             case 2:
                 this.isCreateMeat = true;
@@ -94,6 +110,10 @@ class Boss_blobfish
             case 3:
                 this.ischarge = true;
                 this.chargeanim = true;
+                break;
+            case 4:
+                this.earthquakeanim = true;
+                break;
         }
     }
 
@@ -140,8 +160,8 @@ class Boss_blobfish
             //次の攻撃の選択
             if(!this.chargeanim && frameCount % 50 == 0){
                 let min = 0;
-                let max = 7;
-                let weight = [1,3,3,1]; //出現頻度設定
+                let max = 12;
+                let weight = [1,3,4,2,3]; //出現頻度設定
                 let sum = 0; //重みの累積
                 let random_tmp = Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -149,18 +169,22 @@ class Boss_blobfish
                 //random_tmpが1～3であれば this.random = 1
                 //random_tmpが4～6であれば this.random = 2
                 //random_tmpが7であれば    this.random = 3
+                //random_tmpが8～12であれば this.random = 4
                 for(this.random = 0; this.random < weight.length; this.random++){
                     sum += weight[this.random];
                     if(random_tmp < sum) break;
                 }
 
-                console.log(this.random);
+                //console.log(this.random);
                 this.selectAttack();
             }
         }
 
         //突進攻撃
         if(this.chargeanim) this.charge();
+
+        //地鳴らし
+        if(this.earthquakeanim) this.earthquake();
 
         //床との当たり判定
         if(!field.isBlock(this.x >> 4, (this.y + 96) >> 4)){
@@ -177,6 +201,14 @@ class Boss_blobfish
         if(this.cp > 150 && this.cp < 175) vcon.drawImage(png_boss_blobfish, 0, 288, 96, 96, this.x, this.y, 96, 96);
         if(this.cp >= 175 && this.cp < 280) vcon.drawImage(png_boss_blobfish, 0, 192, 96, 96, this.x, this.y, 96, 96);
         if(this.cp >= 280) vcon.drawImage(png_boss_blobfish, 0, 0, 96, 96, this.x, this.y, 96, 96);
+    }
+
+    //地鳴らし描画
+    draw_earthquake(){
+        if(this.cp_earthquake < 50) vcon.drawImage(png_boss_blobfish, 0, 96, 96, 96, this.x, this.y, 96, 96);
+        if(this.cp_earthquake > 50 && this.cp_earthquake < 100) vcon.drawImage(png_boss_blobfish, 0, 0, 96, 96, this.x, this.y, 96, 96);
+        if(this.cp_earthquake >= 100 && this.cp_earthquake < 150) vcon.drawImage(png_boss_blobfish, 0, 288, 96, 96, this.x, this.y, 96, 96);
+        if(this.cp_earthquake >= 150) vcon.drawImage(png_boss_blobfish, 0, 0, 96, 96, this.x, this.y, 96, 96);
     }
 
     //描画処理
@@ -199,6 +231,9 @@ class Boss_blobfish
                         break;
                     case 3:
                         this.draw_charge();
+                        break;
+                    case 4:
+                        this.draw_earthquake();
                         break;
                 }
             }

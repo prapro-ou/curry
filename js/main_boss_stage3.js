@@ -111,6 +111,7 @@ let pen_array = [];
 //墨クラス
 let ink_array = [];
 let ink_num = 0;
+let rapidInk_count = 0;
 
 //触手クラス
 let tentacle_array = [];
@@ -170,7 +171,14 @@ function update()
     field.update();
 
     //敵クラスの更新
+    //どんどん加速
     boss.update();
+    if(frameCount > 400) boss.update();
+    if(frameCount > 1000) boss.update();
+    if(frameCount > 3000) {
+        boss.update();
+        boss.update();
+    }
 
     //火炎放射器クラスの更新
     fire.update();
@@ -185,18 +193,30 @@ function update()
 
     //墨クラスの更新
     ink_array.forEach(Ink => Ink.update());
+    if(frameCount > 1500) ink_array.forEach(Ink => Ink.update());
 
     //触手クラスの更新
     tentacle_array.forEach(Tentacle => Tentacle.update());
+    if(frameCount > 1500) tentacle_array.forEach(Tentacle => Tentacle.update());
 
-    //簡潔にできます
     //インクの生成
     // InkCreate();
     if((frameCount % 100 == 0) && !boss.isPen) create_ink();
-
+    if(boss.rapidAttack && !boss.isPen && (frameCount % 15 == 0)){
+        create_ink();
+        rapidInk_count++;
+        if(rapidInk_count == 5){
+          boss.rapidAttack = false; 
+          rapidInk_count = 0; 
+        } 
+    }
+    
     //触手の生成
     // TentacleCreate();
     if(frameCount % 300 == 0) create_tentacle();
+    if(frameCount > 1000) if(frameCount % 221 == 0){
+        create_tentacle();
+    }
 
     //触手の削除
     tentacle_array = tentacle_array.filter(Tentacle => Tentacle.tentacleTimeCount < 300);
@@ -204,6 +224,7 @@ function update()
 
     //落単くんの更新
     rakutankun.update();
+    if(frameCount > 700) rakutankun.update();
 
     //HPクラスの更新
     hp.update();
@@ -213,9 +234,7 @@ function update()
         boss_stage_bgm.pause();
         game_over_sound.play();
         showDialog("../html/rakutankaihi.html", "Game Over!\n Back Home...\n");
-
     }
-
 }
 
 //描画処理

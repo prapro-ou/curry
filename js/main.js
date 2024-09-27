@@ -154,7 +154,7 @@ function update()
 
     //全クリエンディング（ダイアログ出すだけ）
     if(isStage1Clear && isStage2Clear && isStage3Clear && isStage4Clear && isRestart){
-        showDialog("Congratulations!! Completed!!", '../html/rakutankaihi.html');
+        showDialog("Congratulations!! Completed!! ", '../html/rakutankaihi.html');
     }
 }
 

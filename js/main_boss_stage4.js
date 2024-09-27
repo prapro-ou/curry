@@ -124,6 +124,9 @@ let meatball_num = 0;
 //ゲームオーバーフラグ
 let isGameOver = false;
 
+//地震カウント
+let earth_count = 0;
+
 //スタートボタンを押すとループ開始
 startButton.onclick = function()
 {
@@ -223,10 +226,7 @@ function update()
         boss_stage_bgm.pause();
         game_over_sound.play();
         showDialog("../html/rakutankaihi.html", "Game Over!\n Back Home...\n");
-
     }
-
-
 }
 
 //描画処理
@@ -271,8 +271,19 @@ function draw()
     vcon.fillText(shussekiCount, 58, 15);
 
     //仮装画面から実画面へ拡大転送
-    //2倍？ 2ビットシフト（4倍）？
-    con.drawImage(vcan, 0, 0, SCREEN_W, SCREEN_H, 0, 0, SCREEN_W << 2, SCREEN_H << 2);
+    if(!boss.isearthquake) con.drawImage(vcan, 0, 0, SCREEN_W, SCREEN_H, 0, 0, SCREEN_W << 2, SCREEN_H << 2);
+    else{
+        let min = 0;
+        let max = 5;
+        let sx = Math.floor(Math.random() * (max - min + 1)) + min;
+        let sy = Math.floor(Math.random() * (max - min + 1)) + min;
+        con.drawImage(vcan, sx, sy, SCREEN_W + sx, SCREEN_H + sy, 0, 0, SCREEN_W << 2, SCREEN_H << 2);
+        earth_count++;
+        if(earth_count==100){
+            boss.isearthquake = false;
+            earth_count = 0;
+        } 
+    }
 }
 
 /********* クリアした後の処理 要編集 ********/
