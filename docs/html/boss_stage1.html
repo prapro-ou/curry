@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/normal_stage.css">
+        <link rel="stylesheet" href="../css/dialog.css">
+    </head>
+    <body>
+        <div id="background">
+            <button id="startButton">Game Start!</button>
+        </div>
+
+        <div id="customModal" class="modal">
+            <div class="modal-content">
+                <p id="modalMessage"></p>
+                <div class="modal-buttons">
+                    <button id="modalOK">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="overlay" class="overlay"></div>
+
+        <canvas id="can"></canvas>
+
+        <audio id="pen_sound">
+            <source src = "../sound/panchi_sound.mp3" type="audio/mp3">
+        </audio>        
+        <audio id="recovery_sound">
+            <source src = "../sound/recovery_sound.mp3" type="audio/mp3">
+        </audio>
+        <audio id="game_over_sound">
+            <source src = "../sound/game_over_sound.mp3" type="audio/mp3">
+        </audio>
+        <audio id="boss_stage_bgm">
+            <source src = "../sound/boss_stage_bgm.mp3" type="audio/mp3">
+        </audio>
+        <audio id="damage_received_sound">
+            <source src = "../sound/damage_received_sound.mp3" type="audio/mp3">
+        </audio>
+        <audio id="treasure_box_sound">
+            <source src = "../sound/treasure_box_sound.mp3" type="audio/mp3">
+        </audio> 
+        <audio id="fire_attack_sound">
+            <source src = "../sound/fire_attack_sound.mp3" type="audio/mp3">
+        </audio> 
+        <audio id="ink_sound">
+            <source src = "../sound/ink_sound.mp3" type="audio/mp3">
+        </audio> 
+        <audio id="tentacle_sound">
+            <source src = "../sound/tentacle_sound.mp3" type="audio/mp3">
+        </audio> 
+        
+        
+        <script src="../js/const_boss_stage1.js"></script>
+        <script src="../js/boss_tako_map.js"></script>
+        <script src="../js/boss_tako1.js"></script>
+        <script src="../js/hp.js"></script>
+        <script src="../js/boss_rakutankun.js"></script>
+        <script src="../js/clear_boss_stage1.js"></script>
+        <script src="../js/main_boss_stage1.js"></script>
+    </body>
+</html>
