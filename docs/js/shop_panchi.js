@@ -28,7 +28,7 @@ class shop_Panchi
         this.nextline = false;
         this.count = 0;
         
-        this.itemType = [0,1,2,3,4,5,6,7,8,9,10,11];
+        this.itemType = [0,1,2,3,4,5,6,7,8,9];
 
         this.next = false;
 
@@ -203,34 +203,34 @@ class shop_Panchi
                 }
             break;
 
-            case 8:/*要変更*/
-                this.x = 117, this.y = 80;
-                // if(keyboard.Get && shussekiCount > 0){
-                //     if(this.dumbbellCount < MAX_DUMBBELL){
-                //         this.dumbbellCount++;
-                //         shussekiCount--;
-                            // shop_g_sound.currentTime = 0;
-                            // shop_g_sound.play();
+            // case 8:/*要変更*/
+            //     this.x = 117, this.y = 80;
+            //     // if(keyboard.Get && shussekiCount > 0){
+            //     //     if(this.dumbbellCount < MAX_DUMBBELL){
+            //     //         this.dumbbellCount++;
+            //     //         shussekiCount--;
+            //                 // shop_g_sound.currentTime = 0;
+            //                 // shop_g_sound.play();
 
-                //     }
-                // }
-                // keyboard.Get = false;
-            break;
+            //     //     }
+            //     // }
+            //     // keyboard.Get = false;
+            // break;
 
-            case 9:/*要変更*/
-                this.x = 172, this.y = 80;
-                // if(keyboard.Get && shussekiCount > 0){
-                //     if(this.noteCount < MAX_NOTE){
-                //         this.noteCount++;
-                //         shussekiCount--;
-                //         shop_g_sound.currentTime = 0;
-                //         shop_g_sound.play();
-                //     }
-                // keyboard.Get = false;
-                // }
-            break;
+            // case 9:/*要変更*/
+            //     this.x = 172, this.y = 80;
+            //     // if(keyboard.Get && shussekiCount > 0){
+            //     //     if(this.noteCount < MAX_NOTE){
+            //     //         this.noteCount++;
+            //     //         shussekiCount--;
+            //     //         shop_g_sound.currentTime = 0;
+            //     //         shop_g_sound.play();
+            //     //     }
+            //     // keyboard.Get = false;
+            //     // }
+            // break;
 
-            case 10:
+            case 8:
                 this.x = 225, this.y = 91;
                 if(keyboard.Get) {
                     shop_transition_sound.play();
@@ -265,7 +265,7 @@ class shop_Panchi
                 }
                 break;
 
-            case 11:
+            case 9:
                 this.next = true;
                 break;
 
@@ -305,13 +305,13 @@ class shop_Panchi
         case 7: if(stage != '1') vcon.drawImage(comment, 0, 112, 128, 16, 52, 140, 128, 16);
                 else vcon.drawImage(comment, 0, 160, 128, 8, 100, 145, 128, 8);/*要変更*/
                 break;
-        case 8: vcon.drawImage(comment, 0, 160, 128, 8, 100, 145, 128, 8);
-                // vcon.drawImage(comment, 0, 128, 128, 16, 56, 140, 128, 16); /*要変更*/
-                break;
-        case 9: vcon.drawImage(comment, 0, 160, 128, 8, 100, 145, 128, 8);
-                // vcon.drawImage(comment, 0, 144, 128, 16, 68, 140, 128, 16); /*要変更*/
-                break;
-        case 10: vcon.drawImage(comment, 0, 168, 128, 8, 62, 145, 128, 8);
+        // case 8: vcon.drawImage(comment, 0, 160, 128, 8, 100, 145, 128, 8);
+        //         // vcon.drawImage(comment, 0, 128, 128, 16, 56, 140, 128, 16); /*要変更*/
+        //         break;
+        // case 9: vcon.drawImage(comment, 0, 160, 128, 8, 100, 145, 128, 8);
+        //         // vcon.drawImage(comment, 0, 144, 128, 16, 68, 140, 128, 16); /*要変更*/
+        //         break;
+        case 8: vcon.drawImage(comment, 0, 168, 128, 8, 62, 145, 128, 8);
                 //矢印
                 vcon.drawImage(arrow, 0, 32, 64, 32, 225, 93, 48, 24);
 
@@ -334,17 +334,17 @@ class shop_Panchi
         if(stage == '1') vcon.fillText("？/？", 57, 117);   
         else vcon.fillText(MAX_SAKE - this.sakeCount + "/" + MAX_SAKE, 57, 117); /*要変更*/
 
-        vcon.fillText("？/？", 110, 117);
-        // vcon.fillText(MAX_DUMBBELL - this.dumbbellCount + "/"+ MAX_DUMBBELL, 110, 117); /*要変更*/
+        // vcon.fillText("？/？", 110, 117);
+        // // vcon.fillText(MAX_DUMBBELL - this.dumbbellCount + "/"+ MAX_DUMBBELL, 110, 117); /*要変更*/
         
-        vcon.fillText("？/？", 165, 117);
-        // vcon.fillText(MAX_NOTE - this.noteCount + "/" + MAX_NOTE, 165, 117); /*要変更*/
+        // vcon.fillText("？/？", 165, 117);
+        // // vcon.fillText(MAX_NOTE - this.noteCount + "/" + MAX_NOTE, 165, 117); /*要変更*/
        
         //ボスステージアイテム取得数
         vcon.fillText(this.penCount, 5, 85);
         vcon.fillText(this.sakeCount, 57, 85);
-        vcon.fillText(this.dumbbellCount, 110, 85);
-        vcon.fillText(this.noteCount, 165, 85);
+        // vcon.fillText(this.dumbbellCount, 110, 85);
+        // vcon.fillText(this.noteCount, 165, 85);
 
         vcon.drawImage(rakutankun_kun_v2, 160, 64, 16, 16, px, py, 12, 12);
     }

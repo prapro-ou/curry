@@ -19,7 +19,7 @@ vcan.height = SCREEN_SIZE_H;
 can.width  = SCREEN_SIZE_W*4;
 can.height = SCREEN_SIZE_H*4;
 
-//平滑化みたいな？
+//平滑化
 vcon.mozImageSmoothingEnabled = false;
 vcon.webkitImageSmoothingEnabled = false;
 vcon.msImageSmoothingEnabled = false;
@@ -152,15 +152,15 @@ function draw()
     else if(stage == '2' || stage == '4') vcon.drawImage(item2, 0, 0, 16, 32, 75, 75, 16, 32);
     else if(stage == '3') vcon.drawImage(item_done, 48, 0, 16, 32, 75, 75, 16, 32);
     
-    //ダンベル
-    vcon.drawImage(item2, 16, 0, 16, 16, 120, 75, 32, 32);
-    vcon.drawImage(item2, 16, 16, 16, 16, 117, 70, 38, 38); /*要変更*/
-    //vcon.drawImage(item_done, 16, 0, 16, 16, 120, 75, 32, 32);
+    // //ダンベル
+    // vcon.drawImage(item2, 16, 0, 16, 16, 120, 75, 32, 32);
+    // vcon.drawImage(item2, 16, 16, 16, 16, 117, 70, 38, 38); /*要変更*/
+    // //vcon.drawImage(item_done, 16, 0, 16, 16, 120, 75, 32, 32);
     
-    //参考書
-    vcon.drawImage(item, 48, 0, 16, 16, 175, 73, 32, 32);
-    vcon.drawImage(item2, 16, 16, 16, 16, 173, 70, 38, 38); /*要変更*/
-    //vcon.drawImage(item_done, 32, 0, 16, 16, 175, 73, 32, 32);
+    // //参考書
+    // vcon.drawImage(item, 48, 0, 16, 16, 175, 73, 32, 32);
+    // vcon.drawImage(item2, 16, 16, 16, 16, 173, 70, 38, 38); /*要変更*/
+    // //vcon.drawImage(item_done, 32, 0, 16, 16, 175, 73, 32, 32);
     
     //矢印
     vcon.drawImage(arrow, 0, 0, 64, 32, 225, 93, 48, 24);

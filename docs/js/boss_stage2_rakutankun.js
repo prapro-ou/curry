@@ -78,7 +78,10 @@ class Rakutankun
             this.jump = 0;
             this.y    = (this.y + this.vy) >> 4 << 4;
             this.isFloor = true;
-            if(boss.isearthquake) this.isDamage = true;
+            if(boss.isearthquake){
+                this.isDamage = true;
+                damage_received_sound.play();
+            }
         }
     }
 
