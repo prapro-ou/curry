@@ -119,5 +119,5 @@ document.getElementById('nextButton').addEventListener('click', function() {
 
 document.getElementById('backButton').addEventListener('click', function() {
     console.log('backButton click');
-    window.location.href = '../html/index.html';
+    window.location.href = '../index.html';
 });
